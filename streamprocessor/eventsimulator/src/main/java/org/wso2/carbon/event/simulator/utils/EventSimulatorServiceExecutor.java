@@ -18,17 +18,14 @@ public class EventSimulatorServiceExecutor {
         int noOfStream=feedSimulationConfig.getStreamConfigurationList().size();
         if(!feedSimulationConfig.isOrderBytimeStamp()){
             for(int i=0;i<noOfStream;i++){
-                if(feedSimulationConfig.getStreamConfigurationList().get(i).getSimulationType()== EventSimulatorConstants.RANDOM_DATA_SIMULATION){
+                if(feedSimulationConfig.getStreamConfigurationList().get(i).getSimulationType().compareTo(EventSimulatorConstants.RANDOM_DATA_SIMULATION)==0){
                     RandomDataEventSimulator randomDataEventSimulator = RandomDataEventSimulator.getRandomDataEventSimulator();
                     randomDataEventSimulator.send((RandomDataSimulationConfig) feedSimulationConfig.getStreamConfigurationList().get(i));
-                }else if(feedSimulationConfig.getStreamConfigurationList().get(i).getSimulationType()== EventSimulatorConstants.FILE_FEED_SIMULATION){
+                }else if(feedSimulationConfig.getStreamConfigurationList().get(i).getSimulationType().compareTo(EventSimulatorConstants.FILE_FEED_SIMULATION)==0){
                     CSVFeedEventSimulator csvFeedEventSimulator=CSVFeedEventSimulator.getCSVFeedEventSimulator();
                     csvFeedEventSimulator.send((CSVFileConfig) feedSimulationConfig.getStreamConfigurationList().get(i));
                 }
             }
-        }else {
-            // TODO: 07/12/16 Orderbytimestampcase
         }
-        
     }
 }

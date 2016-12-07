@@ -26,7 +26,6 @@ public class ExecutionPlanParser {
         Gson gson = new Gson();
         executionPlanDto.setExecutionPlanName((String) jsonObject.get("executionPlanName"));
         JSONArray inputStreamArray=jsonObject.getJSONArray("inputStream");
-        System.out.println(inputStreamArray.length());
         //set input stream definition details
         for(int i=0;i<inputStreamArray.length();i++){
             StreamDefinitionDto streamDefinitionDto= gson.fromJson(String.valueOf(inputStreamArray.getJSONObject(i)),StreamDefinitionDto.class);

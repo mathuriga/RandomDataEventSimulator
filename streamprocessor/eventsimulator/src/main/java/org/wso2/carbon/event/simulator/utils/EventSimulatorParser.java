@@ -111,8 +111,8 @@ public class EventSimulatorParser {
 
                 }
             }
-            randomDataSimulationConfig.setAttributeSimulation(attributeSimulation);
 
+            randomDataSimulationConfig.setAttributeSimulation(attributeSimulation);
         } catch (JSONException e) {
             log.error(e.getMessage());
         }

@@ -5,45 +5,45 @@ var input= {
         "executionPlanName": "executionPlan1",
         "inputStream":[
             {
-                "streamDefinition":"define stream inputStream1 (fullName String ,price2 double, price3 double);",
-                "streamName":"inputStream1",
+                "streamDefinition":"define stream cseEventStream (symbol string, price float, volume float);",
+                "streamName":"cseEventStream",
                 "streamAttributeDtos" : [
                                 {
-                                "attributeName":"fullName",
+                                "attributeName":"symbol",
                                 "attributeType":"String"
                                 },
                                 {
-                                "attributeName":"price2",
-                                 "attributeType":"Double"
+                                "attributeName":"price",
+                                 "attributeType":"Float"
                                 },
                                 {
-                                "attributeName":"price3",
-                                "attributeType":"Double"
+                                "attributeName":"volume",
+                                "attributeType":"Float"
                                 }
                                 ]
             },
             {
-                "streamDefinition":"define stream inputStream2 (lastName String ,price2 double, price3 double);",
-                "streamName":"inputStream2",
+                "streamDefinition":"define stream cseEventStream2 (symbol string, price float, volume float);",
+                "streamName":"cseEventStream2",
                 "streamAttributeDtos" : [
                                 {
-                                "attributeName":"lastName",
+                                "attributeName":"symbol",
                                 "attributeType":"String"
                                 },
                                 {
-                                "attributeName":" price2 ",
-                                 "attributeType":" Double"
+                                "attributeName":" price ",
+                                 "attributeType":"Float"
                                 },
                                 {
-                                "attributeName":" price3",
-                                "attributeType":"Double"
+                                "attributeName":" volume",
+                                "attributeType":"Float"
                                 }
                                 ]
             }
         ],
         "OutputStream":[
             {
-                "streamDefinition":"define stream outputStream (maximum double,fullName String,lastName String);",
+                "streamDefinition":"define stream outputStream (maximum double,fullName String);",
                 "streamName":"outputStream",
                 "streamAttributeDtos" : [
                                 {
@@ -53,18 +53,19 @@ var input= {
                                 {
                                 "attributeName":"fullName",
                                 "attributeType":"String"
-                                },
-                                {
-                                "attributeName":"lastName",
-                                "attributeType":"String"
                                 }
+//                                {
+//                                "attributeName":"lastName",
+//                                "attributeType":"String"
+//                                }
                                 ]
             }
         ],
         "Queries":[
             {
                "queryName" : "query1",
-               "queryDefinition":"@info(name = 'query1') from inputStream1 select maximum(price2, price3) as maximum,inputStream1.fullName as fullName,inputStream2.lastName as lastName insert into outputStream;"
+//               "queryDefinition":"@info(name = 'query1') from inputStream1 select maximum(price2, price3) as maximum,fullName as fullName insert into outputStream;"
+               "queryDefinition":"@info(name = 'query1') from cseEventStream#window.length(5) as cse1 join cseEventStream2#window.length(5) as cse2 on cse1.symbol==cse2.symbol select cse1.symbol insert into outputStream;"
             }
         ]
     };
