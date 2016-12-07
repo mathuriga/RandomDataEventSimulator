@@ -1,16 +1,11 @@
-package org.wso2.carbon.event.simulator.endpoint;
+package org.wso2.carbon.event.endpoint;
 
 
 import com.google.gson.Gson;
-import fabricator.Calendar;
-import fabricator.Fabricator;
-import fabricator.enums.DateFormat;
-import org.wso2.carbon.event.simulator.querydeployer.bean.ExecutionPlanDetails;
-import org.wso2.carbon.event.simulator.querydeployer.bean.StreamAttributeDto;
-import org.wso2.carbon.event.simulator.querydeployer.bean.StreamDefinitionInfoDto;
-import org.wso2.carbon.event.simulator.querydeployer.core.QueryDeployer;
-import org.wso2.carbon.event.simulator.randomdatafeedsimulation.utils.RandomDataGenerator;
-
+import org.wso2.carbon.event.querydeployer.bean.ExecutionPlanDetails;
+import org.wso2.carbon.event.querydeployer.bean.StreamAttributeDto;
+import org.wso2.carbon.event.querydeployer.bean.StreamDefinitionInfoDto;
+import org.wso2.carbon.event.querydeployer.core.QueryDeployer;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;

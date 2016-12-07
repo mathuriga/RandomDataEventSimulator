@@ -1,15 +1,14 @@
-package org.wso2.carbon.event.simulator.core.singleventsimulator;
+package org.wso2.carbon.event.simulator.singleventsimulator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wso2.carbon.event.executionplandelpoyer.ExecutionPlanDeployer;
-import org.wso2.carbon.event.simulator.core.EventSimulator;
+import org.wso2.carbon.event.simulator.EventSimulator;
 import org.wso2.carbon.event.querydeployer.bean.Event;
-import org.wso2.carbon.event.querydeployer.core.QueryDeployer;
-import org.wso2.carbon.event.simulator.core.exception.EventSimulationException;
-import org.wso2.carbon.event.simulator.core.randomdatafeedsimulation.bean.RandomDataSimulationConfig;
-import org.wso2.carbon.event.simulator.core.utils.EventConverter;
+import org.wso2.carbon.event.simulator.exception.EventSimulationException;
+import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.RandomDataSimulationConfig;
+import org.wso2.carbon.event.simulator.utils.EventConverter;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -67,7 +66,6 @@ public class SingleEventSimulator implements EventSimulator {
         System.out.println(ExecutionPlanDeployer.getExecutionPlanDeployer().getExecutionPlanDto().getExecutionPlanName());
         try{
             event = EventConverter.eventConverter(streamName,attributeValue,ExecutionPlanDeployer.getExecutionPlanDeployer().getExecutionPlanDto());
-            System.out.println(Arrays.deepToString(event.getEventData()));
             //event = EventConverter.eventConverter(attributeValue, QueryDeployer.executionPlanDetails);
             System.out.println("Input Event " + Arrays.deepToString(event.getEventData()));
             System.out.println("------------------------------------------------------");

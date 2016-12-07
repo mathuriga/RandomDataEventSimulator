@@ -1,7 +1,7 @@
-package org.wso2.carbon.event.simulator.core.querydeployer.core;
+package org.wso2.carbon.event.querydeployer.core;
 
 
-
+import org.wso2.carbon.event.querydeployer.bean.ExecutionPlanDetails;
 import org.wso2.siddhi.core.ExecutionPlanRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.core.event.Event;

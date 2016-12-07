@@ -1,4 +1,4 @@
-package org.wso2.carbon.event.simulator.querydeployer.bean;
+package org.wso2.carbon.event.querydeployer.bean;
 
 /**
  * Created by mathuriga on 06/11/16.

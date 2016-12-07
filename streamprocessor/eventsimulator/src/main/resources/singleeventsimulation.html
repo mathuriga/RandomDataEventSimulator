@@ -10,12 +10,6 @@
 <form>
     <H3>Simulate using single event</h3>
     <table cellspacing="10">
-
-        <tr>
-            <td>Stream Name:</td>
-            <td><input type="text" id="streamName" /></td>
-        </tr>
-
         <tr>
             <td>Attribute1:</td>
             <td><input type="text" id="attribute1" /></td>
@@ -27,17 +21,16 @@
         <tr>
             <td>Attribute3:</td>
             <td><input type="text" id="attribute3" /></td>
-
-
         </tr>
         <tr></tr>
         <tr>
-            <td><button id="add" onclick="singleEventSimulation()"> Send </button></td>
             <td><input name="reset" type="reset" value="Reset" /></td>
         </tr>
 
     </table>
+
+    <button id="add" onclick="singleEventSimulation()"> Send </button>
 </form>
 </body>
-<script type = "text/javascript" language = "javascript" src="js/randomdatasim.js"></script>
+<script type = "text/javascript" language = "javascript" src="js/SingleEventSimulation.js"></script>
 </html>

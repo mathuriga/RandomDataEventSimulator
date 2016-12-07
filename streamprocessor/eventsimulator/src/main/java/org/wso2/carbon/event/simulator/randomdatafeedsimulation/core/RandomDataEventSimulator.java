@@ -1,4 +1,4 @@
-package org.wso2.carbon.event.simulator.core.randomdatafeedsimulation.core;
+package org.wso2.carbon.event.simulator.randomdatafeedsimulation.core;
 
 
 import com.google.gson.Gson;
@@ -8,26 +8,28 @@ import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.wso2.carbon.event.simulator.core.EventSimulator;
-import org.wso2.carbon.event.simulator.core.exception.EventSimulationException;
-import org.wso2.carbon.event.simulator.core.constants.RandomDataGeneratorConstants;
+import org.wso2.carbon.event.executionplandelpoyer.ExecutionPlanDeployer;
+import org.wso2.carbon.event.executionplandelpoyer.ExecutionPlanDto;
+import org.wso2.carbon.event.executionplandelpoyer.StreamDefinitionDto;
+import org.wso2.carbon.event.simulator.EventSimulator;
+import org.wso2.carbon.event.simulator.constants.RandomDataGeneratorConstants;
+import org.wso2.carbon.event.simulator.exception.EventSimulationException;
 import org.wso2.carbon.event.querydeployer.bean.Event;
 import org.wso2.carbon.event.querydeployer.bean.StreamDefinitionInfoDto;
-import org.wso2.carbon.event.simulator.core.randomdatafeedsimulation.bean.CustomBasedAttribute;
-import org.wso2.carbon.event.simulator.core.randomdatafeedsimulation.bean.PrimitiveBasedAttribute;
-import org.wso2.carbon.event.simulator.core.randomdatafeedsimulation.bean.RegexBasedAttributeDto;
-import org.wso2.carbon.event.simulator.core.randomdatafeedsimulation.utils.AttributeGenerator;
-import org.wso2.carbon.event.querydeployer.bean.ExecutionPlanDetails;
+import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.CustomBasedAttribute;
+import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.PrimitiveBasedAttribute;
+import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.RegexBasedAttributeDto;
+import org.wso2.carbon.event.simulator.randomdatafeedsimulation.utils.AttributeGenerator;
 import org.wso2.carbon.event.querydeployer.core.QueryDeployer;
-import org.wso2.carbon.event.simulator.core.randomdatafeedsimulation.bean.PropertyBasedAttributeDto;
-import org.wso2.carbon.event.simulator.core.randomdatafeedsimulation.bean.RandomDataSimulationConfig;
-import org.wso2.carbon.event.simulator.core.randomdatafeedsimulation.bean.StreamAttributeDto;
-import org.wso2.carbon.event.simulator.core.randomdatafeedsimulation.utils.RandomDataGenerator;
-import org.wso2.carbon.event.simulator.core.utils.EventConverter;
+import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.PropertyBasedAttributeDto;
+import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.RandomDataSimulationConfig;
+import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.StreamAttributeDto;
+import org.wso2.carbon.event.simulator.randomdatafeedsimulation.utils.RandomDataGenerator;
+import org.wso2.carbon.event.simulator.utils.EventConverter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -54,7 +56,7 @@ public class RandomDataEventSimulator implements EventSimulator {
 
     @Override
     public RandomDataSimulationConfig configureSimulation(String eventSimulationConfig) {
-        if (QueryDeployer.executionPlanDetails == null) {
+        if (ExecutionPlanDeployer.getExecutionPlanDeployer() == null) {
             throw new EventSimulationException("Execution Plan is not deployed");
         }
 
@@ -68,7 +70,7 @@ public class RandomDataEventSimulator implements EventSimulator {
             randomDataSimulationConfig.setDelay(jsonObject.getInt("delay"));
             List<StreamAttributeDto> attributeSimulation = new ArrayList<>();
             JSONArray jsonArray = jsonObject.getJSONArray("attributeSimulation");
-            if (jsonArray.length() != QueryDeployer.executionPlanDetails.getStreamDefinitionInfoDto().getStreamAttributeDtos().size()) {
+            if (jsonArray.length() != ExecutionPlanDeployer.getExecutionPlanDeployer().getExecutionPlanDto().getInputStreamDtoMap().get(randomDataSimulationConfig.getStreamName()).getStreamAttributeDtos().size()) {
                 //// TODO: 27/11/16 proper error message
                 throw new EventSimulationException("Attribute Simulation configuration is missed");
             }
@@ -133,10 +135,10 @@ public class RandomDataEventSimulator implements EventSimulator {
 
 
     public boolean send(RandomDataSimulationConfig randomDataSimulationConfig) {
-        //InputHandler inputHandler = executionPlanRuntime.getInputHandler(executionPlan.getInputStream());
-        QueryDeployer.executionPlanRuntime.start();
+        //InputHandler inputHandler = executionPlanRuntime.getInputHandler(executionPlan.getStreamName());
+        ExecutionPlanDeployer.getExecutionPlanDeployer().getExecutionPlanRuntime().start();
 
-        EventCreator eventCreator = new EventCreator(QueryDeployer.executionPlanDetails, randomDataSimulationConfig);
+        EventCreator eventCreator = new EventCreator(ExecutionPlanDeployer.getExecutionPlanDeployer().getExecutionPlanDto(), randomDataSimulationConfig);
         Thread eventCreatorThread = new Thread(eventCreator);
         eventCreatorThread.start();
 
@@ -146,7 +148,7 @@ public class RandomDataEventSimulator implements EventSimulator {
     @Override
     public void send(String streamName,Event event) {
         try {
-            QueryDeployer.inputHandler.send(event.getEventData());
+            ExecutionPlanDeployer.getExecutionPlanDeployer().getInputHandlerMap().get(streamName).send(event.getEventData());
         } catch (InterruptedException e) {
             log.error("Error occurred during send event :" + e.getMessage());
         }
@@ -171,17 +173,18 @@ public class RandomDataEventSimulator implements EventSimulator {
 
     //runnable class for event creator
     class EventCreator implements Runnable {
-        ExecutionPlanDetails executionPlanDetails;
+        ExecutionPlanDto executionPlanDto;
         RandomDataSimulationConfig randomDataSimulationConfig;
         double percentage = 0;
 
+        //Random simulation attribute dto
         List<StreamAttributeDto> streamAttributeDto = new ArrayList<>();
         private final Object lock = new Object();
         private volatile boolean isPaused = false;
         private volatile boolean isStopped = false;
 
-        public EventCreator(ExecutionPlanDetails executionPlanDetails, RandomDataSimulationConfig randomDataSimulationConfig) {
-            this.executionPlanDetails = executionPlanDetails;
+        public EventCreator(ExecutionPlanDto executionPlanDetails, RandomDataSimulationConfig randomDataSimulationConfig) {
+            this.executionPlanDto = executionPlanDetails;
             this.randomDataSimulationConfig = randomDataSimulationConfig;
         }
 
@@ -200,15 +203,19 @@ public class RandomDataEventSimulator implements EventSimulator {
                     log.error("No of events to be generated can't be in negative values");
                     // TODO: 29/11/16 throw exception
                 }
+
                 this.streamAttributeDto = randomDataSimulationConfig.getAttributeSimulation();
-                StreamDefinitionInfoDto streamDefinitionInfoDto = executionPlanDetails.getStreamDefinitionInfoDto();
+
+                StreamDefinitionDto streamDefinitionDto=executionPlanDto.getInputStreamDtoMap().get(randomDataSimulationConfig.getStreamName());
+
 
                 try {
                     //generate dummi attriutes to warmup random data generation process
                     String[] dummiAttribute = new String[randomDataSimulationConfig.getAttributeSimulation().size()];
                     for (int i = 0; i < 5; i++) {
                         for (int j = 0; j < randomDataSimulationConfig.getAttributeSimulation().size(); j++) {
-                            dummiAttribute[j] = AttributeGenerator.generateAttributeValue(randomDataSimulationConfig.getAttributeSimulation().get(j), streamDefinitionInfoDto.getStreamAttributeDtos().get(j).getAttributeType());
+                            dummiAttribute[j] = AttributeGenerator.generateAttributeValue(randomDataSimulationConfig.getAttributeSimulation().get(j),
+                                    streamDefinitionDto.getStreamAttributeDtos().get(j).getAttributeType());
                         }
                     }
                     dummiAttribute = null;
@@ -224,15 +231,16 @@ public class RandomDataEventSimulator implements EventSimulator {
                         try {
                             String[] attributeValue = new String[noOfAttributes];
                             for (int j = 0; j < noOfAttributes; j++) {
-                                attributeValue[j] = AttributeGenerator.generateAttributeValue(randomDataSimulationConfig.getAttributeSimulation().get(j), streamDefinitionInfoDto.getStreamAttributeDtos().get(j).getAttributeType());
+                                attributeValue[j] = AttributeGenerator.generateAttributeValue(randomDataSimulationConfig.getAttributeSimulation().get(j),
+                                        streamDefinitionDto.getStreamAttributeDtos().get(j).getAttributeType());
                             }
                             //convert event
-                            //Event event = EventConverter.eventConverter(attributeValue, QueryDeployer.executionPlanDetails);
-                            //System.out.println("Input Event " + Arrays.deepToString(event.getEventData()));
+                            Event event = EventConverter.eventConverter(randomDataSimulationConfig.getStreamName(),attributeValue,executionPlanDto );
+                            System.out.println("Input Event " + Arrays.deepToString(event.getEventData()));
                             System.out.println("------------------------------------------------------");
 
                             //send event
-                            //send(event);
+                            send(randomDataSimulationConfig.getStreamName(),event);
                             if (delay > 0) {
                                 Thread.sleep(delay);
                             }
@@ -240,7 +248,7 @@ public class RandomDataEventSimulator implements EventSimulator {
                             System.out.println("Percentage: " + percentage);
 
                         } catch (Exception e) {
-                            log.error("Error occurred : Failed to create an event" + e.getMessage());
+                            log.error("Error occurred : Failed to send an event" + e.getMessage());
 
                         }
                     } else if (isStopped) {

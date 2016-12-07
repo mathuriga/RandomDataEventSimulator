@@ -1,4 +1,4 @@
-package org.wso2.carbon.event.simulator.core.exception;
+package org.wso2.carbon.event.simulator.exception;
 
 /**
  * Created by mathuriga on 27/11/16.

@@ -1,4 +1,4 @@
-package org.wso2.carbon.event.simulator.core.csvFeedSimulation.core;
+package org.wso2.carbon.event.simulator.csvFeedSimulation.core;
 
 import org.wso2.msf4j.formparam.FileInfo;
 

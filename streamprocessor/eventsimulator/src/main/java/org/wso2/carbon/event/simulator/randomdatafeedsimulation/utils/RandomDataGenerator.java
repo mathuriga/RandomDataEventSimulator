@@ -1,4 +1,4 @@
-package org.wso2.carbon.event.simulator.core.randomdatafeedsimulation.utils;
+package org.wso2.carbon.event.simulator.randomdatafeedsimulation.utils;
 
 import com.mifmif.common.regex.Generex;
 import fabricator.Alphanumeric;
@@ -19,8 +19,8 @@ import java.util.regex.PatternSyntaxException;
 
 import fabricator.enums.DateFormat;
 import org.joda.time.DateTime;
-import org.wso2.carbon.event.simulator.core.exception.EventSimulationException;
-import org.wso2.carbon.event.simulator.core.constants.RandomDataGeneratorConstants;
+import org.wso2.carbon.event.simulator.exception.EventSimulationException;
+import org.wso2.carbon.event.simulator.constants.RandomDataGeneratorConstants;
 
 /**
  * Created by mathuriga on 12/11/16.

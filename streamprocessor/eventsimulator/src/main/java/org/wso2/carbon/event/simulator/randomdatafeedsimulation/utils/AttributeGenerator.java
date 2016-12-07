@@ -1,12 +1,12 @@
-package org.wso2.carbon.event.simulator.core.randomdatafeedsimulation.utils;
+package org.wso2.carbon.event.simulator.randomdatafeedsimulation.utils;
 
 
-import org.wso2.carbon.event.simulator.core.exception.EventSimulationException;
-import org.wso2.carbon.event.simulator.core.randomdatafeedsimulation.bean.CustomBasedAttribute;
-import org.wso2.carbon.event.simulator.core.randomdatafeedsimulation.bean.PrimitiveBasedAttribute;
-import org.wso2.carbon.event.simulator.core.randomdatafeedsimulation.bean.PropertyBasedAttributeDto;
-import org.wso2.carbon.event.simulator.core.randomdatafeedsimulation.bean.RegexBasedAttributeDto;
-import org.wso2.carbon.event.simulator.core.randomdatafeedsimulation.bean.StreamAttributeDto;
+import org.wso2.carbon.event.simulator.exception.EventSimulationException;
+import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.CustomBasedAttribute;
+import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.PrimitiveBasedAttribute;
+import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.PropertyBasedAttributeDto;
+import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.RegexBasedAttributeDto;
+import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.StreamAttributeDto;
 
 /**
  * Created by mathuriga on 17/11/16.

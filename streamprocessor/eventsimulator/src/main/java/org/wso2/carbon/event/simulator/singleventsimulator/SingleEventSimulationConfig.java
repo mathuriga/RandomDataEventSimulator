@@ -1,4 +1,4 @@
-package org.wso2.carbon.event.simulator.core.singleventsimulator;
+package org.wso2.carbon.event.simulator.singleventsimulator;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

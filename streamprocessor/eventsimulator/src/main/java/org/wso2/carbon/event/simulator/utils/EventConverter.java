@@ -1,13 +1,10 @@
-package org.wso2.carbon.event.simulator.core.utils;
+package org.wso2.carbon.event.simulator.utils;
 
 
 import org.wso2.carbon.event.executionplandelpoyer.ExecutionPlanDto;
-import org.wso2.carbon.event.executionplandelpoyer.StreamDefinitionDto;
-import org.wso2.carbon.event.simulator.core.exception.EventSimulationException;
-import org.wso2.carbon.event.simulator.core.constants.EventSimulatorConstants;
+import org.wso2.carbon.event.simulator.constants.EventSimulatorConstants;
+import org.wso2.carbon.event.simulator.exception.EventSimulationException;
 import org.wso2.carbon.event.querydeployer.bean.Event;
-import org.wso2.carbon.event.querydeployer.bean.ExecutionPlanDetails;
-import org.wso2.carbon.event.querydeployer.bean.StreamAttributeDto;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,13 +21,12 @@ public class EventConverter {
     public static Event eventConverter(String streamName,String[] dataList, ExecutionPlanDto executionPlan) {
         Event event=new Event();
         event.setStreamName(streamName);
-        System.out.println("1");
-        System.out.println(executionPlan.getInputStreamDtoMap().get(streamName).getStreamAttributeDtos().size());
-        System.out.println("2");
+
         Object[] eventData=new Object[executionPlan.getInputStreamDtoMap().get(streamName).getStreamAttributeDtos().size()];
       //  Object[] eventData=new Object[executionPlan.getStreamDefinitionInfoDto().getStreamAttributeDtos().size()];
         List<org.wso2.carbon.event.executionplandelpoyer.StreamAttributeDto> streamAttributeDto=executionPlan.getInputStreamDtoMap().get(streamName).getStreamAttributeDtos();
         //List<StreamAttributeDto> streamAttributeDto=executionPlan.getStreamDefinitionInfoDto().getStreamAttributeDtos();
+
         for(int j=0;j<dataList.length;j++){
             String type=streamAttributeDto.get(j).getAttributeType();
             switch (type){

@@ -1,4 +1,4 @@
-package org.wso2.carbon.event.simulator.core.csvFeedSimulation;
+package org.wso2.carbon.event.simulator.csvFeedSimulation;
 
 import java.util.ArrayList;
 import java.util.HashMap;

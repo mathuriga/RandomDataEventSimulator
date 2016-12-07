@@ -1,26 +1,20 @@
-package org.wso2.carbon.event.simulator.core.csvFeedSimulation;
+package org.wso2.carbon.event.simulator.csvFeedSimulation;
 
-import org.wso2.carbon.event.simulator.core.csvFeedSimulation.core.FileDto;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.wso2.carbon.event.simulator.bean.StreamConfiguration;
+import org.wso2.carbon.event.simulator.csvFeedSimulation.core.FileDto;
 
 /**
  * Created by mathuriga on 30/11/16.
  */
-public class CSVFileConfig {
+public class CSVFileConfig extends StreamConfiguration{
     private String fileName;
-    private String inputStream;
+    private String streamName;
     private FileDto fileDto;
-    private char delimiter;
+    private String delimiter;
     private  int delay;
 
-    public CSVFileConfig(String fileName, String inputStream, FileDto fileDto, char delimiter, int delay) {
-        this.fileName = fileName;
-        this.inputStream = inputStream;
-        this.fileDto = fileDto;
-        this.delimiter = delimiter;
-        this.delay = delay;
+    public CSVFileConfig() {
+        super();
     }
 
     public String getFileName() {
@@ -31,12 +25,12 @@ public class CSVFileConfig {
         this.fileName = fileName;
     }
 
-    public String getInputStream() {
-        return inputStream;
+    public String getStreamName() {
+        return streamName;
     }
 
-    public void setInputStream(String inputStream) {
-        this.inputStream = inputStream;
+    public void setStreamName(String streamName) {
+        this.streamName = streamName;
     }
 
     public int getDelay() {
@@ -55,11 +49,11 @@ public class CSVFileConfig {
         this.fileDto = fileDto;
     }
 
-    public char getDelimiter() {
+    public String getDelimiter() {
         return delimiter;
     }
 
-    public void setDelimiter(char delimiter) {
+    public void setDelimiter(String delimiter) {
         this.delimiter = delimiter;
     }
 }

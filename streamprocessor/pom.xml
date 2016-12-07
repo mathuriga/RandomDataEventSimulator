@@ -16,13 +16,9 @@
     <version>1.0-SNAPSHOT</version>
 
 
-
     <modules>
         <module>eventsimulator</module>
     </modules>
-
-
-
 
     <dependencyManagement>
         <dependencies>
@@ -61,6 +57,15 @@
 
             <!-- random data generator dependencies end-->
 
+            <!--CSV Parser dependency-->
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-csv</artifactId>
+                <version>1.5-SNAPSHOT</version>
+            </dependency>
+
+            <!--CSV Parser dependency ends here-->
             <!-- Siddhi dependencies-->
 
             <dependency>
@@ -87,51 +92,6 @@
             <!-- siddhi dependencies end here -->
 
 
-            <!-- Stub dependencies start here -->
-            <dependency>
-                <groupId>org.wso2.carbon</groupId>
-                <artifactId>org.wso2.carbon.authenticator.stub</artifactId>
-                <version>${carbon.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wso2.carbon</groupId>
-                <artifactId>org.wso2.carbon.service.mgt.stub</artifactId>
-                <version>${carbon.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wso2.carbon.analytics-common</groupId>
-                <artifactId>org.wso2.carbon.event.stream.stub</artifactId>
-                <version>${carbon.analytics.common.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wso2.carbon.event-processing</groupId>
-                <artifactId>org.wso2.carbon.event.simulator.stub</artifactId>
-                <version>${carbon.event.processing.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wso2.carbon.event-processing</groupId>
-                <artifactId>org.wso2.carbon.event.simulator.admin</artifactId>
-                <version>${carbon.event.processing.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wso2.carbon.event-processing</groupId>
-                <artifactId>org.wso2.carbon.event.simulator.or.wso2.streamprocessor.core</artifactId>
-                <version>${carbon.event.processing.version}</version>
-            </dependency>
-
-            <!-- Stub dependencies end here -->
-
-            <!-- Stream processor tooling dependencies start here -->
-            <dependency>
-                <groupId>org.wso2.stream.processor</groupId>
-                <artifactId>org.wso2.stream.processor.eventsimulator.admin</artifactId>
-                <version>${stream.processor.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wso2.stream.processor</groupId>
-                <artifactId>org.wso2.stream.processor.eventsimulator.or.wso2.streamprocessor.endpoint</artifactId>
-                <version>${stream.processor.version}</version>
-            </dependency>
 
             <!-- Stream processor tooling dependencies end here -->
         </dependencies>
@@ -151,7 +111,7 @@
     </build>
 
     <properties>
-        <microservice.mainClass>org.wso2.carbon.event.simulator.Application</microservice.mainClass>
+        <microservice.mainClass>Application</microservice.mainClass>
         <stream.processor.version>1.0-SNAPSHOT</stream.processor.version>
         <siddhi.version>3.1.3-SNAPSHOT</siddhi.version>
         <antlr.version>4.5.1</antlr.version>

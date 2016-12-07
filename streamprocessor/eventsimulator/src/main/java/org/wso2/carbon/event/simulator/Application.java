@@ -1,4 +1,4 @@
-package org.wso2.carbon.event.simulator.core;
+package org.wso2.carbon.event.simulator;
 
 
 import org.wso2.carbon.event.endpoint.EventSimulatorEndpoint;

@@ -1,4 +1,6 @@
-package org.wso2.carbon.event.simulator.core.randomdatafeedsimulation.bean;
+package org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean;
+
+import org.wso2.carbon.event.simulator.bean.StreamConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,14 +10,14 @@ import java.util.List;
  */
 
 
-public class RandomDataSimulationConfig {
+public class RandomDataSimulationConfig extends StreamConfiguration {
     private int delay;
     private List<StreamAttributeDto> attributeSimulation =new ArrayList<>();
     private String streamName;
     private double events;
 
     public RandomDataSimulationConfig(){
-
+           super();
     }
 
     public int getDelay() {
@@ -49,4 +51,6 @@ public class RandomDataSimulationConfig {
     public void setEvents(double events) {
         this.events = events;
     }
+
+
 }

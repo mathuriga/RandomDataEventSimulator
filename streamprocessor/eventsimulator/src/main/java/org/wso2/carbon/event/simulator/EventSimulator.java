@@ -1,8 +1,8 @@
-package org.wso2.carbon.event.simulator.core;
+package org.wso2.carbon.event.simulator;
 
 
 
-import org.wso2.carbon.event.simulator.core.randomdatafeedsimulation.bean.RandomDataSimulationConfig;
+import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.RandomDataSimulationConfig;
 
 /**
  * Created by mathuriga on 06/11/16.

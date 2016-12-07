@@ -1,4 +1,4 @@
-package org.wso2.carbon.event.simulator.core.constants;
+package org.wso2.carbon.event.simulator.constants;
 
 /**
  * Created by mathuriga on 16/11/16.

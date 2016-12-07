@@ -20,10 +20,16 @@
             <td>Input Stream</td>
             <td><input type="text" name="inputStream" /></td>
         </tr>
+
+        <tr>
+                <td>Input Stream Attribute type List</td>
+                <td><input type="text" name="inputStreamAttributeNameList" /></td>
+         </tr>
+
         <tr>
                     <td>Input Stream Attribute type List</td>
                     <td><input type="text" name="inputStreamAttributeTypeList" /></td>
-                </tr>
+         </tr>
          <tr>
             <td>Output Stream</td>
             <td><input type="text" name="outputStream" /></td>

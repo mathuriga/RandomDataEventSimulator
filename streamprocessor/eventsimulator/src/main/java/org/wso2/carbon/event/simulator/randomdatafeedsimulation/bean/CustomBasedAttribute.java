@@ -1,8 +1,6 @@
-package org.wso2.carbon.event.simulator.core.randomdatafeedsimulation.bean;
+package org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean;
 
 import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 /**

@@ -1,4 +1,4 @@
-package org.wso2.carbon.event.simulator.core.randomdatafeedsimulation.bean;
+package org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean;
 
 
 /**
