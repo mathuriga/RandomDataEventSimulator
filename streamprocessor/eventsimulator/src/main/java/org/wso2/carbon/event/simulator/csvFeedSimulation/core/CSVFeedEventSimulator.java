@@ -28,8 +28,8 @@ import java.util.HashMap;
  */
 public class CSVFeedEventSimulator implements EventSimulator {
     private static final Log log = LogFactory.getLog(CSVFeedEventSimulator.class);
-    private static CSVFeedEventSimulator csvFeedEventSimulator;
-    private HashMap<String,FileDto> csvFileInfoMap;
+   // private static CSVFeedEventSimulator csvFeedEventSimulator;
+    private static HashMap<String,FileDto> csvFileInfoMap=new HashMap<String,FileDto>();;
     private static long currentTimestampValue;
 
 
@@ -41,20 +41,18 @@ public class CSVFeedEventSimulator implements EventSimulator {
         this.csvFileInfoMap = csvFileInfoMap;
     }
 
-    public CSVFeedEventSimulator() {
-        csvFileInfoMap=new HashMap<String,FileDto>();
-    }
 
-    public static CSVFeedEventSimulator getCSVFeedEventSimulator() {
-        if (csvFeedEventSimulator == null) {
-            synchronized (CSVFeedEventSimulator.class) {
-                if (csvFeedEventSimulator == null) {
-                    csvFeedEventSimulator = new CSVFeedEventSimulator();
-                }
-            }
-        }
-        return csvFeedEventSimulator;
-    }
+
+//    public static CSVFeedEventSimulator getCSVFeedEventSimulator() {
+//        if (csvFeedEventSimulator == null) {
+//            synchronized (CSVFeedEventSimulator.class) {
+//                if (csvFeedEventSimulator == null) {
+//                    csvFeedEventSimulator = new CSVFeedEventSimulator();
+//                }
+//            }
+//        }
+//        return csvFeedEventSimulator;
+//    }
 
     @Override
     public void send(String streamName,Event event) {
@@ -70,8 +68,6 @@ public class CSVFeedEventSimulator implements EventSimulator {
         EventCreatorFile eventCreatorFile = new EventCreatorFile(ExecutionPlanDeployer.getExecutionPlanDeployer().getExecutionPlanDto(), csvFileConfig);
         Thread eventCreatorFileThread = new Thread(eventCreatorFile);
         eventCreatorFileThread.start();
-
-
         return true;
     }
 

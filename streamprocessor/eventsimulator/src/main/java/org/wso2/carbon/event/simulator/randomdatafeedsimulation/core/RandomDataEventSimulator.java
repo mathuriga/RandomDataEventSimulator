@@ -37,22 +37,22 @@ import java.util.List;
  */
 public class RandomDataEventSimulator implements EventSimulator {
     private static final Log log = LogFactory.getLog(RandomDataEventSimulator.class);
-    private static RandomDataEventSimulator randomDataEventSimulator;
+  //  private static RandomDataEventSimulator randomDataEventSimulator;
 
 
-    private RandomDataEventSimulator() {
+    public RandomDataEventSimulator() {
     }
 
-    public static RandomDataEventSimulator getRandomDataEventSimulator() {
-        if (randomDataEventSimulator == null) {
-            synchronized (RandomDataEventSimulator.class) {
-                if (randomDataEventSimulator == null) {
-                    randomDataEventSimulator = new RandomDataEventSimulator();
-                }
-            }
-        }
-        return randomDataEventSimulator;
-    }
+//    public static RandomDataEventSimulator getRandomDataEventSimulator() {
+//        if (randomDataEventSimulator == null) {
+//            synchronized (RandomDataEventSimulator.class) {
+//                if (randomDataEventSimulator == null) {
+//                    randomDataEventSimulator = new RandomDataEventSimulator();
+//                }
+//            }
+//        }
+//        return randomDataEventSimulator;
+//    }
 
     @Override
     public RandomDataSimulationConfig configureSimulation(String eventSimulationConfig) {

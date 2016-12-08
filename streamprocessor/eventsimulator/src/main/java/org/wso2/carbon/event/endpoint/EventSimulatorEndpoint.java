@@ -55,23 +55,23 @@ public class EventSimulatorEndpoint {
     }
 
     //Random event generator
-    @POST
-    @Path("/demo")
-    public Response randomDataSimulation(String eventSimulationConfig) throws IOException {
-        String message = null;
+//    @POST
+//    @Path("/demo")
+//    public Response randomDataSimulation(String eventSimulationConfig) throws IOException {
+//        String message = null;
+//
+//      //  RandomDataEventSimulator randomDataEventSimulator = RandomDataEventSimulator.getRandomDataEventSimulator();
+//        RandomDataSimulationConfig randomDataSimulationConfig=randomDataEventSimulator.configureSimulation(eventSimulationConfig);
+//
+//        if(randomDataEventSimulator.send(randomDataSimulationConfig)){
+//            message= "Event is send successfully";
+//        }
+//
+//        String jsonString = new Gson().toJson(message);
+//        return Response.ok(jsonString, MediaType.APPLICATION_JSON)
+//                    .header("Access-Control-Allow-Origin", "*").build();
 
-        RandomDataEventSimulator randomDataEventSimulator = RandomDataEventSimulator.getRandomDataEventSimulator();
-        RandomDataSimulationConfig randomDataSimulationConfig=randomDataEventSimulator.configureSimulation(eventSimulationConfig);
-
-        if(randomDataEventSimulator.send(randomDataSimulationConfig)){
-            message= "Event is send successfully";
-        }
-
-        String jsonString = new Gson().toJson(message);
-        return Response.ok(jsonString, MediaType.APPLICATION_JSON)
-                    .header("Access-Control-Allow-Origin", "*").build();
-
-    }
+    //}
 
 //    @POST
 //    @Path("/csvfile")
@@ -94,12 +94,13 @@ public class EventSimulatorEndpoint {
 //        return Response.ok(jsonString, MediaType.APPLICATION_JSON)
 //                .header("Access-Control-Allow-Origin", "*").build();
 //    }
+
     @POST
     @Path("/fileFeedSimulation")
     public Response fileFeedSimulation(String fileConfig) throws IOException {
         String message = null;
         System.out.println("lol");
-        CSVFeedEventSimulator csvFeedEventSimulator=CSVFeedEventSimulator.getCSVFeedEventSimulator();
+        CSVFeedEventSimulator csvFeedEventSimulator=new CSVFeedEventSimulator();
         CSVFileConfig csvFileConfig= EventSimulatorParser.fileEventSimulatorParser(fileConfig);
 
         if(csvFeedEventSimulator.send(csvFileConfig)){

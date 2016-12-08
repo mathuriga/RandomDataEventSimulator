@@ -48,14 +48,14 @@ public class FileDeployer {
     }
 
     public void processUndeploy(String fileName){
-        CSVFeedEventSimulator csvFeedEventSimulator=CSVFeedEventSimulator.getCSVFeedEventSimulator();
+        CSVFeedEventSimulator csvFeedEventSimulator=new CSVFeedEventSimulator();
         csvFeedEventSimulator.getCsvFileInfoMap().remove(fileName);
         log.info("CSV file " + fileName + " Undeployed successfully.");
     }
 
     public void processDeploy(FileInfo fileInfo,InputStream inputStream) throws Exception {
         if(validateFile(fileInfo)){
-            CSVFeedEventSimulator csvFeedEventSimulator=CSVFeedEventSimulator.getCSVFeedEventSimulator();
+            CSVFeedEventSimulator csvFeedEventSimulator=new CSVFeedEventSimulator();
             if (Files.exists(Paths.get(System.getProperty("java.io.tmpdir"), fileInfo.getFileName()))) {
                 Files.deleteIfExists(Paths.get(System.getProperty("java.io.tmpdir"), fileInfo.getFileName()));
                 if(csvFeedEventSimulator.getCsvFileInfoMap().containsKey(fileInfo.getFileName())){
@@ -65,6 +65,7 @@ public class FileDeployer {
             }
             FileDto fileDto=new FileDto(fileInfo,inputStream);
             Files.copy(inputStream, Paths.get(System.getProperty("java.io.tmpdir"), fileInfo.getFileName()));
+            inputStream.close();
             csvFeedEventSimulator.getCsvFileInfoMap().put(fileInfo.getFileName(),fileDto);
         }
         log.info("CSV file " + fileInfo.getFileName() + " deployed successfully.");

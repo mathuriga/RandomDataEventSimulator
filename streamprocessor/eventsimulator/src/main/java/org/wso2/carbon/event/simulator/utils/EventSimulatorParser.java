@@ -147,7 +147,7 @@ public class EventSimulatorParser {
 //        }
         CSVFileConfig csvFileConfig = null;
         try {
-            CSVFeedEventSimulator csvFeedEventSimulator = CSVFeedEventSimulator.getCSVFeedEventSimulator();
+            CSVFeedEventSimulator csvFeedEventSimulator = new CSVFeedEventSimulator();
             csvFileConfig = new CSVFileConfig();
             JSONObject jsonObject = new JSONObject(csvFileDetails);
             csvFileConfig.setStreamName((String) jsonObject.get(EventSimulatorConstants.STREAM_NAME));
