@@ -29,9 +29,10 @@ import java.util.HashMap;
 public class CSVFeedEventSimulator implements EventSimulator {
     private static final Log log = LogFactory.getLog(CSVFeedEventSimulator.class);
    // private static CSVFeedEventSimulator csvFeedEventSimulator;
-    private static HashMap<String,FileDto> csvFileInfoMap=new HashMap<String,FileDto>();;
-    private static long currentTimestampValue;
+    private static HashMap<String,FileDto> csvFileInfoMap=new HashMap<String,FileDto>();
 
+    public CSVFeedEventSimulator() {
+    }
 
     public HashMap<String, FileDto> getCsvFileInfoMap() {
         return csvFileInfoMap;
