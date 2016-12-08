@@ -5,41 +5,41 @@ $(document).ready(function(){
  var feedSimulationConfiguration= {
              	        "orderByTimeStamp" : "false",
                         "streamConfiguration" :[
-             		                        {
-            	 			                "simulationType" : "RandomDataSimulation",
-            								"streamName": "cseEventStream",
-            								"events": "5",
-            								"delay": "1000",
-            								"attributeConfiguration":[
-//            								    {
-//            										"type": "PROPERTYBASED",
-//            								        "category": "Contact",
-//            								        "property": "Full Name",
+//             		                        {
+//            	 			                "simulationType" : "RandomDataSimulation",
+//            								"streamName": "cseEventStream",
+//            								"events": "5",
+//            								"delay": "1000",
+//            								"attributeConfiguration":[
+////            								    {
+////            										"type": "PROPERTYBASED",
+////            								        "category": "Contact",
+////            								        "property": "Full Name",
+////            								    },
+//           								        {
+//                                                    "type": "CUSTOMDATA",
+//            								        "list": "WSO2"
 //            								    },
-           								        {
-                                                    "type": "CUSTOMDATA",
-            								        "list": "WSO2,'IBM,XXX'"
-            								    },
-            								    {
-                                                    "type": "REGEXBASED",
-            								        "pattern": "[+]?[0-9]*\\.?[0-9]+"
-            								    },
-            								    {
-            								        "type": "PRIMITIVEBASED",
-            								        "min": "2",
-            								        "max": "200",
-            								        "length": "2",
-            								    }
-
-            								  ]
-            	    						},
-//            	    						{
-//             								"simulationType" : "FileFeedSimulation",
-//             			 					"streamName" : "cseEventStream",
-//             							    "fileName"   : "cseteststream.csv",
-//             							    "delimiter"  : ",",
-//             							    "delay"		 : "1000"
-//             							 	},
+//            								    {
+//                                                    "type": "REGEXBASED",
+//            								        "pattern": "[+]?[0-9]*\\.?[0-9]+"
+//            								    },
+//            								    {
+//            								        "type": "PRIMITIVEBASED",
+//            								        "min": "2",
+//            								        "max": "200",
+//            								        "length": "2",
+//            								    }
+//
+//            								  ]
+//            	    						},
+            	    						{
+             								"simulationType" : "FileFeedSimulation",
+             			 					"streamName" : "cseEventStream",
+             							    "fileName"   : "cseteststream.csv",
+             							    "delimiter"  : ",",
+             							    "delay"		 : "1000"
+             							 	},
              							 	{
                                             "simulationType" : "FileFeedSimulation",
                                             "streamName" : "cseEventStream2",
