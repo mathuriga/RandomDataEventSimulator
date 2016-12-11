@@ -1,14 +1,33 @@
+/*
+ * Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * WSO2 Inc. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
 package org.wso2.carbon.event.endpoint;
 
 
 import com.google.gson.Gson;
 import org.apache.axis2.deployment.DeploymentException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.wso2.carbon.event.simulator.bean.FeedSimulationConfig;
 import org.wso2.carbon.event.simulator.csvFeedSimulation.CSVFileConfig;
 import org.wso2.carbon.event.simulator.csvFeedSimulation.core.CSVFeedEventSimulator;
 import org.wso2.carbon.event.simulator.csvFeedSimulation.core.FileDeployer;
 import org.wso2.carbon.event.simulator.singleventsimulator.SingleEventSimulationConfig;
-import org.wso2.carbon.event.simulator.singleventsimulator.SingleEventSimulator;
 import org.wso2.carbon.event.simulator.utils.EventSimulatorParser;
 import org.wso2.carbon.event.simulator.utils.EventSimulatorServiceExecutor;
 import org.wso2.msf4j.formparam.FileInfo;
@@ -23,29 +42,42 @@ import java.io.InputStream;
 
 
 /**
- * Created by mathuriga on 12/11/16.
+ * Simulator REST service is a micro-service built on top of WSO2 msf4j.
+ * The REST service provides the capability of simulating events.
  */
 
 @Path("/EventSimulation")
-public class EventSimulatorEndpoint {
+public class EventSimulatorRestService {
+    private static final Logger log = LoggerFactory.getLogger(EventSimulatorRestService.class);
+    /**
+     * Event simulator service executor for event simulator REST service.
+     */
+    EventSimulatorServiceExecutor eventSimulatorServiceExecutor=new  EventSimulatorServiceExecutor();
 
+    /**
+     * Initializes the service classes for resources.
+     */
+    public EventSimulatorRestService() {
+    }
 
+    /**
+     * Send single event.
+     * singleEventSimulationString: {
+                     "streamName":"cseEventStream",
+                     "attributeValues":attributeValue
+                     };
+     * http://127.0.0.1:9090/EventSimulation/singleEventSimulation
+     *
+     * @param singleEventSimulationString jsonString to be converted to SingleEventSimulationConfig object from the request Json body.
+     */
     @POST
     @Path("/singleEventSimulation")
-    public Response singleEventSimulation(String singleEventSimulationConfig) throws IOException {
-        //JSON from String to Object
-        String message = null;
-        SingleEventSimulator singleEventSimulator=SingleEventSimulator.getSingleEventSimulator();
-        SingleEventSimulationConfig singleEventSimulationConfigInstance= (SingleEventSimulationConfig) singleEventSimulator.configureSingleEventSimulation(singleEventSimulationConfig);
-
-
-        if(singleEventSimulator.send(singleEventSimulationConfigInstance)){
-            message= "Event is send successfully";
-        }
-        System.out.println(message);
-        String jsonString = new Gson().toJson(message);
-        return Response.ok(jsonString, MediaType.APPLICATION_JSON)
-                .header("Access-Control-Allow-Origin", "*").build();
+    public void singleEventSimulation(String singleEventSimulationString) throws IOException {
+        //parse json string to SingleEventSimulationConfig object
+        SingleEventSimulationConfig singleEventSimulationConfiguration = EventSimulatorParser.singleEventSimulatorParser(singleEventSimulationString);
+        //start single event simulation
+        this.eventSimulatorServiceExecutor.simulateSingleEvent(singleEventSimulationConfiguration);
+        log.info("Event is send successfully");
     }
 
     @POST
@@ -112,7 +144,7 @@ public class EventSimulatorEndpoint {
         String message = null;
 
         FeedSimulationConfig feedSimulationConfig=EventSimulatorParser.feedSimulationConfigParser(feedSimulationConfigDetails);
-        EventSimulatorServiceExecutor.simulate(feedSimulationConfig);
+        EventSimulatorServiceExecutor.simulateFeedSimulation(feedSimulationConfig);
         String jsonString = new Gson().toJson(message);
         return Response.ok(jsonString, MediaType.APPLICATION_JSON)
                 .header("Access-Control-Allow-Origin", "*").build();

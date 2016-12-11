@@ -15,12 +15,10 @@ import org.wso2.carbon.event.simulator.EventSimulator;
 import org.wso2.carbon.event.simulator.constants.RandomDataGeneratorConstants;
 import org.wso2.carbon.event.simulator.exception.EventSimulationException;
 import org.wso2.carbon.event.querydeployer.bean.Event;
-import org.wso2.carbon.event.querydeployer.bean.StreamDefinitionInfoDto;
 import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.CustomBasedAttribute;
 import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.PrimitiveBasedAttribute;
 import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.RegexBasedAttributeDto;
 import org.wso2.carbon.event.simulator.randomdatafeedsimulation.utils.AttributeGenerator;
-import org.wso2.carbon.event.querydeployer.core.QueryDeployer;
 import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.PropertyBasedAttributeDto;
 import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.RandomDataSimulationConfig;
 import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.StreamAttributeDto;
@@ -77,51 +75,51 @@ public class RandomDataEventSimulator implements EventSimulator {
             Gson gson = new Gson();
             for (int i = 0; i < jsonArray.length(); i++) {
                 if (!jsonArray.getJSONObject(i).isNull("type")) {
-                    if (jsonArray.getJSONObject(i).getString("type").compareTo(RandomDataGeneratorConstants.PropertyBasedAttribute) == 0) {
+                    if (jsonArray.getJSONObject(i).getString("type").compareTo(RandomDataGeneratorConstants.PROPERTY_BASED_ATTRIBUTE) == 0) {
                         if (!jsonArray.getJSONObject(i).isNull("category") && !jsonArray.getJSONObject(i).isNull("property")) {
                             PropertyBasedAttributeDto propertyBasedAttributeDto = gson.fromJson(String.valueOf(jsonArray.getJSONObject(i)), PropertyBasedAttributeDto.class);
                             attributeSimulation.add(propertyBasedAttributeDto);
                         } else {
-                            throw new EventSimulationException("Category and property should not be null value for " + RandomDataGeneratorConstants.PropertyBasedAttribute);
-                            //log.error("Category and property should not be null value for " + RandomDataGeneratorConstants.PropertyBasedAttribute);
+                            throw new EventSimulationException("Category and property should not be null value for " + RandomDataGeneratorConstants.PROPERTY_BASED_ATTRIBUTE);
+                            //log.error("Category and property should not be null value for " + RandomDataGeneratorConstants.PROPERTY_BASED_ATTRIBUTE);
                         }
 
-                    } else if (jsonArray.getJSONObject(i).getString("type").compareTo(RandomDataGeneratorConstants.RegexBasedAttribute) == 0) {
+                    } else if (jsonArray.getJSONObject(i).getString("type").compareTo(RandomDataGeneratorConstants.REGEX_BASED_ATTRIBUTE) == 0) {
                         if (!jsonArray.getJSONObject(i).isNull("pattern")) {
                             RegexBasedAttributeDto regexBasedAttributeDto = gson.fromJson(String.valueOf(jsonArray.getJSONObject(i)), RegexBasedAttributeDto.class);
                             RandomDataGenerator.validateRegularExpression(regexBasedAttributeDto.getPattern());
                             attributeSimulation.add(regexBasedAttributeDto);
                         } else {
-                            throw new EventSimulationException("Pattern should not be null value for " + RandomDataGeneratorConstants.RegexBasedAttribute);
-                            //log.error("Pattern should not be null value for " + RandomDataGeneratorConstants.RegexBasedAttribute);
+                            throw new EventSimulationException("Pattern should not be null value for " + RandomDataGeneratorConstants.REGEX_BASED_ATTRIBUTE);
+                            //log.error("Pattern should not be null value for " + RandomDataGeneratorConstants.REGEX_BASED_ATTRIBUTE);
                         }
 
-                    } else if (jsonArray.getJSONObject(i).getString("type").compareTo(RandomDataGeneratorConstants.PrimitiveBasedAttribute) == 0) {
+                    } else if (jsonArray.getJSONObject(i).getString("type").compareTo(RandomDataGeneratorConstants.PRIMITIVE_BASED_ATTRIBUTE) == 0) {
                         if (!jsonArray.getJSONObject(i).isNull("min") && !jsonArray.getJSONObject(i).isNull("max") && !jsonArray.getJSONObject(i).isNull("length")) {
                             PrimitiveBasedAttribute primitiveBasedAttribute = gson.fromJson(String.valueOf(jsonArray.getJSONObject(i)), PrimitiveBasedAttribute.class);
                             attributeSimulation.add(primitiveBasedAttribute);
                         } else {
-                            throw new EventSimulationException("min,max and length value should not be null value for " + RandomDataGeneratorConstants.PrimitiveBasedAttribute);
-                            // log.error("min,max and length value should not be null value for " + RandomDataGeneratorConstants.PrimitiveBasedAttribute);
+                            throw new EventSimulationException("min,max and length value should not be null value for " + RandomDataGeneratorConstants.PRIMITIVE_BASED_ATTRIBUTE);
+                            // log.error("min,max and length value should not be null value for " + RandomDataGeneratorConstants.PRIMITIVE_BASED_ATTRIBUTE);
                         }
-                    } else if (jsonArray.getJSONObject(i).getString("type").compareTo(RandomDataGeneratorConstants.CustomDataBasedAttribute) == 0) {
+                    } else if (jsonArray.getJSONObject(i).getString("type").compareTo(RandomDataGeneratorConstants.CUSTOM_DATA_BASED_ATTRIBUTE) == 0) {
                         if (!jsonArray.getJSONObject(i).isNull("customDataList")) {
                             CustomBasedAttribute customBasedAttribute = new CustomBasedAttribute();
                             customBasedAttribute.setType(jsonArray.getJSONObject(i).getString("type"));
                             customBasedAttribute.setCustomData(jsonArray.getJSONObject(i).getString("customDataList"));
                             attributeSimulation.add(customBasedAttribute);
                         } else {
-                            new EventSimulationException("CustomDataList shold not be null for " + RandomDataGeneratorConstants.CustomDataBasedAttribute);
-                            // log.error("CustomDataList shold not be null for " + RandomDataGeneratorConstants.CustomDataBasedAttribute);
+                            new EventSimulationException("CustomDataList shold not be null for " + RandomDataGeneratorConstants.CUSTOM_DATA_BASED_ATTRIBUTE);
+                            // log.error("CustomDataList shold not be null for " + RandomDataGeneratorConstants.CUSTOM_DATA_BASED_ATTRIBUTE);
                         }
                     }
                 } else {
-                    throw new EventSimulationException("Attribute Simulation type is required : " + RandomDataGeneratorConstants.PropertyBasedAttribute + "/" +
-                            RandomDataGeneratorConstants.RegexBasedAttribute + "/" + RandomDataGeneratorConstants.PrimitiveBasedAttribute +
-                            "/" + RandomDataGeneratorConstants.CustomDataBasedAttribute);
-//                    log.error("Attribute Simulation type is required : " + RandomDataGeneratorConstants.PropertyBasedAttribute + "/" +
-//                            RandomDataGeneratorConstants.RegexBasedAttribute + "/" + RandomDataGeneratorConstants.PrimitiveBasedAttribute +
-//                            "/" + RandomDataGeneratorConstants.CustomDataBasedAttribute);
+                    throw new EventSimulationException("Attribute Simulation type is required : " + RandomDataGeneratorConstants.PROPERTY_BASED_ATTRIBUTE + "/" +
+                            RandomDataGeneratorConstants.REGEX_BASED_ATTRIBUTE + "/" + RandomDataGeneratorConstants.PRIMITIVE_BASED_ATTRIBUTE +
+                            "/" + RandomDataGeneratorConstants.CUSTOM_DATA_BASED_ATTRIBUTE);
+//                    log.error("Attribute Simulation type is required : " + RandomDataGeneratorConstants.PROPERTY_BASED_ATTRIBUTE + "/" +
+//                            RandomDataGeneratorConstants.REGEX_BASED_ATTRIBUTE + "/" + RandomDataGeneratorConstants.PRIMITIVE_BASED_ATTRIBUTE +
+//                            "/" + RandomDataGeneratorConstants.CUSTOM_DATA_BASED_ATTRIBUTE);
 
                 }
             }

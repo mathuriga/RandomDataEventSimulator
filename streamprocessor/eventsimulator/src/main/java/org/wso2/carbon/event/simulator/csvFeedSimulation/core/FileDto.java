@@ -9,11 +9,10 @@ import java.io.InputStream;
  */
 public class FileDto {
     private FileInfo fileInfo;
-    private InputStream fileInputStream;
 
-    public FileDto(FileInfo fileInfo, InputStream fileInputStream) {
+
+    public FileDto(FileInfo fileInfo) {
         this.fileInfo = fileInfo;
-        this.fileInputStream = fileInputStream;
     }
 
     public FileInfo getFileInfo() {
@@ -24,11 +23,5 @@ public class FileDto {
         this.fileInfo = fileInfo;
     }
 
-    public InputStream getFileInputStream() {
-        return fileInputStream;
-    }
 
-    public void setFileInputStream(InputStream fileInputStream) {
-        this.fileInputStream = fileInputStream;
-    }
 }

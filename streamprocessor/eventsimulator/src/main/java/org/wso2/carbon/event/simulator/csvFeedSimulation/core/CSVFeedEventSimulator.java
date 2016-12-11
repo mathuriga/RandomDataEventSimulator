@@ -18,42 +18,17 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.HashMap;
 
 /**
  * Created by mathuriga on 30/11/16.
  */
 public class CSVFeedEventSimulator implements EventSimulator {
     private static final Log log = LogFactory.getLog(CSVFeedEventSimulator.class);
-   // private static CSVFeedEventSimulator csvFeedEventSimulator;
-    private static HashMap<String,FileDto> csvFileInfoMap=new HashMap<String,FileDto>();
 
     public CSVFeedEventSimulator() {
     }
-
-    public HashMap<String, FileDto> getCsvFileInfoMap() {
-        return csvFileInfoMap;
-    }
-
-    public void setCsvFileInfoMap(HashMap<String, FileDto> csvFileInfoMap) {
-        this.csvFileInfoMap = csvFileInfoMap;
-    }
-
-
-
-//    public static CSVFeedEventSimulator getCSVFeedEventSimulator() {
-//        if (csvFeedEventSimulator == null) {
-//            synchronized (CSVFeedEventSimulator.class) {
-//                if (csvFeedEventSimulator == null) {
-//                    csvFeedEventSimulator = new CSVFeedEventSimulator();
-//                }
-//            }
-//        }
-//        return csvFeedEventSimulator;
-//    }
 
     @Override
     public void send(String streamName,Event event) {
@@ -66,9 +41,10 @@ public class CSVFeedEventSimulator implements EventSimulator {
 
     public boolean send(CSVFileConfig csvFileConfig) {
         ExecutionPlanDeployer.getExecutionPlanDeployer().getExecutionPlanRuntime().start();
-        EventCreatorFile eventCreatorFile = new EventCreatorFile(ExecutionPlanDeployer.getExecutionPlanDeployer().getExecutionPlanDto(), csvFileConfig);
-        Thread eventCreatorFileThread = new Thread(eventCreatorFile);
-        eventCreatorFileThread.start();
+//        EventCreatorFile eventCreatorFile = new EventCreatorFile(ExecutionPlanDeployer.getExecutionPlanDeployer().getExecutionPlanDto(), csvFileConfig);
+//        Thread eventCreatorFileThread = new Thread(eventCreatorFile);
+//        eventCreatorFileThread.start();
+        sendEvent(ExecutionPlanDeployer.getExecutionPlanDeployer().getExecutionPlanDto(), csvFileConfig);
         return true;
     }
 
@@ -88,52 +64,29 @@ public class CSVFeedEventSimulator implements EventSimulator {
 
     }
 
-    public void addCSVFileInfo(FileDto fileDto){
-        csvFileInfoMap.put(fileDto.getFileInfo().getFileName(),fileDto);
-    }
-
     @Override
     public RandomDataSimulationConfig configureSimulation(String eventSimulationConfig) {
         return null;
     }
 
-
-    class EventCreatorFile implements Runnable {
-        ExecutionPlanDto executionPlanDto;
-        CSVFileConfig csvFileConfig;
+    public synchronized void sendEvent(ExecutionPlanDto executionPlanDto, CSVFileConfig csvFileConfig) {
         double percentage = 0;
-
-
-        private final Object lock = new Object();
-
-        private volatile boolean isPaused = false;
-        private volatile boolean isStopped = false;
-
-        public EventCreatorFile(ExecutionPlanDto executionPlanDetails, CSVFileConfig csvFileConfig) {
-            this.executionPlanDto = executionPlanDetails;
-            this.csvFileConfig = csvFileConfig;
-        }
-
-        @Override
-        public void run() {
-            long noOfEvents = 0;
-            int delay = csvFileConfig.getDelay();
-            Reader in=null;
-            CSVParser csvParser = null;
+        final Object lock = new Object();
+        boolean isPaused = false;
+        boolean isStopped = false;
+        long noOfEvents = 0;
+        int delay = csvFileConfig.getDelay();
+        Reader in=null;
+        CSVParser csvParser = null;
             if (delay <= 0) {
                 log.warn("Events will be sent continuously since the delay between events are set to "
                         + delay + "milliseconds");
                 delay = 0;
             }
-            // TODO: 02/12/16 validate csv file
+
             try {
-//                if (Files.exists(Paths.get(System.getProperty("java.io.tmpdir"), csvFileConfig.getFileDto().getFileInfo().getFileName()))) {
-//                    log.warn("File is already exists: " + csvFileConfig.getFileDto().getFileInfo().getFileName());
-//                    Files.deleteIfExists(Paths.get(System.getProperty("java.io.tmpdir"), csvFileConfig.getFileDto().getFileInfo().getFileName()));
-//                }
-   //             Files.copy(csvFileConfig.getFileDto().getFileInputStream(), Paths.get(System.getProperty("java.io.tmpdir"), csvFileConfig.getFileDto().getFileInfo().getFileName()));
                 in = new FileReader(String.valueOf(Paths.get(System.getProperty("java.io.tmpdir"), csvFileConfig.getFileDto().getFileInfo().getFileName())));
-                //Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(in);
+
                 csvParser=CSVParser.parse(in,CSVFormat.DEFAULT);
 
                 // TODO: 02/12/16 handle if csv dATA IS NULL
@@ -203,6 +156,6 @@ public class CSVFeedEventSimulator implements EventSimulator {
                 }
             }
         }
-    }
+//    }
 }
 

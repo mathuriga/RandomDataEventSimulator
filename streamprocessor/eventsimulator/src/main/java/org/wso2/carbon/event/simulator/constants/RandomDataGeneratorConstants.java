@@ -5,10 +5,10 @@ package org.wso2.carbon.event.simulator.constants;
  */
 public class RandomDataGeneratorConstants {
 
-    public static final String PrimitiveBasedAttribute="PRIMITIVEBASED";
-    public static final String PropertyBasedAttribute="PROPERTYBASED";
-    public static final String RegexBasedAttribute="REGEXBASED";
-    public static final String CustomDataBasedAttribute="CUSTOMDATA";
+    public static final String PRIMITIVE_BASED_ATTRIBUTE ="PRIMITIVEBASED";
+    public static final String PROPERTY_BASED_ATTRIBUTE ="PROPERTYBASED";
+    public static final String REGEX_BASED_ATTRIBUTE ="REGEXBASED";
+    public static final String CUSTOM_DATA_BASED_ATTRIBUTE ="CUSTOMDATA";
 
 //constants for typebased data generator
     public static final String Module_alphaNumeric = "AlphaNumeric";

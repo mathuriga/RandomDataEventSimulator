@@ -1,51 +1,66 @@
+/*
+ * Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * WSO2 Inc. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 package org.wso2.carbon.event.simulator.constants;
 
-import scala.util.parsing.combinator.testing.Str;
-
 /**
- * Created by mathuriga on 20/11/16.
+ * constants related to Event Simulator
  */
 public class EventSimulatorConstants {
-    public static final String Attributetype_String="String";
-    public static final String Attributetype_Integer="Integer";
-    public static final String Attributetype_Long="Long";
-    public static final String Attributetype_Float="Float";
-    public static final String Attributetype_Double="Double";
-    public static final String Attributetype_Boolean="Boolean";
+    public static final String ATTRIBUTETYPE_STRING = "String";
+    public static final String ATTRIBUTETYPE_INTEGER = "Integer";
+    public static final String ATTRIBUTETYPE_DOUBLE = "Double";
+    public static final String ATTRIBUTETYPE_LONG = "Long";
+    public static final String ATTRIBUTETYPE_FLOAT = "Float";
+    public static final String ATTRIBUTETYPE_BOOLEAN = "Boolean";
 
-    public static final String STREAM_CONFIGURATION="streamConfiguration";
+    public static final String STREAM_CONFIGURATION = "streamConfiguration";
     //Feed Simulation type constants
-    public static final String RANDOM_DATA_SIMULATION="RandomDataSimulation";
-    public static final String FILE_FEED_SIMULATION="FileFeedSimulation";
-    public static final String DATABASE_FEED_SIMULATION="DatabaseSimulation";
-    public static final String SINGLE_EVENT_SIMULATION="SingleEventSimulation";
+    public static final String RANDOM_DATA_SIMULATION = "RandomDataSimulation";
+    public static final String FILE_FEED_SIMULATION = "FileFeedSimulation";
+    public static final String DATABASE_FEED_SIMULATION = "DatabaseSimulation";
+    public static final String SINGLE_EVENT_SIMULATION = "SingleEventSimulation";
 
-    public static final String ORDER_BY_TIMESTAMP="orderByTimeStamp";
+    public static final String ORDER_BY_TIMESTAMP = "orderByTimeStamp";
 
     //Feed Simulation stream Configuration constants
 
-          //RandomDataSimulation constants
-    public static final String SIMULATION_TYPE="simulationType";
-    public static final String STREAM_NAME="streamName";
-    public static final String EVENTS="events";
-    public static final String DELAY="delay";
-    public static final String ATTRIBUTE_CONFIGURATION="attributeConfiguration";
+    //RandomDataSimulation constants
+    public static final String SIMULATION_TYPE = "simulationType";
+    public static final String STREAM_NAME = "streamName";
+    public static final String EVENTS = "events";
+    public static final String DELAY = "delay";
+    public static final String ATTRIBUTE_CONFIGURATION = "attributeConfiguration";
 
-        //filefeedsimulation constants
-    public static final String FILE_NAME="fileName";
-    public static final String DELIMITER="delimiter";
+    //filefeedsimulation constants
+    public static final String FILE_NAME = "fileName";
+    public static final String DELIMITER = "delimiter";
 
     //Random data feed simulation constants
-    public static final String PRIMITIVEBASEDATTRIBUTE="PRIMITIVEBASED";
-    public static final String PROPERTYBASEDATTRIBUTE="PROPERTYBASED";
-    public static final String REGEXBASEDATTRIBUTE="REGEXBASED";
-    public static final String CUSTOMDATABASEDATTRIBUTE="CUSTOMDATA";
-    public static final String RANDOMDATAGENERATORTYPE ="type";
-    public static final String PROPERTYBASEDATTRIBUTE_CATEGORY="category";
-    public static final String PROPERTYBASEDATTRIBUTE_PROPERTY="property";
-    public static final String REGEXBASEDATTRIBUTE_PATTERN="pattern";
-    public static final String PRIMITIVEBASEDATTRIBUTE_MIN="min";
-    public static final String PRIMITIVEBASEDATTRIBUTE_MAX="max";
-    public static final String PRIMITIVEBASEDATTRIBUTE_LENGTH_DECIMAL="length";
-    public static final String CUSTOMDATABASEDATTRIBUTE_LIST="list";
+    public static final String PRIMITIVEBASEDATTRIBUTE = "PRIMITIVEBASED";
+    public static final String PROPERTYBASEDATTRIBUTE = "PROPERTYBASED";
+    public static final String REGEXBASEDATTRIBUTE = "REGEXBASED";
+    public static final String CUSTOMDATABASEDATTRIBUTE = "CUSTOMDATA";
+    public static final String RANDOMDATAGENERATORTYPE = "type";
+    public static final String PROPERTYBASEDATTRIBUTE_CATEGORY = "category";
+    public static final String PROPERTYBASEDATTRIBUTE_PROPERTY = "property";
+    public static final String REGEXBASEDATTRIBUTE_PATTERN = "pattern";
+    public static final String PRIMITIVEBASEDATTRIBUTE_MIN = "min";
+    public static final String PRIMITIVEBASEDATTRIBUTE_MAX = "max";
+    public static final String PRIMITIVEBASEDATTRIBUTE_LENGTH_DECIMAL = "length";
+    public static final String CUSTOMDATABASEDATTRIBUTE_LIST = "list";
 }

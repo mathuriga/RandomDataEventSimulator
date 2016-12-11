@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * WSO2 Inc. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 package org.wso2.carbon.event.simulator.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,14 +25,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.wso2.carbon.event.executionplandelpoyer.ExecutionPlanDeployer;
-import org.wso2.carbon.event.querydeployer.core.QueryDeployer;
-import org.wso2.carbon.event.simulator.EventSimulator;
+import org.wso2.carbon.event.executionplandelpoyer.ExecutionPlanDto;
+import org.wso2.carbon.event.executionplandelpoyer.StreamDefinitionDto;
 import org.wso2.carbon.event.simulator.bean.FeedSimulationConfig;
+import org.wso2.carbon.event.simulator.bean.FileStore;
 import org.wso2.carbon.event.simulator.bean.StreamConfiguration;
 import org.wso2.carbon.event.simulator.constants.EventSimulatorConstants;
 import org.wso2.carbon.event.simulator.constants.RandomDataGeneratorConstants;
 import org.wso2.carbon.event.simulator.csvFeedSimulation.CSVFileConfig;
-import org.wso2.carbon.event.simulator.csvFeedSimulation.core.CSVFeedEventSimulator;
 import org.wso2.carbon.event.simulator.csvFeedSimulation.core.FileDto;
 import org.wso2.carbon.event.simulator.exception.EventSimulationException;
 import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.CustomBasedAttribute;
@@ -29,89 +46,109 @@ import org.wso2.carbon.event.simulator.singleventsimulator.SingleEventSimulation
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by mathuriga on 30/11/16.
+ * EventSimulatorParser is an util class used to
+ * convert Json string into relevant event simulation configuration object
  */
 public class EventSimulatorParser {
     private static final Log log = LogFactory.getLog(EventSimulatorParser.class);
-    private EventSimulatorParser(){
 
+    /*
+    Initialize EventSimulatorParser
+     */
+    private EventSimulatorParser(){
     }
 
-    public static RandomDataSimulationConfig randomDataSimulatorParser(String eventSimulationConfig) {
-//        if (ExecutionPlanDeployer.getExecutionPlanDeployer() == null) {
-//            throw new EventSimulationException("Execution Plan is not deployed");
-//        }
-
+    /**
+     *
+     * Convert the RandomEventSimulationConfig string into RandomDataSimulationConfig Object
+     * RandomRandomDataSimulationConfig can have one or more attribute simulation configuration.
+     * these can be one of below types
+     *    1.PRIMITIVEBASED : String/Integer/Float/Double/Boolean
+     *    2.PROPERTYBASED  : this type indicates the type which generates meaning full data.
+     *                       eg: If full name it generate meaning full name
+     *    3.REGEXBASED     : this type indicates the type which generates data using given regex
+     *    4.CUSTOMDATA     : this type indicates the type which generates data in given data list
+     *
+     * Initialize RandomDataSimulationConfig
+     *
+     * @param RandomEventSimulationConfig RandomEventSimulationConfiguration String
+     * @return RandomDataSimulationConfig Object
+     */
+    private static RandomDataSimulationConfig randomDataSimulatorParser(String RandomEventSimulationConfig) {
         RandomDataSimulationConfig randomDataSimulationConfig = new RandomDataSimulationConfig();
         try {
-            JSONObject jsonObject = new JSONObject(eventSimulationConfig);
-            //set properties to RandomDataSimulationConfig
+            JSONObject jsonObject = new JSONObject(RandomEventSimulationConfig);
+            ExecutionPlanDto executionPlanDto=ExecutionPlanDeployer.getExecutionPlanDeployer().getExecutionPlanDto();
+            StreamDefinitionDto streamDefinitionDto=executionPlanDto.getInputStreamDtoMap().get(randomDataSimulationConfig.getStreamName());
 
+            //set properties to RandomDataSimulationConfig
             randomDataSimulationConfig.setStreamName((String) jsonObject.get(EventSimulatorConstants.STREAM_NAME));
             randomDataSimulationConfig.setEvents(jsonObject.getInt(EventSimulatorConstants.EVENTS));
             randomDataSimulationConfig.setDelay(jsonObject.getInt(EventSimulatorConstants.DELAY));
             List<StreamAttributeDto> attributeSimulation = new ArrayList<>();
             JSONArray jsonArray = jsonObject.getJSONArray(EventSimulatorConstants.ATTRIBUTE_CONFIGURATION);
-//            if (jsonArray.length() != ExecutionPlanDeployer.getExecutionPlanDeployer().getExecutionPlanDto().getInputStreamDtoMap().get(randomDataSimulationConfig.getStreamName()).getStreamAttributeDtos().size()) {
-//                //// TODO: 27/11/16 proper error message
-//                throw new EventSimulationException("Attribute Simulation configuration is missed");
-//            }
+            if (jsonArray.length() != streamDefinitionDto.getStreamAttributeDtos().size()) {
+                // TODO: 27/11/16 proper error message
+                throw new EventSimulationException("Configuration for attribute is missing in "+ streamDefinitionDto.getStreamName() +
+                        " : " + " No of attribute in stream " + streamDefinitionDto.getStreamAttributeDtos().size());
+            }
+
+            //convert each attribute simulation configuration as relevant objects
+
             Gson gson = new Gson();
             for (int i = 0; i < jsonArray.length(); i++) {
                 if (!jsonArray.getJSONObject(i).isNull(EventSimulatorConstants.RANDOMDATAGENERATORTYPE)) {
-                    if (jsonArray.getJSONObject(i).getString(EventSimulatorConstants.RANDOMDATAGENERATORTYPE).compareTo(RandomDataGeneratorConstants.PropertyBasedAttribute) == 0) {
+                    if (jsonArray.getJSONObject(i).getString(EventSimulatorConstants.RANDOMDATAGENERATORTYPE).compareTo(RandomDataGeneratorConstants.PROPERTY_BASED_ATTRIBUTE) == 0) {
                         if (!jsonArray.getJSONObject(i).isNull(EventSimulatorConstants.PROPERTYBASEDATTRIBUTE_CATEGORY) && !jsonArray.getJSONObject(i).isNull(EventSimulatorConstants.PROPERTYBASEDATTRIBUTE_PROPERTY)) {
                             PropertyBasedAttributeDto propertyBasedAttributeDto = gson.fromJson(String.valueOf(jsonArray.getJSONObject(i)), PropertyBasedAttributeDto.class);
                             attributeSimulation.add(propertyBasedAttributeDto);
                         } else {
-                            throw new EventSimulationException("Category and property should not be null value for " + RandomDataGeneratorConstants.PropertyBasedAttribute);
-                            //log.error("Category and property should not be null value for " + RandomDataGeneratorConstants.PropertyBasedAttribute);
+                            throw new EventSimulationException("Category and property should not be null value for " + RandomDataGeneratorConstants.PROPERTY_BASED_ATTRIBUTE);
+                            //log.error("Category and property should not be null value for " + RandomDataGeneratorConstants.PROPERTY_BASED_ATTRIBUTE);
                         }
 
-                    } else if (jsonArray.getJSONObject(i).getString(EventSimulatorConstants.RANDOMDATAGENERATORTYPE).compareTo(RandomDataGeneratorConstants.RegexBasedAttribute) == 0) {
+                    } else if (jsonArray.getJSONObject(i).getString(EventSimulatorConstants.RANDOMDATAGENERATORTYPE).compareTo(RandomDataGeneratorConstants.REGEX_BASED_ATTRIBUTE) == 0) {
                         if (!jsonArray.getJSONObject(i).isNull(EventSimulatorConstants.REGEXBASEDATTRIBUTE_PATTERN)) {
                             RegexBasedAttributeDto regexBasedAttributeDto = gson.fromJson(String.valueOf(jsonArray.getJSONObject(i)), RegexBasedAttributeDto.class);
                             RandomDataGenerator.validateRegularExpression(regexBasedAttributeDto.getPattern());
                             attributeSimulation.add(regexBasedAttributeDto);
                         } else {
-                            throw new EventSimulationException("Pattern should not be null value for " + RandomDataGeneratorConstants.RegexBasedAttribute);
-                            //log.error("Pattern should not be null value for " + RandomDataGeneratorConstants.RegexBasedAttribute);
+                            throw new EventSimulationException("Pattern should not be null value for " + RandomDataGeneratorConstants.REGEX_BASED_ATTRIBUTE);
+                            //log.error("Pattern should not be null value for " + RandomDataGeneratorConstants.REGEX_BASED_ATTRIBUTE);
                         }
 
-                    } else if (jsonArray.getJSONObject(i).getString(EventSimulatorConstants.RANDOMDATAGENERATORTYPE).compareTo(RandomDataGeneratorConstants.PrimitiveBasedAttribute) == 0) {
+                    } else if (jsonArray.getJSONObject(i).getString(EventSimulatorConstants.RANDOMDATAGENERATORTYPE).compareTo(RandomDataGeneratorConstants.PRIMITIVE_BASED_ATTRIBUTE) == 0) {
                         if (!jsonArray.getJSONObject(i).isNull(EventSimulatorConstants.PRIMITIVEBASEDATTRIBUTE_MIN) && !jsonArray.getJSONObject(i).isNull(EventSimulatorConstants.PRIMITIVEBASEDATTRIBUTE_MAX) && !jsonArray.getJSONObject(i).isNull(EventSimulatorConstants.PRIMITIVEBASEDATTRIBUTE_LENGTH_DECIMAL)) {
                             PrimitiveBasedAttribute primitiveBasedAttribute = gson.fromJson(String.valueOf(jsonArray.getJSONObject(i)), PrimitiveBasedAttribute.class);
                             attributeSimulation.add(primitiveBasedAttribute);
                         } else {
-                            throw new EventSimulationException("min,max and length value should not be null value for " + RandomDataGeneratorConstants.PrimitiveBasedAttribute);
-                            // log.error("min,max and length value should not be null value for " + RandomDataGeneratorConstants.PrimitiveBasedAttribute);
+                            throw new EventSimulationException("min,max and length value should not be null value for " + RandomDataGeneratorConstants.PRIMITIVE_BASED_ATTRIBUTE);
+                            // log.error("min,max and length value should not be null value for " + RandomDataGeneratorConstants.PRIMITIVE_BASED_ATTRIBUTE);
                         }
-                    } else if (jsonArray.getJSONObject(i).getString(EventSimulatorConstants.RANDOMDATAGENERATORTYPE).compareTo(RandomDataGeneratorConstants.CustomDataBasedAttribute) == 0) {
+                    } else if (jsonArray.getJSONObject(i).getString(EventSimulatorConstants.RANDOMDATAGENERATORTYPE).compareTo(RandomDataGeneratorConstants.CUSTOM_DATA_BASED_ATTRIBUTE) == 0) {
                         if (!jsonArray.getJSONObject(i).isNull(EventSimulatorConstants.CUSTOMDATABASEDATTRIBUTE_LIST)) {
                             CustomBasedAttribute customBasedAttribute = new CustomBasedAttribute();
                             customBasedAttribute.setType(jsonArray.getJSONObject(i).getString(EventSimulatorConstants.RANDOMDATAGENERATORTYPE));
                             customBasedAttribute.setCustomData(jsonArray.getJSONObject(i).getString(EventSimulatorConstants.CUSTOMDATABASEDATTRIBUTE_LIST));
                             attributeSimulation.add(customBasedAttribute);
                         } else {
-                            new EventSimulationException("CustomDataList shold not be null for " + RandomDataGeneratorConstants.CustomDataBasedAttribute);
-                            // log.error("CustomDataList should not be null for " + RandomDataGeneratorConstants.CustomDataBasedAttribute);
+                            throw new EventSimulationException("CustomDataList shold not be null for " + RandomDataGeneratorConstants.CUSTOM_DATA_BASED_ATTRIBUTE);
+                            // log.error("CustomDataList should not be null for " + RandomDataGeneratorConstants.CUSTOM_DATA_BASED_ATTRIBUTE);
                         }
                     }
                 } else {
-                    throw new EventSimulationException("Attribute Simulation type is required : " + RandomDataGeneratorConstants.PropertyBasedAttribute + "/" +
-                            RandomDataGeneratorConstants.RegexBasedAttribute + "/" + RandomDataGeneratorConstants.PrimitiveBasedAttribute +
-                            "/" + RandomDataGeneratorConstants.CustomDataBasedAttribute);
-//                    log.error("Attribute Simulation type is required : " + RandomDataGeneratorConstants.PropertyBasedAttribute + "/" +
-//                            RandomDataGeneratorConstants.RegexBasedAttribute + "/" + RandomDataGeneratorConstants.PrimitiveBasedAttribute +
-//                            "/" + RandomDataGeneratorConstants.CustomDataBasedAttribute);
+                    throw new EventSimulationException("Attribute Simulation type is required : " + RandomDataGeneratorConstants.PROPERTY_BASED_ATTRIBUTE + "/" +
+                            RandomDataGeneratorConstants.REGEX_BASED_ATTRIBUTE + "/" + RandomDataGeneratorConstants.PRIMITIVE_BASED_ATTRIBUTE +
+                            "/" + RandomDataGeneratorConstants.CUSTOM_DATA_BASED_ATTRIBUTE);
+//                    log.error("Attribute Simulation type is required : " + RandomDataGeneratorConstants.PROPERTY_BASED_ATTRIBUTE + "/" +
+//                            RandomDataGeneratorConstants.REGEX_BASED_ATTRIBUTE + "/" + RandomDataGeneratorConstants.PRIMITIVE_BASED_ATTRIBUTE +
+//                            "/" + RandomDataGeneratorConstants.CUSTOM_DATA_BASED_ATTRIBUTE);
 
                 }
             }
-
             randomDataSimulationConfig.setAttributeSimulation(attributeSimulation);
         } catch (JSONException e) {
             log.error(e.getMessage());
@@ -120,41 +157,54 @@ public class EventSimulatorParser {
     }
 
 
-    public static SingleEventSimulationConfig singleEventSimuatorParser(String singleEventSimulationConfig) throws IOException {
-        if(ExecutionPlanDeployer.getExecutionPlanDeployer()==null){
+    /**
+     * Convert the singleEventSimulationConfigurationString string into SingleEventSimulationConfig Object
+     * Initialize SingleEventSimulationConfig
+     * @param singleEventSimulationConfigurationString singleEventSimulationConfigurationString String
+     * @return SingleEventSimulationConfig Object
+     * @throws IOException throw exception if any exception occurred during mapping
+     */
+    public static SingleEventSimulationConfig singleEventSimulatorParser(String singleEventSimulationConfigurationString) throws IOException {
+        //check whether the execution plan is deployed
+        if (ExecutionPlanDeployer.getExecutionPlanDeployer() == null) {
             throw new EventSimulationException("Execution Plan is not deployed");
         }
+        SingleEventSimulationConfig singleEventSimulationConfig;
         ObjectMapper mapper = new ObjectMapper();
-        SingleEventSimulationConfig singleEventSimulationConfigInstance = mapper.readValue(singleEventSimulationConfig, SingleEventSimulationConfig.class);
-        if(singleEventSimulationConfigInstance.getAttributeValues().size()!=QueryDeployer.executionPlanDetails.getStreamDefinitionInfoDto().getStreamAttributeDtos().size()){
-            throw new EventSimulationException("No of Attribute value in not equal to attribute size in Input Stream : No of Attributes in stream is "+ QueryDeployer.executionPlanDetails.getStreamDefinitionInfoDto().getStreamAttributeDtos().size());
-        }
-        return singleEventSimulationConfigInstance;
+            //Convert the singleEventSimulationConfigurationString string into SingleEventSimulationConfig Object
+            singleEventSimulationConfig = mapper.readValue(singleEventSimulationConfigurationString, SingleEventSimulationConfig.class);
+
+            ExecutionPlanDto executionPlanDto = ExecutionPlanDeployer.getExecutionPlanDeployer().getExecutionPlanDto();
+            StreamDefinitionDto streamDefinitionDto = executionPlanDto.getInputStreamDtoMap().get(singleEventSimulationConfig.getStreamName());
+            if (singleEventSimulationConfig.getAttributeValues().size() != streamDefinitionDto.getStreamAttributeDtos().size()) {
+                log.error("No of Attribute values is not equal to attribute size in " +
+                        singleEventSimulationConfig.getStreamName() + " : Required attribute size " + streamDefinitionDto.getStreamAttributeDtos().size());
+                throw new EventSimulationException("No of Attribute value in not equal to attribute size in Input Stream : No of Attributes in " +
+                        singleEventSimulationConfig.getStreamName() + " is " + streamDefinitionDto.getStreamAttributeDtos().size());
+            }
+        return singleEventSimulationConfig;
     }
 
-//    public static CSVFileConfig fileEventSimulatorParser(FileInfo fileInfo, InputStream fileInputStream,String fileName,String inputStream, int delay,char delimiter){
-//        if(QueryDeployer.executionPlanDetails==null){
-//            throw new EventSimulationException("Execution Plan is not deployed");
-//        }
-//        FileDto fileDto=new FileDto(fileInfo,fileInputStream);
-//        CSVFileConfig csvFileconfig=new CSVFileConfig(fileName,inputStream,fileDto,delimiter,delay);
-//        return csvFileconfig;
-//    }
-
+    /**
+     * Convert the csvFileDetails string into CSVFileConfig Object
+     *
+     * Initialize CSVFileConfig
+     * Initialize FileStore
+     *
+     * @param csvFileDetails csvFileDetails String
+     * @return CSVFileConfig Object
+     */
     public static CSVFileConfig fileEventSimulatorParser(String csvFileDetails) {
-//        if (ExecutionPlanDeployer.getExecutionPlanDeployer() == null) {
-//            throw new EventSimulationException("Execution Plan is not deployed");
-//        }
-        CSVFileConfig csvFileConfig = null;
+        CSVFileConfig csvFileConfig = new CSVFileConfig();
+        FileStore fileStore=FileStore.getFileStore();
         try {
-            CSVFeedEventSimulator csvFeedEventSimulator = new CSVFeedEventSimulator();
-            csvFileConfig = new CSVFileConfig();
             JSONObject jsonObject = new JSONObject(csvFileDetails);
             csvFileConfig.setStreamName((String) jsonObject.get(EventSimulatorConstants.STREAM_NAME));
             csvFileConfig.setFileName((String) jsonObject.get(EventSimulatorConstants.FILE_NAME));
-            FileDto fileDto=null;
-            if(csvFeedEventSimulator.getCsvFileInfoMap().containsKey(csvFileConfig.getFileName())){
-                 fileDto= csvFeedEventSimulator.getCsvFileInfoMap().get(csvFileConfig.getFileName());
+            //get the fileDto from FileStore if file exist and set this value.
+            FileDto fileDto;
+            if(fileStore.checkExists(csvFileConfig.getFileName())){
+                 fileDto= fileStore.getFileInfoMap().get(csvFileConfig.getFileName());
             }else {
                 log.error("File is not Exist");
                 throw new EventSimulationException("File is not Exist");
@@ -169,30 +219,45 @@ public class EventSimulatorParser {
     }
 
 
+    /**
+     * Convert the feedSimulationDetails string into FeedSimulationConfig Object
+     * Three types of feed simulation are applicable for an input stream
+     * These types are
+     *       1. CSV file feed simulation : Simulate using CSV File
+     *       2. Database Simulation : Simulate using Database source
+     *       3. Random data simulation : Simulate using Generated random Data
+     *
+     * Initialize FeedSimulationConfig
+     * @param feedSimulationDetails feedSimulationDetails
+     * @return FeedSimulationConfig Object
+     */
     public static FeedSimulationConfig feedSimulationConfigParser(String feedSimulationDetails){
-//        if (ExecutionPlanDeployer.getExecutionPlanDeployer() == null) {
-//            throw new EventSimulationException("Execution Plan is not deployed");
-//        }
-        System.out.println();
-        FeedSimulationConfig feedSimulationConfig=null;
+        //check whether the execution plan is deployed
+        if (ExecutionPlanDeployer.getExecutionPlanDeployer() == null) {
+            throw new EventSimulationException("Execution Plan is not deployed");
+        }
+
+        FeedSimulationConfig feedSimulationConfig=new FeedSimulationConfig();
         try{
-            feedSimulationConfig=new FeedSimulationConfig();
             JSONObject jsonObject = new JSONObject(feedSimulationDetails);
             if(jsonObject.getBoolean(EventSimulatorConstants.ORDER_BY_TIMESTAMP)) {
                 feedSimulationConfig.setOrderBytimeStamp(jsonObject.getBoolean(EventSimulatorConstants.ORDER_BY_TIMESTAMP));
             }
-            //HashMap<String,StreamConfiguration> streamConfigurationListMap=new HashMap<>();
             List<StreamConfiguration> streamConfigurationList=new ArrayList<>();
+
+            //check the simulation type for a given stream and convert the string to relevant configuration object
+            //            1. CSV file feed simulation : Simulate using CSV File
+            //            2. Database Simulation : Simulate using Database source
+            //            3. Random data simulation : Simulate using Generated random Data
+
             JSONArray jsonArray = jsonObject.getJSONArray(EventSimulatorConstants.STREAM_CONFIGURATION);
-            Gson gson = new Gson();
             for(int i=0;i<jsonArray.length();i++){
                 if (!jsonArray.getJSONObject(i).isNull(EventSimulatorConstants.SIMULATION_TYPE)){
                     String feedSimulationType=jsonArray.getJSONObject(i).getString(EventSimulatorConstants.SIMULATION_TYPE);
                     switch (feedSimulationType){
                         case EventSimulatorConstants.RANDOM_DATA_SIMULATION:
-                            RandomDataSimulationConfig randomDataSimulationConfig=EventSimulatorParser.randomDataSimulatorParser(String.valueOf(jsonArray.getJSONObject(i)));
+                            RandomDataSimulationConfig randomDataSimulationConfig=randomDataSimulatorParser(String.valueOf(jsonArray.getJSONObject(i)));
                             randomDataSimulationConfig.setSimulationType(EventSimulatorConstants.RANDOM_DATA_SIMULATION);
-                            //streamConfigurationListMap.put(randomDataSimulationConfig.getStreamName(),randomDataSimulationConfig);
                             streamConfigurationList.add(randomDataSimulationConfig);
                             break;
                         case EventSimulatorConstants.FILE_FEED_SIMULATION:
@@ -211,12 +276,6 @@ public class EventSimulatorParser {
                 }
             }
            feedSimulationConfig.setStreamConfigurationList(streamConfigurationList);
-//            System.out.println(feedSimulationConfig.isOrderBytimeStamp());
-//            System.out.println(feedSimulationConfig.getStreamConfigurationMapInfo().get("inputStream1").getSimulationType());
-//            System.out.println(((RandomDataSimulationConfig) feedSimulationConfig.getStreamConfigurationMapInfo().get("inputStream1")).getDelay());
-//            System.out.println((((PropertyBasedAttributeDto) (((RandomDataSimulationConfig) feedSimulationConfig.getStreamConfigurationMapInfo().get("inputStream1")).getAttributeSimulation()).get(0)).getCategory()));
-//            System.out.println(feedSimulationConfig.getStreamConfigurationMapInfo().get("inputStream2").getSimulationType());
-//            System.out.println(((CSVFileConfig) feedSimulationConfig.getStreamConfigurationMapInfo().get("inputStream2")).getDelimiter());
         }catch (JSONException e){
             log.error(e.getMessage());
         }

@@ -2,23 +2,23 @@ function singleEventSimulation(){
 $(document).ready(function(){
 
 
- var input1=["mathu","34","56"];
+ var attributeValue=["WSO2","34","56"];
 
- var input={
-            "streamName":"inputStream1",
-            "attributeValues":input1
+ var singleEventSimulationConfig={
+            "streamName":"cseEventStream",
+            "attributeValues":attributeValue
             };
 
- alert(JSON.stringify(input));
+ alert(JSON.stringify(singleEventSimulationConfig));
 
 
-if (typeof input != 'undefined' ) {
-                   if(typeof input !='null') {
+if (typeof singleEventSimulationConfig != 'undefined' ) {
+                   if(typeof singleEventSimulationConfig !='null') {
 
                          $.ajax({
-                                 url: "http://localhost:8080/RandomEvent/singleEvent",
+                                 url: "http://localhost:8080/EventSimulation/singleEventSimulation",
                                  type: "POST",
-                                 data: JSON.stringify(input),
+                                 data: JSON.stringify(singleEventSimulationConfig),
 
                                  success: function(response) {
                                      console.log(response);

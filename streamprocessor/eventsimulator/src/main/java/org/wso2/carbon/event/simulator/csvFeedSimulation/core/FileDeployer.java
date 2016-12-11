@@ -3,7 +3,10 @@ package org.wso2.carbon.event.simulator.csvFeedSimulation.core;
 import org.apache.axis2.deployment.DeploymentException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.wso2.carbon.event.simulator.bean.FileStore;
 import org.wso2.msf4j.formparam.FileInfo;
+
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -15,25 +18,30 @@ import java.util.regex.Pattern;
  */
 public class FileDeployer {
     private static final Log log = LogFactory.getLog(FileDeployer.class);
+    private FileStore fileStore;
     private static FileDeployer fileDeployer;
+
     public static FileDeployer getFileDeployer() {
         if (fileDeployer == null) {
             synchronized (FileDeployer.class) {
                 if (fileDeployer == null) {
-                    fileDeployer = new FileDeployer();
+                    fileDeployer = new FileDeployer(FileStore.getFileStore());
                 }
             }
         }
         return fileDeployer;
     }
 
+    public FileDeployer(FileStore fileStore) {
+        this.fileStore = fileStore;
+    }
+
     public void deployFile(FileInfo fileInfo, InputStream inputStream) throws DeploymentException {
         try {
-            System.out.println(fileInfo.getFileName());
-           processDeploy(fileInfo,inputStream);
+            processDeploy(fileInfo,inputStream);
         } catch (Throwable t) {
             log.error("Could not deploy CSV file : " + fileInfo.getFileName(), t);
-            throw new DeploymentException("CSV file not deployed and in inactive state :  " + fileInfo.getFileName(), t);
+            throw new DeploymentException("CSV file not deployed :  " + fileInfo.getFileName(), t);
         }
     }
 
@@ -47,32 +55,29 @@ public class FileDeployer {
 
     }
 
-    public void processUndeploy(String fileName){
-        CSVFeedEventSimulator csvFeedEventSimulator=new CSVFeedEventSimulator();
-        csvFeedEventSimulator.getCsvFileInfoMap().remove(fileName);
-        log.info("CSV file " + fileName + " Undeployed successfully.");
+    public void processUndeploy(String fileName) throws IOException {
+        if(fileStore.checkExists(fileName)){
+            fileStore.removeFile(fileName);
+        }
+        log.info("CSV file Un deployed successfully :" + fileName);
     }
 
     public void processDeploy(FileInfo fileInfo,InputStream inputStream) throws Exception {
-        if(validateFile(fileInfo)){
-            CSVFeedEventSimulator csvFeedEventSimulator=new CSVFeedEventSimulator();
-            if (Files.exists(Paths.get(System.getProperty("java.io.tmpdir"), fileInfo.getFileName()))) {
-                Files.deleteIfExists(Paths.get(System.getProperty("java.io.tmpdir"), fileInfo.getFileName()));
-                if(csvFeedEventSimulator.getCsvFileInfoMap().containsKey(fileInfo.getFileName())){
-                    log.warn("File is already exists: " + fileInfo.getFileName());
-                    csvFeedEventSimulator.getCsvFileInfoMap().remove(fileInfo.getFileName());
-                }
+        String fileName=fileInfo.getFileName();
+        if(validateFile(fileName)){
+            if (fileStore.checkExists(fileName)) {
+                fileStore.removeFile(fileInfo.getFileName());
+                log.warn("File is already exists: " + fileInfo.getFileName());
             }
-            FileDto fileDto=new FileDto(fileInfo,inputStream);
+            FileDto fileDto=new FileDto(fileInfo);
             Files.copy(inputStream, Paths.get(System.getProperty("java.io.tmpdir"), fileInfo.getFileName()));
+            fileStore.addFile(fileDto);
             inputStream.close();
-            csvFeedEventSimulator.getCsvFileInfoMap().put(fileInfo.getFileName(),fileDto);
         }
-        log.info("CSV file " + fileInfo.getFileName() + " deployed successfully.");
+        log.info("CSV file deployed successfully :" + fileInfo.getFileName());
     }
 
-    public boolean validateFile(FileInfo fileInfo) throws Exception {
-        String fileName=fileInfo.getFileName();
+    public boolean validateFile(String fileName) throws Exception {
         //Check filename for \ charactors. This cannot be handled at the lower stages.
         if (fileName.matches("(.*[\\\\].*[/].*|.*[/].*[\\\\].*)")) {
 
