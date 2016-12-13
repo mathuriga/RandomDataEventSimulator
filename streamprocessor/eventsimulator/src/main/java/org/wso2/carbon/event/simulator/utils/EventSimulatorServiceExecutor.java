@@ -64,6 +64,7 @@ public class EventSimulatorServiceExecutor {
 
     /**
      * Initialize the SingleEventSimulator
+     * call send function to start the single event simulation
      *
      * @param singleEventSimulationConfig SingleEventSimulationConfiguration
      */
@@ -80,9 +81,6 @@ public class EventSimulatorServiceExecutor {
     }
 
     public static void simulateFeedSimulation(FeedSimulationConfig feedSimulationConfig) throws InterruptedException {
-        // if (!running) {
-        final Object lock = new Object();
-
         synchronized (EventSimulatorServiceExecutor.class) {
             if (!running) {
 
@@ -124,9 +122,6 @@ public class EventSimulatorServiceExecutor {
 
     }
 
-    public void pause() {
-
-    }
 
 }
 

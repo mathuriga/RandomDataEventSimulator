@@ -241,7 +241,7 @@ public class EventSimulatorParser {
         try{
             JSONObject jsonObject = new JSONObject(feedSimulationDetails);
             if(jsonObject.getBoolean(EventSimulatorConstants.ORDER_BY_TIMESTAMP)) {
-                feedSimulationConfig.setOrderBytimeStamp(jsonObject.getBoolean(EventSimulatorConstants.ORDER_BY_TIMESTAMP));
+                feedSimulationConfig.setOrderByTimeStamp(jsonObject.getBoolean(EventSimulatorConstants.ORDER_BY_TIMESTAMP));
             }
             List<StreamConfiguration> streamConfigurationList=new ArrayList<>();
 

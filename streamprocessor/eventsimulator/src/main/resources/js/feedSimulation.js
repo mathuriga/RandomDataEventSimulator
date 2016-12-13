@@ -48,37 +48,37 @@ $(document).ready(function(){
                                             "delay"		 : "1000"
                                             }
 
-//             			 					{
-//             								"simulationType" : "RandomDataSimulation",
-//            	 							"streamName": "inputStream3",
-//            								"events": "5",
-//            								"delay": "200",
-//            								"attributeConfiguration": [
-//            								    {
-//
-//            								        "type": "PROPERTYBASED",
-//            								        "category": "Contact",
-//            								        "property": "Full Name",
-//            								    },
-//            								    {
-//
-//            								        "type": "REGEXBASED",
-//            								        "pattern": "[+]?[0-9]*\\.?[0-9]+"
-//            								    },
-//            								    {
-//
-//            								        "type": "PRIMITIVEBASED",
-//            								        "min": "2",
-//            								        "max": "200",
-//            								        "length": "2",
-//            								    },
-//            								    {
-//
-//            								        "type": "custom",
-//            								        "list": "2,3,4"
-//            								    },
-//            								]
-//            	    						}
+             			 					{
+             								"simulationType" : "RandomDataSimulation",
+            	 							"streamName": "inputStream3",
+            								"events": "5",
+            								"delay": "200",
+            								"attributeConfiguration": [
+            								    {
+
+            								        "type": "PROPERTYBASED",
+            								        "category": "Contact",
+            								        "property": "Full Name",
+            								    },
+            								    {
+
+            								        "type": "REGEXBASED",
+            								        "pattern": "[+]?[0-9]*\\.?[0-9]+"
+            								    },
+            								    {
+
+            								        "type": "PRIMITIVEBASED",
+            								        "min": "2",
+            								        "max": "200",
+            								        "length": "2",
+            								    },
+            								    {
+
+            								        "type": "custom",
+            								        "list": "2,3,4"
+            								    },
+            								]
+            	    						}
             	       ]
              		};
 
