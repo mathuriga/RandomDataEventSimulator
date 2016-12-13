@@ -36,118 +36,36 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="EventSimulatorRestService.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="EventSimulatorRestService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/endpoint/EventSimulatorRestService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1999">
-              <caret line="48" column="23" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="23" />
+            <state relative-caret-position="374">
+              <caret line="215" column="31" selection-start-line="215" selection-start-column="31" selection-end-line="215" selection-end-column="31" />
               <folding>
-                <element signature="e#0#7063#0" expanded="true" />
+                <element signature="e#0#9255#0" expanded="true" />
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FileDeployer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="feedSimulation.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/resources/js/feedSimulation.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="239">
+              <caret line="83" column="0" selection-start-line="4" selection-start-column="1" selection-end-line="83" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FileDeployer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/core/FileDeployer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-611">
-              <caret line="133" column="40" selection-start-line="133" selection-start-column="40" selection-end-line="133" selection-end-column="40" />
+            <state relative-caret-position="90">
+              <caret line="137" column="71" selection-start-line="137" selection-start-column="25" selection-end-line="137" selection-end-column="71" />
               <folding>
                 <element signature="e#0#7853#0" expanded="true" />
-                <element signature="imports" expanded="true" />
-                <element signature="e#2437#2438#0" expanded="true" />
-                <element signature="e#2479#2480#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="uploadFile.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/resources/uploadFile.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="51" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InputStream.java" pinned="false" current-in-tab="false">
-        <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/io/InputStream.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="44" column="22" selection-start-line="44" selection-start-column="22" selection-end-line="44" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FileInfo.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/wso2/msf4j/msf4j-core/2.1.0/msf4j-core-2.1.0.jar!/org/wso2/msf4j/formparam/FileInfo.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FileStore.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/bean/FileStore.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="97" column="16" selection-start-line="97" selection-start-column="16" selection-end-line="97" selection-end-column="16" />
-              <folding>
-                <element signature="e#0#3700#0" expanded="true" />
-                <element signature="imports" expanded="true" />
-                <element signature="e#2317#2318#0" expanded="true" />
-                <element signature="e#2351#2352#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FileDto.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/core/FileDto.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RandomDataGeneratorConstants.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/constants/RandomDataGeneratorConstants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-612">
-              <caret line="14" column="58" selection-start-line="14" selection-start-column="58" selection-end-line="14" selection-end-column="58" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EventSimulatorConstants.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/constants/EventSimulatorConstants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-              <folding>
-                <element signature="e#0#3161#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SingleEventSimulationConfig.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/singleventsimulator/SingleEventSimulationConfig.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="518">
-              <caret line="30" column="57" selection-start-line="30" selection-start-column="57" selection-end-line="30" selection-end-column="57" />
-              <folding>
-                <element signature="e#0#1520#0" expanded="true" />
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
@@ -225,9 +143,9 @@
         <option value="$PROJECT_DIR$/eventsimulator/src/main/resources/js/SingleEventSimulation.js" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/singleventsimulator/SingleEventSimulationConfig.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/bean/FileStore.java" />
-        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/endpoint/EventSimulatorRestService.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/resources/uploadFile.html" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/core/FileDeployer.java" />
+        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/endpoint/EventSimulatorRestService.java" />
       </list>
     </option>
   </component>
@@ -1188,9 +1106,9 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.47816473" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20215054" sideWeight="0.10116086" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28494623" sideWeight="0.10116086" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.026533997" sideWeight="0.47058824" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20215054" sideWeight="0.8988391" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28494623" sideWeight="0.8988391" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.4936429" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26989248" sideWeight="0.49585405" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1277,13 +1195,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/resources/js/feedSimulation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="31" column="49" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
         </state>
       </provider>
     </entry>
@@ -1621,26 +1532,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/endpoint/EventSimulatorRestService.java">
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/core/FileDeployer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1999">
-          <caret line="48" column="23" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="23" />
+        <state relative-caret-position="90">
+          <caret line="137" column="71" selection-start-line="137" selection-start-column="25" selection-end-line="137" selection-end-column="71" />
           <folding>
-            <element signature="e#0#7063#0" expanded="true" />
+            <element signature="e#0#7853#0" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/core/FileDeployer.java">
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/resources/js/feedSimulation.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-611">
-          <caret line="133" column="40" selection-start-line="133" selection-start-column="40" selection-end-line="133" selection-end-column="40" />
+        <state relative-caret-position="239">
+          <caret line="83" column="0" selection-start-line="4" selection-start-column="1" selection-end-line="83" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/endpoint/EventSimulatorRestService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="215" column="31" selection-start-line="215" selection-start-column="31" selection-end-line="215" selection-end-column="31" />
           <folding>
-            <element signature="e#0#7853#0" expanded="true" />
+            <element signature="e#0#9255#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#2437#2438#0" expanded="true" />
-            <element signature="e#2479#2480#0" expanded="true" />
           </folding>
         </state>
       </provider>

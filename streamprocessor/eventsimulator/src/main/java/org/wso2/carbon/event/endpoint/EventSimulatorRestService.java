@@ -19,13 +19,11 @@
 package org.wso2.carbon.event.endpoint;
 
 
-import com.google.gson.Gson;
+
 import org.apache.axis2.deployment.DeploymentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wso2.carbon.event.simulator.bean.FeedSimulationConfig;
-import org.wso2.carbon.event.simulator.csvFeedSimulation.CSVFileConfig;
-import org.wso2.carbon.event.simulator.csvFeedSimulation.core.CSVFeedEventSimulator;
 import org.wso2.carbon.event.simulator.csvFeedSimulation.core.FileDeployer;
 import org.wso2.carbon.event.simulator.singleventsimulator.SingleEventSimulationConfig;
 import org.wso2.carbon.event.simulator.utils.EventSimulatorParser;
@@ -95,6 +93,8 @@ public class EventSimulatorRestService {
      * @param fileInfo          FileInfo bean to hold the filename and the content type attributes of the particular InputStream
      * @param fileInputStream   InputStream of the file
      * @return Response of completion of process
+     *
+     * http://127.0.0.1:9090/EventSimulation/fileDeploy
      */
     @POST
     @Path("/fileDeploy")
@@ -102,6 +102,9 @@ public class EventSimulatorRestService {
     public Response upLoadFileService(@FormDataParam("file") FileInfo fileInfo,
                                       @FormDataParam("file") InputStream fileInputStream) throws Exception {
 
+        /*
+        Get singleton instance of FileDeployer
+         */
         FileDeployer fileDeployer=FileDeployer.getFileDeployer();
         try {
             fileDeployer.deployFile(fileInfo,fileInputStream);
@@ -113,12 +116,26 @@ public class EventSimulatorRestService {
         return Response.ok().entity("File uploaded").build();
     }
 
+    /**
+     * Delete the file
+     * <p>
+     *This function use FormDataParam annotation. WSO@2 MSF4J supports this annotation and multipart/form-data content type.
+     *<p>
+     *
+     * @param fileName File Name
+     * @return Response of completion of process
+     * @throws Exception throw exception if anything exception occurred
+     *
+     * http://127.0.0.1:9090/EventSimulation/fileUndeploy
+     */
     @POST
     @Path("/fileUndeploy")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response upLoadFileService(@FormDataParam("fileName") String fileName) throws Exception {
+    public Response deleteFileService(@FormDataParam("fileName") String fileName) throws Exception {
 
-        String message = null;
+        /*
+         * Get singleton instance of FileDeployer
+         */
         FileDeployer fileDeployer=FileDeployer.getFileDeployer();
         try {
             fileDeployer.undeployFile(fileName);
@@ -128,59 +145,78 @@ public class EventSimulatorRestService {
             throw new Exception(e.getMessage());
             //e.printStackTrace();
         }
-
-        String jsonString = new Gson().toJson(message);
-        return Response.ok(jsonString, MediaType.APPLICATION_JSON)
-                .header("Access-Control-Allow-Origin", "*").build();
+        return Response.ok().entity("File Un deployed").build();
     }
+
 
     /**
+     * This method produces service for feed simulation
+     * <p>
+     *     For a execution plan It may have one or more input streams.
+     *     this method provides the capability to simulate each input streams in different cases.
+     *     such as simulate using CSV File, simulate using Random Data and simulate using
+     *     database resource.
+     * </p>
      *
-     * @param fileConfig
-     * @return
-     * @throws IOException
+     * FeedSimulation Configuration Json String Sample
+     *       feedSimulationConfiguration= {
+                                         "orderByTimeStamp" : "false",
+                                         "streamConfiguration" :[
+                  		                        {
+                 	 			                "simulationType" : "RandomDataSimulation",
+                 								"streamName": "cseEventStream",
+                 								"events": "5",
+                 								"delay": "1000",
+                 								"attributeConfiguration":[
+                 								    {
+                 										"type": "PROPERTYBASED",
+                 								        "category": "Contact",
+                 								        "property": "Full Name",
+                 								    },
+                								        {
+                                                         "type": "CUSTOMDATA",
+                 								        "list": "WSO2"
+                 								    },
+                 								    {
+                                                         "type": "REGEXBASED",
+                 								        "pattern": "[+]?[0-9]*\\.?[0-9]+"
+                 								    },
+                 								    {
+                 								        "type": "PRIMITIVEBASED",
+                 								        "min": "2",
+                 								        "max": "200",
+                 								        "length": "2",
+                 								    }
+
+                 								  ]
+                 	    						},
+
+                                                 {
+                                                 "simulationType" : "FileFeedSimulation",
+                                                 "streamName" : "cseEventStream2",
+                                                 "fileName"   : "cseteststream2.csv",
+                                                 "delimiter"  : ",",
+                                                 "delay"		 : "1000"
+                                                 }
+                                                ]
+                                         };
+
+     * @param feedSimulationConfigDetails jsonString to be converted to FeedSimulationConfig object from the request Json body.
+     * @return Response of completion of process
+     * @throws DeploymentException Deployment Exception
+     * @throws InterruptedException Interrupted Exception
+     *
+     * http://127.0.0.1:9090/EventSimulation/feedSimulation
      */
-    @POST
-    @Path("/fileFeedSimulation")
-    public Response fileFeedSimulation(String fileConfig) throws IOException {
-        String message = null;
-        System.out.println("lol");
-        CSVFeedEventSimulator csvFeedEventSimulator=new CSVFeedEventSimulator();
-        CSVFileConfig csvFileConfig= EventSimulatorParser.fileEventSimulatorParser(fileConfig);
-
-        if(csvFeedEventSimulator.send(csvFileConfig)){
-            message= "Event is send successfully";
-        }
-
-        String jsonString = new Gson().toJson(message);
-        return Response.ok(jsonString, MediaType.APPLICATION_JSON)
-                .header("Access-Control-Allow-Origin", "*").build();
-
-    }
-
-
-
-
     @POST
     @Path("/feedSimulation")
     public Response feedSimulation(String feedSimulationConfigDetails) throws DeploymentException, InterruptedException {
-
-        String message = null;
-
+        //parse json string to FeedSimulationConfig object
         FeedSimulationConfig feedSimulationConfig=EventSimulatorParser.feedSimulationConfigParser(feedSimulationConfigDetails);
+        //start feed simulation
         EventSimulatorServiceExecutor.simulateFeedSimulation(feedSimulationConfig);
-        String jsonString = new Gson().toJson(message);
-        return Response.ok(jsonString, MediaType.APPLICATION_JSON)
-                .header("Access-Control-Allow-Origin", "*").build();
+        return Response.ok().entity("Success").build();
     }
-
-    @POST
-    @Path("/feedSimulation")
-    public void stopEvent(){
-
-    }
-
-
 
 
 }
