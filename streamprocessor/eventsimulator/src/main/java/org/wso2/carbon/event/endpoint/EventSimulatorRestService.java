@@ -52,7 +52,7 @@ public class EventSimulatorRestService {
     /**
      * Event simulator service executor for event simulator REST service.
      */
-    EventSimulatorServiceExecutor eventSimulatorServiceExecutor=new  EventSimulatorServiceExecutor();
+    private EventSimulatorServiceExecutor eventSimulatorServiceExecutor=new  EventSimulatorServiceExecutor();
 
     /**
      * Initializes the service classes for resources.
@@ -80,6 +80,66 @@ public class EventSimulatorRestService {
         log.info("Event is send successfully");
     }
 
+    /**
+     * Deploy CSV file
+     *<p>
+     *This function use FormDataParam annotation. WSO@2 MSF4J supports this annotation and multipart/form-data content type.
+     *<p>
+     *</p>
+     * The FormDataParam annotation supports complex types and collections (such as List, Set and SortedSet),
+     * with the multipart/form-data content type and supports files along with form field submissions.
+     * It supports directly to get the file objects in a file upload by using the @FormDataParam  annotation.
+     * This annotation can be used with all FormParam supported data types plus file and bean types as well as InputStreams.
+     * </p>
+     *
+     * @param fileInfo          FileInfo bean to hold the filename and the content type attributes of the particular InputStream
+     * @param fileInputStream   InputStream of the file
+     * @return Response of completion of process
+     */
+    @POST
+    @Path("/fileDeploy")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response upLoadFileService(@FormDataParam("file") FileInfo fileInfo,
+                                      @FormDataParam("file") InputStream fileInputStream) throws Exception {
+
+        FileDeployer fileDeployer=FileDeployer.getFileDeployer();
+        try {
+            fileDeployer.deployFile(fileInfo,fileInputStream);
+        } catch (DeploymentException e) {
+            throw new DeploymentException(e);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        return Response.ok().entity("File uploaded").build();
+    }
+
+    @POST
+    @Path("/fileUndeploy")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response upLoadFileService(@FormDataParam("fileName") String fileName) throws Exception {
+
+        String message = null;
+        FileDeployer fileDeployer=FileDeployer.getFileDeployer();
+        try {
+            fileDeployer.undeployFile(fileName);
+        } catch (DeploymentException e) {
+            throw new DeploymentException(e);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+            //e.printStackTrace();
+        }
+
+        String jsonString = new Gson().toJson(message);
+        return Response.ok(jsonString, MediaType.APPLICATION_JSON)
+                .header("Access-Control-Allow-Origin", "*").build();
+    }
+
+    /**
+     *
+     * @param fileConfig
+     * @return
+     * @throws IOException
+     */
     @POST
     @Path("/fileFeedSimulation")
     public Response fileFeedSimulation(String fileConfig) throws IOException {
@@ -99,43 +159,7 @@ public class EventSimulatorRestService {
     }
 
 
-    @POST
-    @Path("/fileDeploy")
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response upLoadFileService(@FormDataParam("file") FileInfo fileInfo,
-                                       @FormDataParam("file") InputStream fileInputStream) throws DeploymentException {
 
-        String message = null;
-
-        FileDeployer fileDeployer=FileDeployer.getFileDeployer();
-        try {
-            fileDeployer.deployFile(fileInfo,fileInputStream);
-        } catch (DeploymentException e) {
-            throw new DeploymentException(e);
-        }
-
-        String jsonString = new Gson().toJson(message);
-        return Response.ok(jsonString, MediaType.APPLICATION_JSON)
-                .header("Access-Control-Allow-Origin", "*").build();
-    }
-
-    @POST
-    @Path("/fileUndeploy")
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response upLoadFileService(@FormDataParam("fileName") String fileName) throws DeploymentException {
-
-        String message = null;
-        FileDeployer fileDeployer=FileDeployer.getFileDeployer();
-        try {
-            fileDeployer.undeployFile(fileName);
-        } catch (DeploymentException e) {
-            throw new DeploymentException(e);
-        }
-
-        String jsonString = new Gson().toJson(message);
-        return Response.ok(jsonString, MediaType.APPLICATION_JSON)
-                .header("Access-Control-Allow-Origin", "*").build();
-    }
 
     @POST
     @Path("/feedSimulation")
