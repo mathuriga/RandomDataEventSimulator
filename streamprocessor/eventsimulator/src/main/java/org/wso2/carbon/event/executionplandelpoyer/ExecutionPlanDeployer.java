@@ -87,6 +87,7 @@ public class ExecutionPlanDeployer {
             this.executionPlanDto = executionPlanDto;
             this.executionPlanRuntime = siddhiManager.createExecutionPlanRuntime(executionPlan);
             this.inputHandlerMap = createInputHandlerMap(executionPlanDto, executionPlanRuntime);
+            ExecutionPlanDeployer.getExecutionPlanDeployer().getExecutionPlanRuntime().start();
             addStreamCallback(executionPlanDto);
             System.out.println("Execution Plan is deployed Successfully");
         }catch (Exception e){

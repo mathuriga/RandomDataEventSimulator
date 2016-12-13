@@ -17,7 +17,10 @@
  */
 package org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean;
 
+import jdk.nashorn.internal.runtime.regexp.RegExp;
+
 import java.util.Arrays;
+import java.util.Set;
 
 
 /**
@@ -70,10 +73,12 @@ public class CustomBasedAttribute extends StreamAttributeDto {
      *                   Initial string format is ""CEP,Siddhi",ESB,DAS"
      */
     public void setCustomData(String customData) {
-        String clonedData = customData.replace("'", "\"");
-        String trimmedData = clonedData.substring(1, clonedData.length() - 1);
-        String[] dataList = trimmedData.split("((\",\")(?=(?:[^\"]*\"[^\"]*\")*[^ ]*$))");
-        System.out.println(Arrays.toString(dataList));
+//        String clonedData = customData.replace("'", "\"");
+//        String trimmedData = clonedData.substring(0, clonedData.length());
+        //String[] dataList = customData.split("((\",\")(?=(?:[^\"]*\"[^\"]*\")*[^ ]*$))");
+        String[] dataList = customData.split("\",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)\"");
+
+        System.out.println(dataList[0]);
         this.setCustomDataList(dataList);
     }
 }

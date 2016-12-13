@@ -19,6 +19,7 @@
 package org.wso2.carbon.event.endpoint;
 
 
+import com.google.gson.Gson;
 import org.apache.axis2.deployment.DeploymentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,12 +51,13 @@ public class EventSimulatorRestService {
     /**
      * Event simulator service executor for event simulator REST service.
      */
-    private EventSimulatorServiceExecutor eventSimulatorServiceExecutor = new EventSimulatorServiceExecutor();
+    private EventSimulatorServiceExecutor eventSimulatorServiceExecutor;
 
     /**
      * Initializes the service classes for resources.
      */
     public EventSimulatorRestService() {
+        eventSimulatorServiceExecutor = new EventSimulatorServiceExecutor();
     }
 
     /**
@@ -208,12 +210,25 @@ public class EventSimulatorRestService {
      */
     @POST
     @Path("/feedSimulation")
-    public Response feedSimulation(String feedSimulationConfigDetails) throws DeploymentException, InterruptedException {
+    public Response feedSimulation(String feedSimulationConfigDetails) throws InterruptedException {
         //parse json string to FeedSimulationConfig object
         FeedSimulationConfig feedSimulationConfig = EventSimulatorParser.feedSimulationConfigParser(feedSimulationConfigDetails);
         //start feed simulation
-        EventSimulatorServiceExecutor.simulateFeedSimulation(feedSimulationConfig);
-        return Response.ok().entity("Success").build();
+        this.eventSimulatorServiceExecutor.simulateFeedSimulation(feedSimulationConfig);
+        String jsonString = new Gson().toJson("success");
+        return javax.ws.rs.core.Response.ok(jsonString, MediaType.APPLICATION_JSON)
+                .header("Access-Control-Allow-Origin", "*").build();
+    }
+
+    @POST
+    @Path("/stop")
+    public Response stop() throws DeploymentException, InterruptedException {
+
+        //start feed simulation
+        this.eventSimulatorServiceExecutor.stop();
+        String jsonString = new Gson().toJson("success");
+        return javax.ws.rs.core.Response.ok(jsonString, MediaType.APPLICATION_JSON)
+                .header("Access-Control-Allow-Origin", "*").build();
     }
 
 

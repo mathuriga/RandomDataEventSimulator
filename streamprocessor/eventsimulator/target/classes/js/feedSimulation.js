@@ -5,49 +5,76 @@ $(document).ready(function(){
  var feedSimulationConfiguration= {
              	        "orderByTimeStamp" : "false",
                         "streamConfiguration" :[
-//             		                        {
-//            	 			                "simulationType" : "RandomDataSimulation",
-//            								"streamName": "cseEventStream",
-//            								"events": "5",
-//            								"delay": "1000",
-//            								"attributeConfiguration":[
-////            								    {
-////            										"type": "PROPERTYBASED",
-////            								        "category": "Contact",
-////            								        "property": "Full Name",
-////            								    },
-//           								        {
-//                                                    "type": "CUSTOMDATA",
-//            								        "list": "WSO2"
-//            								    },
+             		                        {
+            	 			                "simulationType" : "RandomDataSimulation",
+            								"streamName": "cseEventStream",
+            								"events": "10",
+            								"delay": "1000",
+            								"attributeConfiguration":[
 //            								    {
-//                                                    "type": "REGEXBASED",
-//            								        "pattern": "[+]?[0-9]*\\.?[0-9]+"
+//            										"type": "PROPERTYBASED",
+//            								        "category": "Contact",
+//            								        "property": "Full Name",
 //            								    },
-//            								    {
-//            								        "type": "PRIMITIVEBASED",
-//            								        "min": "2",
-//            								        "max": "200",
-//            								        "length": "2",
-//            								    }
-//
-//            								  ]
-//            	    						},
-            	    						{
-             								"simulationType" : "FileFeedSimulation",
-             			 					"streamName" : "cseEventStream",
-             							    "fileName"   : "cseteststream.csv",
-             							    "delimiter"  : ",",
-             							    "delay"		 : "1000"
-             							 	},
-             							 	{
-                                            "simulationType" : "FileFeedSimulation",
-                                            "streamName" : "cseEventStream2",
-                                            "fileName"   : "cseteststream2.csv",
-                                            "delimiter"  : ",",
-                                            "delay"		 : "1000"
-                                            }
+           								        {
+                                                    "type": "CUSTOMDATA",
+            								        "list": "WSO2,IBM"
+            								    },
+            								    {
+                                                    "type": "REGEXBASED",
+            								        "pattern": "[+]?[0-9]*\\.?[0-9]+"
+            								    },
+            								    {
+            								        "type": "PRIMITIVEBASED",
+            								        "min": "2",
+            								        "max": "200",
+            								        "length": "2",
+            								    }
 
+            								  ]
+            	    						},
+                                            {
+                                            "simulationType" : "RandomDataSimulation",
+                                            "streamName": "cseEventStream2",
+                                            "events": "10",
+                                            "delay": "1000",
+                                            "attributeConfiguration":[
+//            								    {
+//            										"type": "PROPERTYBASED",
+//            								        "category": "Contact",
+//            								        "property": "Full Name",
+//            								    },
+                                                {
+                                                    "type": "CUSTOMDATA",
+                                                    "list": "NNNSSS,MMM"
+                                                },
+                                                {
+                                                    "type": "REGEXBASED",
+                                                    "pattern": "[+]?[0-9]*\\.?[0-9]+"
+                                                },
+                                                {
+                                                    "type": "PRIMITIVEBASED",
+                                                    "min": "2",
+                                                    "max": "200",
+                                                    "length": "2",
+                                                }
+
+                                              ]
+                                            }
+            	    //						{
+//             								"simulationType" : "FileFeedSimulation",
+//             			 					"streamName" : "cseEventStream",
+//             							    "fileName"   : "cseteststream.csv",
+//             							    "delimiter"  : ",",
+//             							    "delay"		 : "1000"
+//             							 	},
+  //           							 	{
+//                                            "simulationType" : "FileFeedSimulation",
+//                                            "streamName" : "cseEventStream2",
+//                                            "fileName"   : "cseteststream2.csv",
+//                                            "delimiter"  : ",",
+//                                            "delay"		 : "1000"
+//                                            }
 //             			 					{
 //             								"simulationType" : "RandomDataSimulation",
 //            	 							"streamName": "inputStream3",
@@ -89,7 +116,7 @@ if (typeof feedSimulationConfiguration != 'undefined' ) {
                    if(typeof feedSimulationConfiguration !='null') {
 
                          $.ajax({
-                                 url: "http://localhost:8080/RandomEvent/feedSimulation",
+                                 url: "http://localhost:8080/EventSimulation/feedSimulation",
                                  type: "POST",
                                  data: JSON.stringify(feedSimulationConfiguration),
 
@@ -106,4 +133,22 @@ if (typeof feedSimulationConfiguration != 'undefined' ) {
 });
 //});
 
+}
+
+function stopSimulation(){
+$(document).ready(function(){
+
+ $.ajax({
+         url: "http://localhost:8080/EventSimulation/stop",
+         type: "POST",
+         success: function(response) {
+             console.log(response);
+         },
+         error: function(e) {
+             console.log(e.statusText);
+         }
+ });
+
+
+});
 }

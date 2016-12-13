@@ -20,6 +20,7 @@ package org.wso2.carbon.event.simulator.utils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.wso2.carbon.event.executionplandelpoyer.ExecutionPlanDeployer;
 import org.wso2.carbon.event.simulator.bean.FeedSimulationConfig;
 import org.wso2.carbon.event.simulator.bean.StreamConfiguration;
 import org.wso2.carbon.event.simulator.constants.EventSimulatorConstants;
@@ -42,6 +43,8 @@ import java.util.concurrent.Executors;
 public class EventSimulatorServiceExecutor {
     private static final Log log = LogFactory.getLog(EventSimulatorServiceExecutor.class);
 
+    private boolean isStoped=false;
+
     /**
      * Executor Service for Thread Pool.
      * Thread pool is needed for Feed simulation
@@ -58,9 +61,7 @@ public class EventSimulatorServiceExecutor {
     /**
      * Initializes the Event Simulator Service Executor classes for simulation process.
      */
-    public EventSimulatorServiceExecutor() {
-
-    }
+    public EventSimulatorServiceExecutor() {}
 
     /**
      * Initialize the SingleEventSimulator
@@ -80,48 +81,78 @@ public class EventSimulatorServiceExecutor {
         log.error("Event is send success Fully");
     }
 
-    public static void simulateFeedSimulation(FeedSimulationConfig feedSimulationConfig) throws InterruptedException {
+    /**
+     * Creates the thread pool for feed Simulation
+     *
+     * @param feedSimulationConfig FeedSimulationConfig
+     * @throws InterruptedException InterruptedException exception
+     */
+    public void simulateFeedSimulation(FeedSimulationConfig feedSimulationConfig) throws InterruptedException {
         synchronized (EventSimulatorServiceExecutor.class) {
             if (!running) {
-
                 running = true;
                 int noOfStream = feedSimulationConfig.getStreamConfigurationList().size();
-                executor = Executors.newFixedThreadPool(noOfStream);//creating a thread pool for feed simulation
+                //creating a thread pool for feed simulation
+                executor = Executors.newFixedThreadPool(noOfStream);
                 for (int i = 0; i < noOfStream; i++) {
                     SimulationStarter simulationStarter = new SimulationStarter(feedSimulationConfig.getStreamConfigurationList().get(i));
-                    // Thread simulatorThread=new Thread(simulationStarter);
-                    executor.execute(simulationStarter);//calling execute method of ExecutorService
+                    //calling execute method of ExecutorService
+                    executor.execute(simulationStarter);
                 }
-            } else if (running) {
-                executor.shutdownNow();
-                log.info("SimulationService is stopped");
-                // final boolean isFinished=executor.awaitTermination(1, TimeUnit.MILLISECONDS);
-                //log.debug("Simulation task is stop successfully " + isFinished);
             }
+// else if (running) {
+//                executor.shutdownNow();
+//                log.info("SimulationService is stopped");
+//                // final boolean isFinished=executor.awaitTermination(1, TimeUnit.MILLISECONDS);
+//                //log.debug("Simulation task is stop successfully " + isFinished);
+//            }
         }
     }
 
 
-    public static class SimulationStarter implements Runnable {
+    private class SimulationStarter implements Runnable {
         StreamConfiguration streamConfiguration;
 
-        public SimulationStarter(StreamConfiguration streamConfiguration) {
+        SimulationStarter(StreamConfiguration streamConfiguration) {
             this.streamConfiguration = streamConfiguration;
         }
 
+        /**
+         * When an object implementing interface <code>Runnable</code> is used
+         * to create a thread, starting the thread causes the object's
+         * <code>run</code> method to be called in that separately executing
+         * thread.
+         * <p>
+         * The general contract of the method <code>run</code> is that it may
+         * take any action whatsoever.
+         *
+         * @see Thread#run()
+         */
         @Override
         public void run() {
             if (streamConfiguration.getSimulationType().compareTo(EventSimulatorConstants.RANDOM_DATA_SIMULATION) == 0) {
                 RandomDataEventSimulator randomDataEventSimulator = new RandomDataEventSimulator();
+                if(!randomDataEventSimulator.isPaused())
                 randomDataEventSimulator.send((RandomDataSimulationConfig) streamConfiguration);
+                else if(isStoped){
+                    executor.shutdownNow();
+                    log.info("Stop");
+                    randomDataEventSimulator.stopEvents();
+                }
             } else if (streamConfiguration.getSimulationType().compareTo(EventSimulatorConstants.FILE_FEED_SIMULATION) == 0) {
                 CSVFeedEventSimulator csvFeedEventSimulator = new CSVFeedEventSimulator();
                 csvFeedEventSimulator.send((CSVFileConfig) streamConfiguration);
+                if(isStoped){
+                    csvFeedEventSimulator.stopEvents();
+                }
             }
         }
 
     }
 
+    public void stop(){
+        isStoped=true;
+    }
 
 }
 

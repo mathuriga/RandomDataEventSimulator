@@ -82,12 +82,13 @@ public class EventSimulatorParser {
         try {
             JSONObject jsonObject = new JSONObject(RandomEventSimulationConfig);
             ExecutionPlanDto executionPlanDto=ExecutionPlanDeployer.getExecutionPlanDeployer().getExecutionPlanDto();
-            StreamDefinitionDto streamDefinitionDto=executionPlanDto.getInputStreamDtoMap().get(randomDataSimulationConfig.getStreamName());
+
 
             //set properties to RandomDataSimulationConfig
             randomDataSimulationConfig.setStreamName((String) jsonObject.get(EventSimulatorConstants.STREAM_NAME));
             randomDataSimulationConfig.setEvents(jsonObject.getInt(EventSimulatorConstants.EVENTS));
             randomDataSimulationConfig.setDelay(jsonObject.getInt(EventSimulatorConstants.DELAY));
+            StreamDefinitionDto streamDefinitionDto=executionPlanDto.getInputStreamDtoMap().get(randomDataSimulationConfig.getStreamName());
             List<StreamAttributeDto> attributeSimulation = new ArrayList<>();
             JSONArray jsonArray = jsonObject.getJSONArray(EventSimulatorConstants.ATTRIBUTE_CONFIGURATION);
             if (jsonArray.length() != streamDefinitionDto.getStreamAttributeDtos().size()) {
