@@ -194,7 +194,7 @@ public class EventSimulatorParser {
      * @param csvFileDetails csvFileDetails String
      * @return CSVFileConfig Object
      */
-    public static CSVFileConfig fileEventSimulatorParser(String csvFileDetails) {
+    private static CSVFileConfig fileEventSimulatorParser(String csvFileDetails) {
         CSVFileConfig csvFileConfig = new CSVFileConfig();
         FileStore fileStore=FileStore.getFileStore();
         try {

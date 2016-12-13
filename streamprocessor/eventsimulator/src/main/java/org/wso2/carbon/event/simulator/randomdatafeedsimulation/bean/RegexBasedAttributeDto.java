@@ -28,7 +28,7 @@ package org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean;
  * "type": "REGEXBASED",
  * "pattern": "[+]?[0-9]*\\.?[0-9]+"
  * }
- * 
+ *
  */
 
 public class RegexBasedAttributeDto extends StreamAttributeDto {

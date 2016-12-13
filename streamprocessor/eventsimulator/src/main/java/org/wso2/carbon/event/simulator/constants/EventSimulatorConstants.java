@@ -29,11 +29,12 @@ public class EventSimulatorConstants {
     public static final String ATTRIBUTETYPE_BOOLEAN = "Boolean";
 
     public static final String STREAM_CONFIGURATION = "streamConfiguration";
+
     //Feed Simulation type constants
     public static final String RANDOM_DATA_SIMULATION = "RandomDataSimulation";
     public static final String FILE_FEED_SIMULATION = "FileFeedSimulation";
-    public static final String DATABASE_FEED_SIMULATION = "DatabaseSimulation";
-    public static final String SINGLE_EVENT_SIMULATION = "SingleEventSimulation";
+//    public static final String DATABASE_FEED_SIMULATION = "DatabaseSimulation";
+//    public static final String SINGLE_EVENT_SIMULATION = "SingleEventSimulation";
 
     public static final String ORDER_BY_TIMESTAMP = "orderByTimeStamp";
 
@@ -51,10 +52,6 @@ public class EventSimulatorConstants {
     public static final String DELIMITER = "delimiter";
 
     //Random data feed simulation constants
-    public static final String PRIMITIVEBASEDATTRIBUTE = "PRIMITIVEBASED";
-    public static final String PROPERTYBASEDATTRIBUTE = "PROPERTYBASED";
-    public static final String REGEXBASEDATTRIBUTE = "REGEXBASED";
-    public static final String CUSTOMDATABASEDATTRIBUTE = "CUSTOMDATA";
     public static final String RANDOMDATAGENERATORTYPE = "type";
     public static final String PROPERTYBASEDATTRIBUTE_CATEGORY = "category";
     public static final String PROPERTYBASEDATTRIBUTE_PROPERTY = "property";

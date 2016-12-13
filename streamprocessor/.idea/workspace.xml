@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="100a4c29-2453-4d0a-9c2e-1e5cbdfd4b72" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/constants/EventSimulatorConstants.java" afterPath="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/constants/EventSimulatorConstants.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/CSVFileConfig.java" afterPath="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/CSVFileConfig.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/streamprocessor/.idea/workspace.xml" afterPath="$PROJECT_DIR$/streamprocessor/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/streamprocessor/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/bean/RegexBasedAttributeDto.java" afterPath="$PROJECT_DIR$/streamprocessor/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/bean/RegexBasedAttributeDto.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/streamprocessor/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/utils/EventSimulatorParser.java" afterPath="$PROJECT_DIR$/streamprocessor/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/utils/EventSimulatorParser.java" />
     </list>
     <ignored path="streamprocessor.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,121 +39,7 @@
     <favorites_list name="streamprocessor" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="RandomDataGeneratorConstants.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/constants/RandomDataGeneratorConstants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EventSimulatorConstants.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/constants/EventSimulatorConstants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="523">
-              <caret line="56" column="69" selection-start-line="56" selection-start-column="59" selection-end-line="56" selection-end-column="69" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StreamAttributeDto.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/bean/StreamAttributeDto.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="16" selection-end-column="3" />
-              <folding>
-                <element signature="e#0#1750#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RegexBasedAttributeDto.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/bean/RegexBasedAttributeDto.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="30" column="3" selection-start-line="30" selection-start-column="3" selection-end-line="30" selection-end-column="3" />
-              <folding>
-                <element signature="e#0#1485#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PropertyBasedAttributeDto.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/bean/PropertyBasedAttributeDto.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="27" column="39" selection-start-line="23" selection-start-column="3" selection-end-line="27" selection-end-column="39" />
-              <folding>
-                <element signature="e#0#2246#0" expanded="true" />
-                <element signature="e#1911#1912#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PrimitiveBasedAttribute.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/bean/PrimitiveBasedAttribute.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="26" column="39" selection-start-line="24" selection-start-column="1" selection-end-line="26" selection-end-column="39" />
-              <folding>
-                <element signature="e#0#2455#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CustomBasedAttribute.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/bean/CustomBasedAttribute.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="34" column="39" selection-start-line="34" selection-start-column="3" selection-end-line="34" selection-end-column="39" />
-              <folding>
-                <element signature="e#0#2417#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FeedSimulationConfig.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/bean/FeedSimulationConfig.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
-              <folding>
-                <element signature="e#0#2362#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="feedSimulation.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/resources/js/feedSimulation.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="25" column="50" selection-start-line="22" selection-start-column="48" selection-end-line="25" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CSVFileConfig.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/CSVFileConfig.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -172,10 +62,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/executionplandelpoyer/StreamDefinitionDto.java" />
-        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/core/singleventsimulator/SingleEventSimulationConfig.java" />
-        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/core/EventSimulator.java" />
-        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/core/randomdatafeedsimulation/core/RandomDataEventSimulator.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/endpoint/ExecutionPlanEndpoint.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/core/singleventsimulator/SingleEventSimulator.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/core/utils/EventConverter.java" />
@@ -185,30 +71,22 @@
         <option value="$PROJECT_DIR$/eventsimulator/src/main/resources/fileSimulation.html" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/resources/js/fileFeedSimulation.js" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/resources/feedSimulation.js" />
-        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/CSVFileConfig.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/EventSimulatorService.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/executionplandelpoyer/ExecutionPlanDeployer.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/executionplandelpoyer/utils/ExecutionPlanParser.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/resources/feedSimulation.html" />
-        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/core/RandomDataEventSimulator.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/CSVFileStore.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/FileStore.java" />
-        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/core/FileDto.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/resources/executionPlan.html" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/resources/js/executionplan.js" />
-        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/Application.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/endpoint/EventSimulatorEndpoint.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/resources/singleeventsimulation.html" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/exception/EventSimulatorConfigurationValidationException.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/core/CSVFeedEventSimulator.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/utils/EventConverter.java" />
-        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/constants/EventSimulatorConstants.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/querydeployer/bean/Event.java" />
-        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/singleventsimulator/SingleEventSimulator.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/constants/RandomDataGeneratorConstants.java" />
-        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/utils/EventSimulatorParser.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/resources/js/SingleEventSimulation.js" />
-        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/singleventsimulator/SingleEventSimulationConfig.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/bean/FileStore.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/resources/uploadFile.html" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/core/FileDeployer.java" />
@@ -223,6 +101,18 @@
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/bean/PrimitiveBasedAttribute.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/bean/PropertyBasedAttributeDto.java" />
         <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/bean/RegexBasedAttributeDto.java" />
+        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/utils/EventSimulatorParser.java" />
+        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/EventSimulator.java" />
+        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/core/RandomDataEventSimulator.java" />
+        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/utils/AttributeGenerator.java" />
+        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/utils/RandomDataGenerator.java" />
+        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/Application.java" />
+        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/singleventsimulator/SingleEventSimulator.java" />
+        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/singleventsimulator/SingleEventSimulationConfig.java" />
+        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/exception/EventSimulationException.java" />
+        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/core/FileDto.java" />
+        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/CSVFileConfig.java" />
+        <option value="$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/constants/EventSimulatorConstants.java" />
       </list>
     </option>
   </component>
@@ -328,6 +218,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -397,40 +289,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="streamprocessor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="streamprocessor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eventsimulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -581,6 +439,10 @@
               <option name="myItemId" value="randomdatafeedsimulation" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -620,7 +482,83 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="bean" />
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="streamprocessor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="streamprocessor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="eventsimulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="event" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="randomdatafeedsimulation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="streamprocessor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="streamprocessor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="eventsimulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="event" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="exception" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -810,45 +748,9 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="streamprocessor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="streamprocessor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eventsimulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="event" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="endpoint" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1294,22 +1196,21 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.9143173" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.47816473" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.06666667" sideWeight="0.12050857" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.47058824" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22365591" sideWeight="0.12824765" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.022664456" sideWeight="0.47058824" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.10107527" sideWeight="0.8988391" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.4936429" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26989248" sideWeight="0.49585405" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22830293" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.06666667" sideWeight="0.87949145" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25815368" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22365591" sideWeight="0.8717523" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2498618" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1319,6 +1220,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.47816473" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.051409617" sideWeight="0.5294118" order="0" side_tool="true" content_ui="tabs" />
     </layout>
@@ -1348,12 +1250,6 @@
           <properties />
           <option name="timeStamp" value="6" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/singleventsimulator/SingleEventSimulator.java</url>
-          <line>70</line>
-          <properties />
-          <option name="timeStamp" value="56" />
-        </line-breakpoint>
       </breakpoints>
       <option name="time" value="57" />
     </breakpoint-manager>
@@ -1364,121 +1260,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/core/CSVFeedEventSimulator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1039">
-          <caret line="141" column="94" selection-start-line="141" selection-start-column="94" selection-end-line="141" selection-end-column="94" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/EventSimulator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="16" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/utils/EventSimulatorParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2898">
-          <caret line="161" column="45" selection-start-line="161" selection-start-column="45" selection-end-line="161" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#18515#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/executionplandelpoyer/StreamDefinitionDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/Application.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="13" column="39" selection-start-line="13" selection-start-column="39" selection-end-line="13" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/resources/js/SingleEventSimulation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/utils/EventConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#5375#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/executionplandelpoyer/ExecutionPlanDeployer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/querydeployer/bean/Event.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/wso2/siddhi/siddhi-core/3.1.3-SNAPSHOT/siddhi-core-3.1.3-20161205.192449-110.jar!/org/wso2/siddhi/core/stream/input/InputHandler.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/wso2/siddhi/siddhi-core/3.1.3-SNAPSHOT/siddhi-core-3.1.3-20161205.192449-110.jar!/org/wso2/siddhi/core/util/ThreadBarrier.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/wso2/siddhi/siddhi-core/3.1.3-SNAPSHOT/siddhi-core-3.1.3-20161205.192449-110.jar!/org/wso2/siddhi/core/stream/input/InputEntryValve.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/wso2/siddhi/siddhi-core/3.1.3-SNAPSHOT/siddhi-core-3.1.3-20161205.192449-110.jar!/org/wso2/siddhi/core/stream/input/InputDistributor.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/wso2/siddhi/siddhi-core/3.1.3-SNAPSHOT/siddhi-core-3.1.3-20161205.192449-110.jar!/org/wso2/siddhi/core/stream/StreamJunction.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="574">
-          <caret line="230" column="0" selection-start-line="230" selection-start-column="0" selection-end-line="230" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/wso2/siddhi/siddhi-core/3.1.3-SNAPSHOT/siddhi-core-3.1.3-20161205.192449-110.jar!/org/wso2/siddhi/core/event/stream/converter/StreamEventConverter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/wso2/siddhi/siddhi-core/3.1.3-SNAPSHOT/siddhi-core-3.1.3-20161205.192449-110.jar!/org/wso2/siddhi/core/event/stream/converter/SimpleStreamEventConverter.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="500">
@@ -1577,38 +1358,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/singleventsimulator/SingleEventSimulator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="16" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/singleventsimulator/SingleEventSimulationConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="518">
-          <caret line="30" column="57" selection-start-line="30" selection-start-column="57" selection-end-line="30" selection-end-column="57" />
-          <folding>
-            <element signature="e#0#1520#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/core/FileDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/io/InputStream.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
           <caret line="44" column="22" selection-start-line="44" selection-start-column="22" selection-end-line="44" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1616,20 +1369,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/bean/FileStore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="97" column="16" selection-start-line="97" selection-start-column="16" selection-end-line="97" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#3700#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#2317#2318#0" expanded="true" />
-            <element signature="e#2351#2352#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1637,28 +1376,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="8" column="51" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/core/FileDeployer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="137" column="71" selection-start-line="137" selection-start-column="25" selection-end-line="137" selection-end-column="71" />
-          <folding>
-            <element signature="e#0#7853#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/utils/EventSimulatorServiceExecutor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="124" column="4" selection-start-line="124" selection-start-column="4" selection-end-line="124" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#5273#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1667,95 +1384,8 @@
         <state relative-caret-position="365">
           <caret line="190" column="9" selection-start-line="190" selection-start-column="9" selection-end-line="190" selection-end-column="9" />
           <folding>
-            <element signature="e#0#8192#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/bean/RandomDataSimulationConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#2947#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/bean/StreamConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="34" column="30" selection-start-line="34" selection-start-column="10" selection-end-line="34" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#1645#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/bean/FeedSimulationConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#2362#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/CSVFileConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/bean/CustomBasedAttribute.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="34" column="39" selection-start-line="34" selection-start-column="3" selection-end-line="34" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#2417#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/constants/RandomDataGeneratorConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/bean/StreamAttributeDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="16" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#1750#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/constants/EventSimulatorConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="523">
-          <caret line="56" column="69" selection-start-line="56" selection-start-column="59" selection-end-line="56" selection-end-column="69" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/bean/PropertyBasedAttributeDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="27" column="39" selection-start-line="23" selection-start-column="3" selection-end-line="27" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#2246#0" expanded="true" />
-            <element signature="e#1911#1912#0" expanded="true" />
+            <element signature="e#0#8192#0" expanded="false" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1764,27 +1394,305 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="25" column="50" selection-start-line="22" selection-start-column="48" selection-end-line="25" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/core/CSVFeedEventSimulator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/bean/PrimitiveBasedAttribute.java">
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/EventSimulator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="26" column="39" selection-start-line="24" selection-start-column="1" selection-end-line="26" selection-end-column="39" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding>
-            <element signature="e#0#2455#0" expanded="true" />
+            <element signature="e#0#1441#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="27" column="76" selection-start-line="27" selection-start-column="76" selection-end-line="27" selection-end-column="76" />
+          <folding>
+            <element signature="e#0#1226#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/utils/EventConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-843">
+          <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/utils/EventSimulatorServiceExecutor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1692">
+          <caret line="107" column="8" selection-start-line="107" selection-start-column="8" selection-end-line="107" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#5273#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/utils/EventSimulatorParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1260">
+          <caret line="115" column="48" selection-start-line="115" selection-start-column="48" selection-end-line="115" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/singleventsimulator/SingleEventSimulationConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="40" column="49" selection-start-line="40" selection-start-column="49" selection-end-line="40" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/singleventsimulator/SingleEventSimulator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/utils/RandomDataGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="926">
+          <caret line="389" column="4" selection-start-line="389" selection-start-column="4" selection-end-line="389" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#17286#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/utils/AttributeGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="656">
+          <caret line="58" column="59" selection-start-line="58" selection-start-column="59" selection-end-line="58" selection-end-column="59" />
+          <folding>
+            <element signature="e#0#3370#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/bean/RegexBasedAttributeDto.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="30" column="3" selection-start-line="30" selection-start-column="3" selection-end-line="30" selection-end-column="3" />
+        <state relative-caret-position="233">
+          <caret line="30" column="2" selection-start-line="30" selection-start-column="2" selection-end-line="30" selection-end-column="2" />
           <folding>
-            <element signature="e#0#1485#0" expanded="true" />
+            <element signature="e#0#1484#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/bean/StreamAttributeDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="35" column="22" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#1750#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/bean/RandomDataSimulationConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1188">
+          <caret line="66" column="13" selection-start-line="66" selection-start-column="13" selection-end-line="66" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#2947#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/bean/PropertyBasedAttributeDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="34" column="3" selection-start-line="34" selection-start-column="3" selection-end-line="34" selection-end-column="64" />
+          <folding>
+            <element signature="e#0#2246#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/bean/PrimitiveBasedAttribute.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="62" column="42" selection-start-line="62" selection-start-column="42" selection-end-line="62" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#2455#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/bean/CustomBasedAttribute.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="34" column="39" selection-start-line="34" selection-start-column="3" selection-end-line="34" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#2417#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/randomdatafeedsimulation/core/RandomDataEventSimulator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10020#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/executionplandelpoyer/ExecutionPlanDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-19">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/executionplandelpoyer/ExecutionPlanDeployer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/core/FileDeployer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="81" column="26" selection-start-line="81" selection-start-column="26" selection-end-line="81" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#7853#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/core/FileDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="36" column="54" selection-start-line="36" selection-start-column="54" selection-end-line="36" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#1312#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/exception/EventSimulationException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#1044#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/csvFeedSimulation/CSVFileConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="846">
+          <caret line="48" column="34" selection-start-line="48" selection-start-column="34" selection-end-line="48" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#2208#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/constants/RandomDataGeneratorConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/constants/EventSimulatorConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/bean/FeedSimulationConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/bean/FileStore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="97" column="16" selection-start-line="97" selection-start-column="16" selection-end-line="97" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#3700#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/simulator/bean/StreamConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="34" column="30" selection-start-line="34" selection-start-column="10" selection-end-line="34" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#1645#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/querydeployer/bean/Event.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-253">
+          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/querydeployer/bean/ExecutionPlanDetails.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/querydeployer/bean/StreamDefinitionInfoDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eventsimulator/src/main/java/org/wso2/carbon/event/querydeployer/bean/StreamAttributeDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -27,9 +27,19 @@ import java.util.List;
  */
 @XmlRootElement(name = "SingleEventSimulationConfig")
 public class SingleEventSimulationConfig {
+    /**
+     * Stream Name of an input stream
+     */
     private String streamName;
+
+    /**
+     * List of values of attributes
+     */
     private List<String> attributeValues = new ArrayList<>();
 
+    /**
+     * Initialize the SingleEventSimulationConfig
+     */
     public SingleEventSimulationConfig() {
     }
 

@@ -22,7 +22,6 @@ import org.apache.commons.logging.LogFactory;
 import org.wso2.carbon.event.executionplandelpoyer.ExecutionPlanDeployer;
 import org.wso2.carbon.event.simulator.EventSimulator;
 import org.wso2.carbon.event.querydeployer.bean.Event;
-import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.RandomDataSimulationConfig;
 import org.wso2.carbon.event.simulator.utils.EventConverter;
 
 import java.util.Arrays;
@@ -106,8 +105,4 @@ public class SingleEventSimulator implements EventSimulator {
 
     }
 
-    @Override
-    public RandomDataSimulationConfig configureSimulation(String eventSimulationConfig) {
-        return null;
-    }
 }

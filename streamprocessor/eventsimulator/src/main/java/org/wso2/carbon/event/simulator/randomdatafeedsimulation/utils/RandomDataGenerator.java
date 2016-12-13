@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * WSO2 Inc. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 package org.wso2.carbon.event.simulator.randomdatafeedsimulation.utils;
 
 import com.mifmif.common.regex.Generex;
@@ -11,8 +28,6 @@ import fabricator.Location;
 import fabricator.Words;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -23,23 +38,77 @@ import org.wso2.carbon.event.simulator.exception.EventSimulationException;
 import org.wso2.carbon.event.simulator.constants.RandomDataGeneratorConstants;
 
 /**
- * Created by mathuriga on 12/11/16.
+ * Generates random value for given case
+ * It is an utility class
+ * Data can be generated in three ways
+ * 1. Generate data according to given data type
+ * For this it uses Fabricator library
+ * 2. Generate meaning full data Eg : Full Name
+ * For reference {<a href="https://www.mockaroo.com/">www.mockaroo.com</a>}
+ * 3. Generate data according to given regular expression
+ * For this it uses generex library
+ * 4. Generate data with in given data list
+ * <p>
+ * <a href="http://biercoff.com/fabricator/">fabricator</a>
+ * <a href="https://github.com/azakordonets/fabricator">fabricator - github source </a>
+ * <a href="https://github.com/mifmif/Generex">Generex</a>
  */
 public class RandomDataGenerator {
-    public static List<String> resultList = new ArrayList();
+    /**
+     * Initialize contact to generate contact related data
+     */
     private static Contact contact = Fabricator.contact();
+
+    /**
+     * Initialize calendar to generate calendar related data
+     */
     private static Calendar calendar = Fabricator.calendar();
+
+    /**
+     * Initialize Finance to generate finance related data
+     */
     private static Finance finance = Fabricator.finance();
+
+    /**
+     * Initialize internet to generate internet related data
+     */
     private static Internet internet = Fabricator.internet();
+
+    /**
+     * Initialize location to generate location related data
+     */
     private static Location location = Fabricator.location();
+
+    /**
+     * Initialize words to generate words related data
+     */
     private static Words words = Fabricator.words();
 
+    /**
+     * Initialize Alphanumeric to generate words related data
+     */
+    private static Alphanumeric alpha = Fabricator.alphaNumeric();
+
+    /**
+     * Initialize RandomDataGenerator and make it private
+     */
     private RandomDataGenerator() {
 
     }
 
+    /**
+     * Generate data according to given data type. And cast it into relevant data type
+     * For this it uses Alphanumeric from fabricator library
+     *
+     * @param type   attribute data type (String,Integer,Float,Double,Long,Boolean)
+     * @param min    Minimum value for numeric values to be generate
+     * @param max    Maximum value for numeric values to be generated
+     * @param length If attribute type is string length indicates length of the string to be generated
+     *               If attribute type is Float or Double length indicates no of Numbers after the decimal point
+     * @return Generated value as object
+     * <a href="http://biercoff.com/fabricator/">fabricator</a>
+     */
     public static Object generatePrimitiveBasedRandomData(String type, Object min, Object max, int length) {
-        Alphanumeric alpha = Fabricator.alphaNumeric();
         Object result = null;
         DecimalFormat format = new DecimalFormat();
         switch (type) {
@@ -51,10 +120,12 @@ public class RandomDataGenerator {
                 break;
             case "Float":
                 format.setMaximumFractionDigits(length);
+                //Format value to given no of decimals
                 result = Float.parseFloat(format.format(alpha.randomFloat(Float.parseFloat((String) min), Float.parseFloat((String) max))));
                 break;
             case "Double":
                 format.setMaximumFractionDigits(length);
+                //Format value to given no of decimals
                 result = Double.parseDouble(format.format(alpha.randomFloat(Float.parseFloat((String) min), Float.parseFloat((String) max))));
                 break;
             case "String":
@@ -63,55 +134,41 @@ public class RandomDataGenerator {
             case "Boolean":
                 result = alpha.randomBoolean();
                 break;
-
         }
-
         return result;
     }
 
-    //Generate data for given regular expression
-
+    /**
+     * Generate data according to given regular expression.
+     * It uses  A Java library called Generex for generating String that match
+     * a given regular expression
+     *
+     * @param pattern Regular expression used to generate data
+     * @return Generated value as object
+     * @see <a href="https://github.com/mifmif/Generex">Generex</a>
+     */
     public static Object generateRegexBasedRandomData(String pattern) {
-        Object result = null;
         Generex generex = new Generex(pattern);
+        Object result;
         result = generex.random();
         return result;
     }
 
-    //Generate data for given typeBased input
 
-    public static Object generatePropertyBasedRandomData(String moduleType, String type) {
+    /**
+     * Generate meaning full data.
+     * For this it uses fabricator library
+     *
+     * @param categoryType CategoryType
+     * @param propertyType PropertyType
+     * @return Generated value as object
+     * @link <a href="http://biercoff.com/fabricator/">fabricator</a>
+     */
+    public static Object generatePropertyBasedRandomData(String categoryType, String propertyType) {
         Object result = null;
-        switch (moduleType) {
-
-//            case RandomDataGeneratorConstants.Module_alphaNumeric:
-//                Alphanumeric alpha = Fabricator.alphaNumeric();
-//
-//                switch (type) {
-//                    case RandomDataGeneratorConstants.Module_alphaNumeric_randomString:
-//                        result = alpha.randomString();
-//                        break;
-//                    case RandomDataGeneratorConstants.Module_alphaNumeric_randomInteger:
-//                        result = alpha.randomInt();
-//                        break;
-//                    case RandomDataGeneratorConstants.Module_alphaNumeric_randomLong:
-//                        result = alpha.randomLong();
-//                        break;
-//                    case RandomDataGeneratorConstants.Module_alphaNumeric_randomDouble:
-//                        result = alpha.randomDouble();
-//                        break;
-//                    case RandomDataGeneratorConstants.Module_alphaNumeric_randomFloat:
-//                        result = alpha.randomFloat();
-//                        break;
-//                    case RandomDataGeneratorConstants.Module_alphaNumeric_randomBoolean:
-//                        result = alpha.randomBoolean();
-//                        break;
-//                }
-//                break;
-
+        switch (categoryType) {
             case RandomDataGeneratorConstants.Module_calendar:
-
-                switch (type) {
+                switch (propertyType) {
                     case RandomDataGeneratorConstants.Module_calendar_time12h:
                         result = calendar.time12h();
                         break;
@@ -150,9 +207,7 @@ public class RandomDataGenerator {
 
             case RandomDataGeneratorConstants.Module_contact:
 
-                // Contact contact = Fabricator.contact();
-
-                switch (type) {
+                switch (propertyType) {
 
                     case RandomDataGeneratorConstants.Module_contact_fullName:
                         result = contact.fullName(true, true);
@@ -225,7 +280,7 @@ public class RandomDataGenerator {
             case RandomDataGeneratorConstants.Module_finance:
 
 
-                switch (type) {
+                switch (propertyType) {
                     case RandomDataGeneratorConstants.Module_finance_iban:
                         result = finance.iban();
                         break;
@@ -244,7 +299,7 @@ public class RandomDataGenerator {
             case RandomDataGeneratorConstants.Module_internet:
 
 
-                switch (type) {
+                switch (propertyType) {
                     case RandomDataGeneratorConstants.Module_internet_urlBuilder:
                         result = internet.urlBuilder();
                         break;
@@ -280,7 +335,7 @@ public class RandomDataGenerator {
 
             case RandomDataGeneratorConstants.Module_location:
 
-                switch (type) {
+                switch (propertyType) {
                     case RandomDataGeneratorConstants.Module_location_altitude:
                         result = location.altitude();
                         break;
@@ -303,7 +358,7 @@ public class RandomDataGenerator {
                 break;
 
             case RandomDataGeneratorConstants.Module_words:
-                switch (type) {
+                switch (propertyType) {
                     case RandomDataGeneratorConstants.Module_words_words:
                         result = words.word();
                         break;
@@ -317,14 +372,21 @@ public class RandomDataGenerator {
                 break;
 
             default:
-                System.out.println("Your option is not available in library");
+                System.out.println("Property type is not available in library");
 
         }
-        resultList.add(String.valueOf(result));
+
         return result;
     }
 
-
+    /**
+     * Generate data with in given data list
+     * <p>
+     * Initialize Random to select random element from array
+     *
+     * @param customDataList Array of data
+     * @return generated data from array
+     */
     public static Object generateCustomRandomData(String[] customDataList) {
         Random random = new Random();
         int randomElementSelector = random.nextInt(customDataList.length);
@@ -333,8 +395,12 @@ public class RandomDataGenerator {
         return result;
     }
 
+    /**
+     * Validate Regular Expression
+     *
+     * @param regularExpression regularExpression
+     */
     public static void validateRegularExpression(String regularExpression) {
-
         try {
             Pattern.compile(regularExpression);
         } catch (PatternSyntaxException e) {
