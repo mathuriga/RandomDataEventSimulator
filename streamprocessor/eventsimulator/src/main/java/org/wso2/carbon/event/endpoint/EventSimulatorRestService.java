@@ -20,7 +20,9 @@ package org.wso2.carbon.event.endpoint;
 
 
 import com.google.gson.Gson;
+// TODO: 14/12/16 remove this exception
 import org.apache.axis2.deployment.DeploymentException;
+//todo use apache commons log
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wso2.carbon.event.simulator.bean.FeedSimulationConfig;
@@ -56,12 +58,14 @@ public class EventSimulatorRestService {
     /**
      * Initializes the service classes for resources.
      */
+    // TODO: 14/12/16 change it as util 
     public EventSimulatorRestService() {
         eventSimulatorServiceExecutor = new EventSimulatorServiceExecutor();
     }
 
     /**
      * Send single event.
+     * todo give as an eg
      * singleEventSimulationString: {
      * "streamName":"cseEventStream",
      * "attributeValues":attributeValue
@@ -72,11 +76,14 @@ public class EventSimulatorRestService {
      */
     @POST
     @Path("/singleEventSimulation")
+    //todo change the param name to simulationstring
     public void singleEventSimulation(String singleEventSimulationString) throws IOException {
         //parse json string to SingleEventSimulationConfig object
         SingleEventSimulationConfig singleEventSimulationConfiguration = EventSimulatorParser.singleEventSimulatorParser(singleEventSimulationString);
         //start single event simulation
+        // TODO: 14/12/16 remove this 
         this.eventSimulatorServiceExecutor.simulateSingleEvent(singleEventSimulationConfiguration);
+        // TODO: 14/12/16 remove info and include debug log 
         log.info("Event is send successfully");
     }
 
@@ -101,12 +108,14 @@ public class EventSimulatorRestService {
     @POST
     @Path("/fileDeploy")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
+    // TODO: 14/12/16  
     public Response upLoadFileService(@FormDataParam("file") FileInfo fileInfo,
                                       @FormDataParam("file") InputStream fileInputStream) throws Exception {
 
         /*
         Get singleton instance of FileDeployer
          */
+        // TODO: 14/12/16 fileupload 
         FileDeployer fileDeployer = FileDeployer.getFileDeployer();
         try {
             fileDeployer.deployFile(fileInfo, fileInputStream);
@@ -213,6 +222,7 @@ public class EventSimulatorRestService {
         //parse json string to FeedSimulationConfig object
         FeedSimulationConfig feedSimulationConfig = EventSimulatorParser.feedSimulationConfigParser(feedSimulationConfigDetails);
         //start feed simulation
+        // TODO: 14/12/16 change the name 
         this.eventSimulatorServiceExecutor.simulateFeedSimulation(feedSimulationConfig);
         String jsonString = new Gson().toJson("success");
         return javax.ws.rs.core.Response.ok(jsonString, MediaType.APPLICATION_JSON)

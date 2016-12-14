@@ -227,7 +227,7 @@ public class CSVFeedEventSimulator implements EventSimulator {
                         Event event = EventConverter.eventConverter(csvFileConfig.getStreamName(), attributes, executionPlanDto);
                         // TODO: 13/12/16 delete sout
                         System.out.println("Input Event " + Arrays.deepToString(event.getEventData()));
-                        System.out.println("------------------------------------------------------");
+//                        System.out.println("------------------------------------------------------");
 
                         //send the event to input handler
                         send(csvFileConfig.getStreamName(), event);

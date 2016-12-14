@@ -28,6 +28,7 @@ public class ExecutionPlanDeployer {
 
     }
 
+    // TODO: 14/12/16 remove 
     public static void setExecutionPlanDeployer(ExecutionPlanDeployer executionPlanDeployer) {
         ExecutionPlanDeployer.executionPlanDeployer = executionPlanDeployer;
     }

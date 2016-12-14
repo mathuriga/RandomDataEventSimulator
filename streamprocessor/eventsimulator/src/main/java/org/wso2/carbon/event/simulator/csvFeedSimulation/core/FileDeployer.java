@@ -37,6 +37,7 @@ import java.util.regex.Pattern;
  *
  * @see FileStore
  */
+
 public class FileDeployer {
     private static final Log log = LogFactory.getLog(FileDeployer.class);
     /**
@@ -145,6 +146,7 @@ public class FileDeployer {
             //and new file wile be add to the map
             if (fileStore.checkExists(fileName)) {
                 fileStore.removeFile(fileInfo.getFileName());
+                //todo remove warn
                 log.warn("File is already exists: " + fileInfo.getFileName());
             }
             try {
@@ -157,6 +159,7 @@ public class FileDeployer {
                 IOUtils.closeQuietly(inputStream);
             }
         }
+        // TODO: 14/12/16 move it to try block
         log.info("CSV file deployed successfully :" + fileInfo.getFileName());
     }
 

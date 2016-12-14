@@ -167,6 +167,7 @@ public class EventSimulatorParser {
      */
     public static SingleEventSimulationConfig singleEventSimulatorParser(String singleEventSimulationConfigurationString) throws IOException {
         //check whether the execution plan is deployed
+        // TODO: 14/12/16 remove this
         if (ExecutionPlanDeployer.getExecutionPlanDeployer() == null) {
             throw new EventSimulationException("Execution Plan is not deployed");
         }
@@ -174,7 +175,7 @@ public class EventSimulatorParser {
         ObjectMapper mapper = new ObjectMapper();
             //Convert the singleEventSimulationConfigurationString string into SingleEventSimulationConfig Object
             singleEventSimulationConfig = mapper.readValue(singleEventSimulationConfigurationString, SingleEventSimulationConfig.class);
-
+// TODO: 14/12/16 change the deployer name to getinstance
             ExecutionPlanDto executionPlanDto = ExecutionPlanDeployer.getExecutionPlanDeployer().getExecutionPlanDto();
             StreamDefinitionDto streamDefinitionDto = executionPlanDto.getInputStreamDtoMap().get(singleEventSimulationConfig.getStreamName());
             if (singleEventSimulationConfig.getAttributeValues().size() != streamDefinitionDto.getStreamAttributeDtos().size()) {
