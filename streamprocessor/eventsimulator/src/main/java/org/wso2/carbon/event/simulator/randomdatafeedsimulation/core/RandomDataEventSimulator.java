@@ -54,14 +54,14 @@ public class RandomDataEventSimulator implements EventSimulator {
     /**
      * Flag used to pause the simulation.
      */
-    private boolean isPaused = false;
+    public static boolean isPaused = false;
 
     /**
      * Flag used to stop the simulation.
      */
-    private boolean isStopped = false;
+    public static boolean isStopped = false;
 
-    private final Object lock = new Object();
+    private static final Object lock = new Object();
 
     public boolean isPaused() {
         return isPaused;
@@ -198,9 +198,10 @@ public class RandomDataEventSimulator implements EventSimulator {
 
                         //convert Attribute values into event
                         Event event = EventConverter.eventConverter(randomDataSimulationConfig.getStreamName(), attributeValue, executionPlanDto);
-                        // TODO: 13/12/16 delete sout
-                        System.out.println("Input Event " + Arrays.deepToString(event.getEventData()));
-                        System.out.println("------------------------------------------------------");
+                        //calculate percentage that event has send
+                        percentage = ((i + 1) * 100) / noOfEvents;// TODO: 13/12/16 delete sout
+                        System.out.println("Input Event " + Arrays.deepToString(event.getEventData()) + "Percentage :" + percentage );
+                        //System.out.println("------------------------------------------------------");
 
                         //send the event to input handler
                         send(randomDataSimulationConfig.getStreamName(), event);
@@ -209,10 +210,6 @@ public class RandomDataEventSimulator implements EventSimulator {
                         if (delay > 0) {
                             Thread.sleep(delay);
                         }
-
-                        //calculate percentage that event has send
-                        percentage = ((i + 1) * 100) / noOfEvents;
-                        System.out.println("Percentage: " + percentage);
                     } catch (Exception e) {
                         log.error("Error occurred : Failed to send an event" + e.getMessage());
                     }
@@ -247,7 +244,7 @@ public class RandomDataEventSimulator implements EventSimulator {
         }
     }
 
-    public void stop() {
+    public static void stop() {
         isPaused = true;
         isStopped = true;
         synchronized (lock) {

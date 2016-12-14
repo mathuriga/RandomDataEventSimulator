@@ -167,36 +167,36 @@ public class RandomDataGenerator {
     public static Object generatePropertyBasedRandomData(String categoryType, String propertyType) {
         Object result = null;
         switch (categoryType) {
-            case RandomDataGeneratorConstants.Module_calendar:
+            case RandomDataGeneratorConstants.MODULE_CALENDAR:
                 switch (propertyType) {
-                    case RandomDataGeneratorConstants.Module_calendar_time12h:
+                    case RandomDataGeneratorConstants.MODULE_CALENDAR_TIME_12_H:
                         result = calendar.time12h();
                         break;
-                    case RandomDataGeneratorConstants.Module_calendar_time24h:
+                    case RandomDataGeneratorConstants.MODULE_CALENDAR_TIME_24_H:
                         result = calendar.time24h();
                         break;
-                    case RandomDataGeneratorConstants.Module_calendar_second:
+                    case RandomDataGeneratorConstants.MODULE_CALENDAR_SECOND:
                         result = calendar.second();
                         break;
-                    case RandomDataGeneratorConstants.Module_calendar_minute:
+                    case RandomDataGeneratorConstants.MODULE_CALENDAR_MINUTE:
                         result = calendar.minute();
                         break;
-                    case RandomDataGeneratorConstants.Module_calendar_month:
+                    case RandomDataGeneratorConstants.MODULE_CALENDAR_MONTH:
                         result = calendar.month();
                         break;
-                    case RandomDataGeneratorConstants.Module_calendar_monthNumber:
+                    case RandomDataGeneratorConstants.MODULE_CALENDAR_MONTH_NUMBER:
                         result = calendar.month(true);
                         break;
-                    case RandomDataGeneratorConstants.Module_calendar_year:
+                    case RandomDataGeneratorConstants.MODULE_CALENDAR_YEAR:
                         result = calendar.year();
                         break;
-                    case RandomDataGeneratorConstants.Module_calendar_day:
+                    case RandomDataGeneratorConstants.MODULE_CALENDAR_DAY:
                         result = calendar.day();
                         break;
-                    case RandomDataGeneratorConstants.Module_calendar_dayOfWeek:
+                    case RandomDataGeneratorConstants.MODULE_CALENDAR_DAY_OF_WEEK:
                         result = calendar.dayOfWeek();
                         break;
-                    case RandomDataGeneratorConstants.Module_calendar_date:
+                    case RandomDataGeneratorConstants.MODULE_CALENDAR_DATE:
                         Random random = new Random();
                         int incrementValue = random.nextInt(10);
                         System.out.println(incrementValue);
@@ -205,167 +205,167 @@ public class RandomDataGenerator {
                 }
                 break;
 
-            case RandomDataGeneratorConstants.Module_contact:
+            case RandomDataGeneratorConstants.MODULE_CONTACT:
 
                 switch (propertyType) {
 
-                    case RandomDataGeneratorConstants.Module_contact_fullName:
+                    case RandomDataGeneratorConstants.MODULE_CONTACT_FULL_NAME:
                         result = contact.fullName(true, true);
                         break;
-                    case RandomDataGeneratorConstants.Module_contact_firstName:
+                    case RandomDataGeneratorConstants.MODULE_CONTACT_FIRST_NAME:
                         result = contact.firstName();
                         break;
-                    case RandomDataGeneratorConstants.Module_contact_lastName:
+                    case RandomDataGeneratorConstants.MODULE_CONTACT_LAST_NAME:
                         result = contact.lastName();
                         break;
-                    case RandomDataGeneratorConstants.Module_contact_bsn:
+                    case RandomDataGeneratorConstants.MODULE_CONTACT_BSN:
                         result = contact.bsn();
                         break;
 
-                    case RandomDataGeneratorConstants.Module_contact_address:
+                    case RandomDataGeneratorConstants.MODULE_CONTACT_ADDRESS:
                         result = contact.address();
                         break;
 
-                    case RandomDataGeneratorConstants.Module_contact_email:
+                    case RandomDataGeneratorConstants.MODULE_CONTACT_EMAIL:
                         result = contact.eMail();
                         break;
-                    case RandomDataGeneratorConstants.Module_contact_phoneNo:
+                    case RandomDataGeneratorConstants.MODULE_CONTACT_PHONE_NO:
                         result = contact.phoneNumber();
                         break;
-                    case RandomDataGeneratorConstants.Module_contact_postcode:
+                    case RandomDataGeneratorConstants.MODULE_CONTACT_POSTCODE:
                         result = contact.postcode();
                         break;
-                    case RandomDataGeneratorConstants.Module_contact_state:
+                    case RandomDataGeneratorConstants.MODULE_CONTACT_STATE:
                         result = contact.state();
                         break;
-                    case RandomDataGeneratorConstants.Module_contact_city:
+                    case RandomDataGeneratorConstants.MODULE_CONTACT_CITY:
                         result = contact.city();
                         break;
-                    case RandomDataGeneratorConstants.Module_contact_company:
+                    case RandomDataGeneratorConstants.MODULE_CONTACT_COMPANY:
                         result = contact.company();
                         break;
-                    case RandomDataGeneratorConstants.Module_contact_country:
+                    case RandomDataGeneratorConstants.MODULE_CONTACT_COUNTRY:
                         result = contact.country();
                         break;
-                    case RandomDataGeneratorConstants.Module_contact_StreetName:
+                    case RandomDataGeneratorConstants.MODULE_CONTACT_STREET_NAME:
                         result = contact.streetName();
                         break;
-                    case RandomDataGeneratorConstants.Module_contact_houseNo:
+                    case RandomDataGeneratorConstants.MODULE_CONTACT_HOUSE_NO:
                         result = contact.houseNumber();
                         break;
-                    case RandomDataGeneratorConstants.Module_contact_height_cm:
+                    case RandomDataGeneratorConstants.MODULE_CONTACT_HEIGHT_CM:
                         result = contact.height(true);
                         break;
-                    case RandomDataGeneratorConstants.Module_contact_height_m:
+                    case RandomDataGeneratorConstants.MODULE_CONTACT_HEIGHT_M:
                         result = contact.height(false);
                         break;
-                    case RandomDataGeneratorConstants.Module_contact_weight:
+                    case RandomDataGeneratorConstants.MODULE_CONTACT_WEIGHT:
                         result = contact.weight(true);
                         break;
-                    case RandomDataGeneratorConstants.Module_contact_bloodType:
+                    case RandomDataGeneratorConstants.MODULE_CONTACT_BLOOD_TYPE:
                         result = contact.bloodType();
                         break;
-                    case RandomDataGeneratorConstants.Module_contact_occupation:
+                    case RandomDataGeneratorConstants.MODULE_CONTACT_OCCUPATION:
                         result = contact.occupation();
                         break;
-                    case RandomDataGeneratorConstants.Module_contact_religion:
+                    case RandomDataGeneratorConstants.MODULE_CONTACT_RELIGION:
                         result = contact.religion();
                         break;
-                    case RandomDataGeneratorConstants.Module_contact_zodiac:
+                    case RandomDataGeneratorConstants.MODULE_CONTACT_ZODIAC:
                         result = contact.zodiac();
                         break;
                 }
                 break;
 
-            case RandomDataGeneratorConstants.Module_finance:
+            case RandomDataGeneratorConstants.MODULE_FINANCE:
 
 
                 switch (propertyType) {
-                    case RandomDataGeneratorConstants.Module_finance_iban:
+                    case RandomDataGeneratorConstants.MODULE_FINANCE_IBAN:
                         result = finance.iban();
                         break;
-                    case RandomDataGeneratorConstants.Module_finance_bic:
+                    case RandomDataGeneratorConstants.MODULE_FINANCE_BIC:
                         result = finance.bic();
                         break;
-                    case RandomDataGeneratorConstants.Module_finance_visacreditCard:
+                    case RandomDataGeneratorConstants.MODULE_FINANCE_VISACREDIT_CARD:
                         result = finance.visaCard();
                         break;
-                    case RandomDataGeneratorConstants.Module_finance_pinCode:
+                    case RandomDataGeneratorConstants.MODULE_FINANCE_PIN_CODE:
                         result = finance.pinCode();
                         break;
                 }
                 break;
 
-            case RandomDataGeneratorConstants.Module_internet:
+            case RandomDataGeneratorConstants.MODULE_INTERNET:
 
 
                 switch (propertyType) {
-                    case RandomDataGeneratorConstants.Module_internet_urlBuilder:
+                    case RandomDataGeneratorConstants.MODULE_INTERNET_URL_BUILDER:
                         result = internet.urlBuilder();
                         break;
-                    case RandomDataGeneratorConstants.Module_internet_ip:
+                    case RandomDataGeneratorConstants.MODULE_INTERNET_IP:
                         result = internet.ip();
                         break;
-                    case RandomDataGeneratorConstants.Module_internet_ipv6:
+                    case RandomDataGeneratorConstants.MODULE_INTERNET_IPV_6:
                         result = internet.ipv6();
                         break;
-                    case RandomDataGeneratorConstants.Module_internet_macAddress:
+                    case RandomDataGeneratorConstants.MODULE_INTERNET_MAC_ADDRESS:
                         result = internet.macAddress();
                         break;
-                    case RandomDataGeneratorConstants.Module_internet_UUID:
+                    case RandomDataGeneratorConstants.MODULE_INTERNET_UUID:
                         result = internet.UUID();
                         break;
-                    case RandomDataGeneratorConstants.Module_internet_color:
+                    case RandomDataGeneratorConstants.MODULE_INTERNET_COLOR:
                         result = internet.color();
                         break;
-                    case RandomDataGeneratorConstants.Module_internet_twitter:
+                    case RandomDataGeneratorConstants.MODULE_INTERNET_TWITTER:
                         result = internet.twitter();
                         break;
-                    case RandomDataGeneratorConstants.Module_internet_hashtag:
+                    case RandomDataGeneratorConstants.MODULE_INTERNET_HASHTAG:
                         result = internet.hashtag();
                         break;
-                    case RandomDataGeneratorConstants.Module_internet_facebookID:
+                    case RandomDataGeneratorConstants.MODULE_INTERNET_FACEBOOK_ID:
                         result = internet.facebookId();
                         break;
-                    case RandomDataGeneratorConstants.Module_internet_userName:
+                    case RandomDataGeneratorConstants.MODULE_INTERNET_USER_NAME:
                         result = internet.username();
                         break;
                 }
                 break;
 
-            case RandomDataGeneratorConstants.Module_location:
+            case RandomDataGeneratorConstants.MODULE_LOCATION:
 
                 switch (propertyType) {
-                    case RandomDataGeneratorConstants.Module_location_altitude:
+                    case RandomDataGeneratorConstants.MODULE_LOCATION_ALTITUDE:
                         result = location.altitude();
                         break;
-                    case RandomDataGeneratorConstants.Module_location_depth:
+                    case RandomDataGeneratorConstants.MODULE_LOCATION_DEPTH:
                         result = location.depth();
                         break;
-                    case RandomDataGeneratorConstants.Module_location_coordinates:
+                    case RandomDataGeneratorConstants.MODULE_LOCATION_COORDINATES:
                         result = location.coordinates();
                         break;
-                    case RandomDataGeneratorConstants.Module_location_latitude:
+                    case RandomDataGeneratorConstants.MODULE_LOCATION_LATITUDE:
                         result = location.latitude();
                         break;
-                    case RandomDataGeneratorConstants.Module_location_longtitude:
+                    case RandomDataGeneratorConstants.MODULE_LOCATION_LONGTITUDE:
                         result = location.longitude();
                         break;
-                    case RandomDataGeneratorConstants.Module_location_geoHash:
+                    case RandomDataGeneratorConstants.MODULE_LOCATION_GEO_HASH:
                         result = location.geohash();
                         break;
                 }
                 break;
 
-            case RandomDataGeneratorConstants.Module_words:
+            case RandomDataGeneratorConstants.MODULE_WORDS:
                 switch (propertyType) {
-                    case RandomDataGeneratorConstants.Module_words_words:
+                    case RandomDataGeneratorConstants.MODULE_WORDS_WORDS:
                         result = words.word();
                         break;
-                    case RandomDataGeneratorConstants.Module_words_paragraph:
+                    case RandomDataGeneratorConstants.MODULE_WORDS_PARAGRAPH:
                         result = words.paragraph();
                         break;
-                    case RandomDataGeneratorConstants.Module_words_sentence:
+                    case RandomDataGeneratorConstants.MODULE_WORDS_SENTENCE:
                         result = words.sentence();
                         break;
                 }

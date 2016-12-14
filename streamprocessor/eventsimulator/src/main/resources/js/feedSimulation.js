@@ -139,7 +139,7 @@ function stopSimulation(){
 $(document).ready(function(){
 
  $.ajax({
-         url: "http://localhost:8080/EventSimulation/stop",
+         url: "http://localhost:8080/EventSimulation/feedSimulation/stop",
          type: "POST",
          success: function(response) {
              console.log(response);
@@ -150,5 +150,37 @@ $(document).ready(function(){
  });
 
 
+});
+}
+
+function pauseSimulation(){
+$(document).ready(function(){
+
+ $.ajax({
+         url: "http://localhost:8080/EventSimulation/feedSimulation/pause",
+         type: "POST",
+         success: function(response) {
+             console.log(response);
+         },
+         error: function(e) {
+             console.log(e.statusText);
+         }
+ });
+});
+}
+
+function resumeSimulation(){
+$(document).ready(function(){
+
+ $.ajax({
+         url: "http://localhost:8080/EventSimulation/feedSimulation/resume",
+         type: "POST",
+         success: function(response) {
+             console.log(response);
+         },
+         error: function(e) {
+             console.log(e.statusText);
+         }
+ });
 });
 }

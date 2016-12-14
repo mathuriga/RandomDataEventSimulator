@@ -27,16 +27,13 @@ public class EventSimulatorConstants {
     public static final String ATTRIBUTETYPE_LONG = "Long";
     public static final String ATTRIBUTETYPE_FLOAT = "Float";
     public static final String ATTRIBUTETYPE_BOOLEAN = "Boolean";
-
     public static final String STREAM_CONFIGURATION = "streamConfiguration";
-
+    public static final String ORDER_BY_TIMESTAMP = "orderByTimeStamp";
     //Feed Simulation type constants
     public static final String RANDOM_DATA_SIMULATION = "RandomDataSimulation";
     public static final String FILE_FEED_SIMULATION = "FileFeedSimulation";
 //    public static final String DATABASE_FEED_SIMULATION = "DatabaseSimulation";
 //    public static final String SINGLE_EVENT_SIMULATION = "SingleEventSimulation";
-
-    public static final String ORDER_BY_TIMESTAMP = "orderByTimeStamp";
 
     //Feed Simulation stream Configuration constants
 

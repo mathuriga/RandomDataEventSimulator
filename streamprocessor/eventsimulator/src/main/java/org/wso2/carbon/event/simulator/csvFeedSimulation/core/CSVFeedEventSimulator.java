@@ -53,14 +53,14 @@ public class CSVFeedEventSimulator implements EventSimulator {
     /**
      * Flag used to pause the simulation.
      */
-    private boolean isPaused = false;
+    public static boolean isPaused = false;
 
     /**
      * Flag used to stop the simulation.
      */
-    private boolean isStopped = false;
+    public static boolean isStopped = false;
 
-    final Object lock = new Object();
+    private static final Object lock = new Object();
 
     /**
      * Initialize CSVFeedEventSimulator to start the simulation
@@ -180,20 +180,20 @@ public class CSVFeedEventSimulator implements EventSimulator {
                 /*
                 Initialize CSVParser with appropriate CSVFormat according to delimiter
                  */
-            csvParser = CSVParser.parse(in, CSVFormat.DEFAULT);
-//            switch (csvFileConfig.getDelimiter()) {
-//                case ",":
-//                    csvParser = CSVParser.parse(in, CSVFormat.DEFAULT);
-//                    break;
-//                case ";":
-//                    csvParser = CSVParser.parse(in, CSVFormat.EXCEL);
-//                    break;
-//                case "\\t":
-//                    csvParser = CSVParser.parse(in, CSVFormat.TDF);
-//                    break;
-//                default:
-//                    csvParser = CSVParser.parse(in, CSVFormat.newFormat(csvFileConfig.getDelimiter().charAt(0)));
-//            }
+
+           switch (csvFileConfig.getDelimiter()) {
+                case ",":
+                    csvParser = CSVParser.parse(in, CSVFormat.DEFAULT);
+                    break;
+                case ";":
+                    csvParser = CSVParser.parse(in, CSVFormat.EXCEL);
+                    break;
+                case "\\t":
+                    csvParser = CSVParser.parse(in, CSVFormat.TDF);
+                    break;
+                default:
+                    csvParser = CSVParser.parse(in, CSVFormat.newFormat(csvFileConfig.getDelimiter().charAt(0)));
+            }
 
 //            int noOfRecords = csvParser.getRecords().size();
 //            System.out.println(csvParser.getRecords().get(0));
@@ -223,6 +223,8 @@ public class CSVFeedEventSimulator implements EventSimulator {
                             attributes[i] = record.get(i);
                         }
 
+//                        percentage = ((noOfEvents) * 100) / noOfRecords;//
+//                        System.out.println("Input Event " + Arrays.deepToString(event.getEventData()) + "Percentage :" + percentage );
                         //convert Attribute values into event
                         Event event = EventConverter.eventConverter(csvFileConfig.getStreamName(), attributes, executionPlanDto);
                         // TODO: 13/12/16 delete sout
@@ -237,9 +239,7 @@ public class CSVFeedEventSimulator implements EventSimulator {
                             Thread.sleep(delay);
                         }
 
-                        //calculate percentage that event has send
-                       // percentage = ((noOfEvents) * 100) / noOfRecords;
-                       // System.out.println("Percentage: " + percentage);
+
                     } else if (isStopped) {
                         break;
                     } else {
@@ -273,6 +273,14 @@ public class CSVFeedEventSimulator implements EventSimulator {
                 e.printStackTrace();
                 throw new EventSimulationException("Error occurred during closing the file");
             }
+        }
+    }
+
+    public static void stop() {
+        isPaused = true;
+        isStopped = true;
+        synchronized (lock) {
+            lock.notifyAll();
         }
     }
 }

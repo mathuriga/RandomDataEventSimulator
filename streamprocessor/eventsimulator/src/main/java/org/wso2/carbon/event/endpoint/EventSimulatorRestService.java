@@ -203,10 +203,9 @@ public class EventSimulatorRestService {
      *
      * @param feedSimulationConfigDetails jsonString to be converted to FeedSimulationConfig object from the request Json body.
      * @return Response of completion of process
-     * @throws DeploymentException  Deployment Exception
      * @throws InterruptedException Interrupted Exception
-     *                              <p>
-     *                              http://127.0.0.1:9090/EventSimulation/feedSimulation
+     *
+     * http://127.0.0.1:9090/EventSimulation/feedSimulation
      */
     @POST
     @Path("/feedSimulation")
@@ -220,12 +219,54 @@ public class EventSimulatorRestService {
                 .header("Access-Control-Allow-Origin", "*").build();
     }
 
+    /**
+     * Stop the simulation process
+     * @return Response of completion of process
+     * @throws InterruptedException Interrupted Exception
+     *
+     * http://127.0.0.1:9090/EventSimulation/feedSimulation/stop
+     */
     @POST
-    @Path("/stop")
-    public Response stop() throws DeploymentException, InterruptedException {
+    @Path("/feedSimulation/stop")
+    public Response stop() throws  InterruptedException {
 
-        //start feed simulation
+        //stop feed simulation
         this.eventSimulatorServiceExecutor.stop();
+        String jsonString = new Gson().toJson("success");
+        return javax.ws.rs.core.Response.ok(jsonString, MediaType.APPLICATION_JSON)
+                .header("Access-Control-Allow-Origin", "*").build();
+    }
+
+    /**
+     * pause the simulation process
+     * @return Response of completion of process
+     * @throws InterruptedException Interrupted Exception
+     *
+     * http://127.0.0.1:9090/EventSimulation/feedSimulation/pause
+     */
+    @POST
+    @Path("/feedSimulation/pause")
+    public Response pause() throws  InterruptedException {
+
+        //pause feed simulation
+        this.eventSimulatorServiceExecutor.pause();
+        String jsonString = new Gson().toJson("success");
+        return javax.ws.rs.core.Response.ok(jsonString, MediaType.APPLICATION_JSON)
+                .header("Access-Control-Allow-Origin", "*").build();
+    }
+
+    /**
+     * resume the simulation
+     * @return Response of completion of process
+     * @throws InterruptedException Interrupted Exception
+     *
+     * http://127.0.0.1:9090/EventSimulation/feedSimulation/resume
+     */
+    @POST
+    @Path("/feedSimulation/resume")
+    public Response resume() throws  InterruptedException {
+        //pause feed simulation
+        this.eventSimulatorServiceExecutor.resume();
         String jsonString = new Gson().toJson("success");
         return javax.ws.rs.core.Response.ok(jsonString, MediaType.APPLICATION_JSON)
                 .header("Access-Control-Allow-Origin", "*").build();
