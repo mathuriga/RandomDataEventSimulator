@@ -75,9 +75,6 @@ public class FileStore {
         return fileInfoMap;
     }
 
-//    public void setFileInfoMap(ConcurrentHashMap<String, FileDto> fileInfoMap) {
-//        this.fileInfoMap = fileInfoMap;
-//    }
 
     /**
      * Method to add file data into in memory

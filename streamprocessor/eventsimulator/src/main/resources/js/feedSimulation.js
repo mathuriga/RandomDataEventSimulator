@@ -5,34 +5,34 @@ $(document).ready(function(){
  var feedSimulationConfiguration= {
              	        "orderByTimeStamp" : "false",
                         "streamConfiguration" :[
-             		                        {
-            	 			                "simulationType" : "RandomDataSimulation",
-            								"streamName": "cseEventStream",
-            								"events": "10",
-            								"delay": "1000",
-            								"attributeConfiguration":[
-//            								    {
-//            										"type": "PROPERTYBASED",
-//            								        "category": "Contact",
-//            								        "property": "Full Name",
+//             		                        {
+//            	 			                "simulationType" : "RandomDataSimulation",
+//            								"streamName": "cseEventStream",
+//            								"events": "10",
+//            								"delay": "1000",
+//            								"attributeConfiguration":[
+////            								    {
+////            										"type": "PROPERTYBASED",
+////            								        "category": "Contact",
+////            								        "property": "Full Name",
+////            								    },
+//           								        {
+//                                                    "type": "CUSTOMDATA",
+//            								        "list": "WSO2,IBM"
 //            								    },
-           								        {
-                                                    "type": "CUSTOMDATA",
-            								        "list": "WSO2,IBM"
-            								    },
-            								    {
-                                                    "type": "REGEXBASED",
-            								        "pattern": "[+]?[0-9]*\\.?[0-9]+"
-            								    },
-            								    {
-            								        "type": "PRIMITIVEBASED",
-            								        "min": "2",
-            								        "max": "200",
-            								        "length": "2",
-            								    }
-
-            								  ]
-            	    						},
+//            								    {
+//                                                    "type": "REGEXBASED",
+//            								        "pattern": "[+]?[0-9]*\\.?[0-9]+"
+//            								    },
+//            								    {
+//            								        "type": "PRIMITIVEBASED",
+//            								        "min": "2",
+//            								        "max": "200",
+//            								        "length": "2",
+//            								    }
+//
+//            								  ]
+//            	    						},
                                             {
                                             "simulationType" : "RandomDataSimulation",
                                             "streamName": "cseEventStream2",
@@ -46,7 +46,7 @@ $(document).ready(function(){
 //            								    },
                                                 {
                                                     "type": "CUSTOMDATA",
-                                                    "list": "NNNSSS,MMM"
+                                                    "list": "WSO2,IBM"
                                                 },
                                                 {
                                                     "type": "REGEXBASED",
@@ -60,14 +60,14 @@ $(document).ready(function(){
                                                 }
 
                                               ]
-                                            }
-            	    //						{
-//             								"simulationType" : "FileFeedSimulation",
-//             			 					"streamName" : "cseEventStream",
-//             							    "fileName"   : "cseteststream.csv",
-//             							    "delimiter"  : ",",
-//             							    "delay"		 : "1000"
-//             							 	},
+                                            },
+            	    						{
+             								"simulationType" : "FileFeedSimulation",
+             			 					"streamName" : "cseEventStream",
+             							    "fileName"   : "cseteststream.csv",
+             							    "delimiter"  : ",",
+             							    "delay"		 : "1000"
+             							 	},
   //           							 	{
 //                                            "simulationType" : "FileFeedSimulation",
 //                                            "streamName" : "cseEventStream2",
@@ -109,7 +109,7 @@ $(document).ready(function(){
             	       ]
              		};
 
-alert(JSON.stringify(feedSimulationConfiguration));
+//alert(JSON.stringify(feedSimulationConfiguration));
 
 
 if (typeof feedSimulationConfiguration != 'undefined' ) {

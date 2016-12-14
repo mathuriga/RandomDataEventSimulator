@@ -223,8 +223,6 @@ public class CSVFeedEventSimulator implements EventSimulator {
                             attributes[i] = record.get(i);
                         }
 
-//                        percentage = ((noOfEvents) * 100) / noOfRecords;//
-//                        System.out.println("Input Event " + Arrays.deepToString(event.getEventData()) + "Percentage :" + percentage );
                         //convert Attribute values into event
                         Event event = EventConverter.eventConverter(csvFileConfig.getStreamName(), attributes, executionPlanDto);
                         // TODO: 13/12/16 delete sout

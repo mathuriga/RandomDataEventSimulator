@@ -17,11 +17,6 @@
  */
 package org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean;
 
-import jdk.nashorn.internal.runtime.regexp.RegExp;
-
-import java.util.Arrays;
-import java.util.Set;
-
 
 /**
  * CustomBasedAttribute represents the Random data generator based on custom data list
@@ -76,9 +71,7 @@ public class CustomBasedAttribute extends StreamAttributeDto {
 //        String clonedData = customData.replace("'", "\"");
 //        String trimmedData = clonedData.substring(0, clonedData.length());
         //String[] dataList = customData.split("((\",\")(?=(?:[^\"]*\"[^\"]*\")*[^ ]*$))");
-        String[] dataList = customData.split("\",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)\"");
-
-        System.out.println(dataList[0]);
+        String[] dataList = customData.split(",");
         this.setCustomDataList(dataList);
     }
 }

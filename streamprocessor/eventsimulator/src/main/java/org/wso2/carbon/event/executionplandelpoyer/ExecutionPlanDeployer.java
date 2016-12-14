@@ -79,7 +79,10 @@ public class ExecutionPlanDeployer {
         return executionPlanDeployer;
     }
 
-
+    /**
+     * Deploy the execution plan
+     * @param executionPlanDto Execution Plan Details
+     */
     public void deployExecutionPlan(ExecutionPlanDto executionPlanDto) {
         try {
             this.siddhiManager = new SiddhiManager();
@@ -96,6 +99,14 @@ public class ExecutionPlanDeployer {
         }
     }
 
+    /**
+     * Create siddhi Execution Plan
+     *
+     * In this class concatenate all input streams definition and queries as a Execution plan string
+     * Siddhi should recognize it without any error
+     * @param executionPlanDto
+     * @return
+     */
     public String createExecutionplan(ExecutionPlanDto executionPlanDto) {
         String streams = "";
         String setOfQuery = "";
@@ -115,6 +126,12 @@ public class ExecutionPlanDeployer {
         return streams + setOfQuery;
     }
 
+    /**
+     * Create the input handler Map to each input streams
+     * @param executionPlanDto Execution plan details
+     * @param executionPlanRuntime Execution plan runtime
+     * @return
+     */
     public Map<String, InputHandler> createInputHandlerMap(ExecutionPlanDto executionPlanDto, ExecutionPlanRuntime executionPlanRuntime) {
         Map<String, InputHandler> inputHandlerMap = new HashMap<>();
         Iterator streamIterator = executionPlanDto.getInputStreamDtoMap().entrySet().iterator();

@@ -9,7 +9,7 @@ $(document).ready(function(){
             "attributeValues":attributeValue
             };
 
- alert(JSON.stringify(singleEventSimulationConfig));
+// alert(JSON.stringify(singleEventSimulationConfig));
 
 
 if (typeof singleEventSimulationConfig != 'undefined' ) {
