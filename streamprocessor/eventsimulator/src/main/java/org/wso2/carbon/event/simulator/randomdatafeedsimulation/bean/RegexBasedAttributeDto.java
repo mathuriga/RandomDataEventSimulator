@@ -21,17 +21,16 @@ package org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean;
  * RegexBasedAttributeDto represents the Random data generator based on given regular expression
  * <p>
  * Constant value to represent to this type is "REGEXBASED"
- *
+ * <p>
  * Eg for json string for configuration
- *
+ * <p>
  * {
  * "type": "REGEXBASED",
  * "pattern": "[+]?[0-9]*\\.?[0-9]+"
  * }
- *
  */
 
-public class RegexBasedAttributeDto extends StreamAttributeDto {
+public class RegexBasedAttributeDto extends FeedSimulationStreamAttributeDto {
     /**
      * Regular Expression which is used to generate random data
      */

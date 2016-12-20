@@ -18,17 +18,17 @@
 
 package org.wso2.carbon.event.simulator.bean;
 
-import org.wso2.carbon.event.simulator.csvFeedSimulation.CSVFileConfig;
-import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.RandomDataSimulationConfig;
+import org.wso2.carbon.event.simulator.csvFeedSimulation.CSVFileSimulationDto;
+import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.RandomDataSimulationDto;
 
 /**
- * StreamConfiguration class represents the feed simulation configuration for an input stream.
- * This is an abstract class, CSVFileConfig and RandomDataSimulationConfig extends this parent class
+ * FeedSimulationStreamConfiguration class represents the feed simulation configuration for an input stream.
+ * This is an abstract class, CSVFileSimulationDto and RandomDataSimulationDto extends this parent class
  *
- * @see CSVFileConfig
- * @see RandomDataSimulationConfig
+ * @see CSVFileSimulationDto
+ * @see RandomDataSimulationDto
  */
-public abstract class StreamConfiguration {
+public abstract class FeedSimulationStreamConfiguration {
     /**
      * Simulation type for an input stream
      * It can be

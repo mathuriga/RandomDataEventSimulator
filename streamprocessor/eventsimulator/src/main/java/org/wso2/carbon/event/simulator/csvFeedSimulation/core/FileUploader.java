@@ -20,6 +20,7 @@ package org.wso2.carbon.event.simulator.csvFeedSimulation.core;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.wso2.carbon.event.simulator.bean.FileStore;
 import org.wso2.carbon.event.simulator.exception.EventSimulationException;
 import org.wso2.carbon.event.simulator.exception.ValidationFailedException;
@@ -41,7 +42,8 @@ import java.util.regex.Pattern;
  */
 
 public class FileUploader {
-    private static final Log log = LogFactory.getLog(FileUploader.class);
+    private static final Logger log = Logger.getLogger(FileUploader.class);
+
     /**
      * FileStore object which holds In memory for uploaded file details
      */
@@ -84,11 +86,12 @@ public class FileUploader {
      *
      * @param fileInfo    FileInfo Bean supports by MSF4J
      * @param inputStream InputStream Of file
-     * @throws Exception throw exception if anything exception occurred
+     * @throws ValidationFailedException throw exception if csv file validation failure
+     * @throws EventSimulationException  throw exception if csv file copying
      * @link org.wso2.carbon.event.simulator.csvFeedSimulation.core.FileUploader#processDeploy(FileInfo, InputStream)
      * @see FileInfo
      */
-    public void uploadFile(FileInfo fileInfo, InputStream inputStream) throws ValidationFailedException,EventSimulationException {
+    public void uploadFile(FileInfo fileInfo, InputStream inputStream) throws ValidationFailedException, EventSimulationException {
         String fileName = fileInfo.getFileName();
         // Validate file extension
         try {
@@ -96,11 +99,7 @@ public class FileUploader {
                 //Check if file is already exist. if so existing file will be delete by giving warning
                 //and new file wile be add to the map
                 try {
-//                    if (fileStore.checkExists(fileName)) {
-//                        Files.delete(Paths.get(System.getProperty("java.io.tmpdir"), fileInfo.getFileName()));
-//                        log.error("File is already exist " + fileName );
-//                        throw new EventSimulationException("File is already exist " + fileName);
-//                    }
+
                     if (fileStore.checkExists(fileName)) {
                         fileStore.removeFile(fileInfo.getFileName());
                         //todo remove warn
@@ -110,13 +109,13 @@ public class FileUploader {
                     Files.copy(inputStream, Paths.get(System.getProperty("java.io.tmpdir"), fileInfo.getFileName()));
                     fileStore.addFile(fileDto);
                     log.info("CSV file deployed successfully :" + fileInfo.getFileName());
-                }  finally {
+                } finally {
                     IOUtils.closeQuietly(inputStream);
                 }
             }
         } catch (ValidationFailedException e) {
-            log.error("CSV file Extension validation failure : " +e.getMessage());
-            throw new ValidationFailedException("CSV file Extension validation failure :"+e.getMessage());
+            log.error("CSV file Extension validation failure : " + e.getMessage());
+            throw new ValidationFailedException("CSV file Extension validation failure :" + e.getMessage());
         } catch (IOException e) {
             log.error("Error while Copying the file " + fileName + " : " + e.getMessage());
             throw new EventSimulationException("Error while Copying the file " + e.getMessage());
@@ -127,81 +126,28 @@ public class FileUploader {
      * Method to un deploy the uploaded file. It calls processUndeploy method with in that
      *
      * @param fileName File Name of uploaded CSV file
-     * @throws Exception throw exception if anything exception occurred
+     * @throws EventSimulationException throw exception if any error occurred during delete the file
      * @link processUndeploy
      */
-    public void deleteFile(String fileName) throws EventSimulationException{
+    public void deleteFile(String fileName) throws EventSimulationException {
         try {
             if (fileStore.checkExists(fileName)) {
                 fileStore.removeFile(fileName);
             }
         } catch (IOException e) {
             log.error("Error while deleting the file " + e.getMessage());
-            throw new EventSimulationException("Error while deleting the file " +fileName+" "+ e.getMessage());
+            throw new EventSimulationException("Error while deleting the file " + fileName + " " + e.getMessage());
         }
 
     }
 
-//    /**
-//     * Method to remove the file from in memory
-//     *
-//     * @param fileName File Name
-//     * @throws IOException it throws IOException if anything occurred while
-//     *                     delete the file from temp directory and in memory
-//     */
-//    private void processUndeploy(String fileName) throws IOException {
-//        if (fileStore.checkExists(fileName)) {
-//            fileStore.removeFile(fileName);
-//        }
-//        log.info("CSV file Un deployed successfully :" + fileName);
-//    }
-
-//    /**
-//     * Method to add the file details in hashmap
-//     * before inserts the key value pair into map it validates the CSV file extension
-//     *
-//     * <p>
-//     * Before adding the file info it Check if file is already exist. if so existing file
-//     * will be delete by giving warning and new file wile be add to the map
-//     * </p>
-//     * @param fileInfo    FileInfo bean
-//     * @param inputStream Input Stream of file
-//     * @throws Exception throw exception if anything exception occurred
-//     */
-//    private void processDeploy(FileInfo fileInfo, InputStream inputStream) throws ValidationFailedException,EventSimulationException {
-//        String fileName = fileInfo.getFileName();
-//        // Validate file extension
-//        try {
-//            if (validateFile(fileName)) {
-//                //Check if file is already exist. if so existing file will be delete by giving warning
-//                //and new file wile be add to the map
-//                try {
-//                        if (fileStore.checkExists(fileName)) {
-//                            fileStore.removeFile(fileInfo.getFileName());
-//                        }
-//                        FileDto fileDto = new FileDto(fileInfo);
-//                        Files.copy(inputStream, Paths.get(System.getProperty("java.io.tmpdir"), fileInfo.getFileName()));
-//                        fileStore.addFile(fileDto);
-//                    log.info("CSV file deployed successfully :" + fileInfo.getFileName());
-//                }  finally {
-//                        IOUtils.closeQuietly(inputStream);
-//                }
-//            }
-//        } catch (ValidationFailedException e) {
-//            log.error("CSV file Extension validation failure : " +e.getMessage());
-//            throw new ValidationFailedException("CSV file Extension validation failure :"+e.getMessage());
-//        } catch (IOException e) {
-//            log.error("Error while Copying the file " + e.getMessage());
-//            throw new EventSimulationException("Error while Copying the file " + e.getMessage());
-//        }
-//    }
 
     /**
      * Method to validate CSV file Extension
      *
      * @param fileName File name
      * @return true if CSV file extension is in correct format
-     * @throws Exception throw exception if anything exception occurred
+     * @throws ValidationFailedException throw exception if csv file validation failure
      * @link org.wso2.carbon.event.simulator.csvFeedSimulation.core.FileUploader#validateFileExtension(java.lang.String)
      */
     private boolean validateFile(String fileName) throws ValidationFailedException {

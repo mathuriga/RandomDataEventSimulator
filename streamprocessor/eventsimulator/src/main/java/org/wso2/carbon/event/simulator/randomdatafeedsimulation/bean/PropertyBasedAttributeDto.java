@@ -22,9 +22,9 @@ import org.wso2.carbon.event.simulator.constants.RandomDataGeneratorConstants;
 
 /**
  * PropertyBasedAttributeDto represents the Random data generator which generates meaning full data
- *
+ * <p>
  * Constant value to represent to this type is "PROPERTYBASED"
- *
+ * <p>
  * Eg for json string for configuration
  * {
  * "type": "PROPERTYBASED",
@@ -35,10 +35,10 @@ import org.wso2.carbon.event.simulator.constants.RandomDataGeneratorConstants;
  * @See <a href="https://www.mockaroo.com/">www.mockaroo.com</a>
  */
 
-public class PropertyBasedAttributeDto extends StreamAttributeDto {
+public class PropertyBasedAttributeDto extends FeedSimulationStreamAttributeDto {
     /**
      * Main module
-     *
+     * <p>
      * It has "Calendar, Contact, Finance, Internet, User Agent, Location, Mobile, Words" main modules
      *
      * @see RandomDataGeneratorConstants
@@ -47,7 +47,7 @@ public class PropertyBasedAttributeDto extends StreamAttributeDto {
 
     /**
      * Sub property of each mail module
-     *
+     * <p>
      * Eg : Full name is one of the property for Contact
      *
      * @see RandomDataGeneratorConstants

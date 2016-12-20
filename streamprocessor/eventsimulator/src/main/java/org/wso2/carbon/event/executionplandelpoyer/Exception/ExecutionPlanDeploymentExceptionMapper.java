@@ -15,28 +15,20 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.wso2.carbon.event.executionplandelpoyer;
+package org.wso2.carbon.event.executionplandelpoyer.Exception;
+
+import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.ExceptionMapper;
 
 /**
- * Create Queries
+ * Exception mapper that maps customized ExecutionPlanDeployementException to customized HTTP responses
  */
-public class Queries {
-    private String queryName;
-    private String queryDefinition;
+public class ExecutionPlanDeploymentExceptionMapper implements ExceptionMapper<ExecutionPlanDeployementException> {
 
-    public String getQueryName() {
-        return queryName;
-    }
-
-    public void setQueryName(String queryName) {
-        this.queryName = queryName;
-    }
-
-    public String getQueryDefinition() {
-        return queryDefinition;
-    }
-
-    public void setQueryDefinition(String queryDefinition) {
-        this.queryDefinition = queryDefinition;
+    @Override
+    public Response toResponse(ExecutionPlanDeployementException e) {
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).
+                entity(e.getMessage()).
+                build();
     }
 }

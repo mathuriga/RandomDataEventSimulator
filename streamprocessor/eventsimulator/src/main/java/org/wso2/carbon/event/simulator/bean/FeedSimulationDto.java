@@ -22,7 +22,7 @@ package org.wso2.carbon.event.simulator.bean;
 import java.util.List;
 
 /**
- * FeedSimulationConfig represents the configuration details of Feed simulation
+ * FeedSimulationDto represents the configuration details of Feed simulation
  * <p>
  * For an execution plan It may have one or more input streams.
  * this class has configuration details to simulate each input streams in different cases.
@@ -30,7 +30,7 @@ import java.util.List;
  * database resource.
  * </p>
  */
-public class FeedSimulationConfig {
+public class FeedSimulationDto {
     /**
      * A flag used to start the orderByTimeStamp process
      * <p>
@@ -46,28 +46,23 @@ public class FeedSimulationConfig {
      * 2. Configuration for Random Data
      * 3. Configuration for Database resource
      */
-    private List<StreamConfiguration> streamConfigurationList;
+    private List<FeedSimulationStreamConfiguration> streamConfigurationList;
 
     /**
-     * Initialize FeedSimulationConfig
+     * Initialize FeedSimulationDto
      */
-    public FeedSimulationConfig() {
-    }
-
-
-    public boolean isOrderByTimeStamp() {
-        return orderByTimeStamp;
+    public FeedSimulationDto() {
     }
 
     public void setOrderByTimeStamp(boolean orderByTimeStamp) {
         this.orderByTimeStamp = orderByTimeStamp;
     }
 
-    public List<StreamConfiguration> getStreamConfigurationList() {
+    public List<FeedSimulationStreamConfiguration> getStreamConfigurationList() {
         return streamConfigurationList;
     }
 
-    public void setStreamConfigurationList(List<StreamConfiguration> streamConfigurationList) {
+    public void setStreamConfigurationList(List<FeedSimulationStreamConfiguration> streamConfigurationList) {
         this.streamConfigurationList = streamConfigurationList;
     }
 }

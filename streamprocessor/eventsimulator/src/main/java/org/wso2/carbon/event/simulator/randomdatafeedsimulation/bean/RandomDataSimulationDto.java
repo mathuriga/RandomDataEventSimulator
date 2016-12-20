@@ -18,20 +18,20 @@
 
 package org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean;
 
-import org.wso2.carbon.event.simulator.bean.StreamConfiguration;
+import org.wso2.carbon.event.simulator.bean.FeedSimulationStreamConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 /**
- * RandomDataSimulationConfig represents configuration details for simulate using
+ * RandomDataSimulationDto represents configuration details for simulate using
  * Random data
  * <p>
- * This file extends StreamConfiguration abstract class
+ * This file extends FeedSimulationStreamConfiguration abstract class
  * Constant value for this simulation type is RandomDataSimulation
  * <p>
- * Sample configuration for RandomDataSimulationConfig :
+ * Sample configuration for RandomDataSimulationDto :
  * {
  * "simulationType" : "RandomDataSimulation",
  * "streamName": "inputStream3",
@@ -64,7 +64,7 @@ import java.util.List;
  * ]
  * }
  */
-public class RandomDataSimulationConfig extends StreamConfiguration {
+public class RandomDataSimulationDto extends FeedSimulationStreamConfiguration {
     /**
      * Time between two events
      */
@@ -73,7 +73,7 @@ public class RandomDataSimulationConfig extends StreamConfiguration {
     /**
      * List of attribute configuration details of attributes of an input stream
      */
-    private List<StreamAttributeDto> attributeSimulation = new ArrayList<>();
+    private List<FeedSimulationStreamAttributeDto> FeedSimulationStreamAttributeDto = new ArrayList<>();
 
     /**
      * Stream Name of an input stream for simulation
@@ -85,7 +85,7 @@ public class RandomDataSimulationConfig extends StreamConfiguration {
      */
     private double events;
 
-    public RandomDataSimulationConfig() {
+    public RandomDataSimulationDto() {
         super();
     }
 
@@ -97,12 +97,12 @@ public class RandomDataSimulationConfig extends StreamConfiguration {
         this.delay = delay;
     }
 
-    public List<StreamAttributeDto> getAttributeSimulation() {
-        return attributeSimulation;
+    public List<FeedSimulationStreamAttributeDto> getFeedSimulationStreamAttributeDto() {
+        return FeedSimulationStreamAttributeDto;
     }
 
-    public void setAttributeSimulation(List<StreamAttributeDto> attributeSimulation) {
-        this.attributeSimulation = attributeSimulation;
+    public void setFeedSimulationStreamAttributeDto(List<FeedSimulationStreamAttributeDto> feedSimulationStreamAttributeDto) {
+        this.FeedSimulationStreamAttributeDto = feedSimulationStreamAttributeDto;
     }
 
     public String getStreamName() {

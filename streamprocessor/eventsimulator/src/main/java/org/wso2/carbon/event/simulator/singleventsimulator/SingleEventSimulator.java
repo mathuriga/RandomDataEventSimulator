@@ -19,6 +19,7 @@ package org.wso2.carbon.event.simulator.singleventsimulator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.wso2.carbon.event.executionplandelpoyer.ExecutionPlanDeployer;
 import org.wso2.carbon.event.simulator.EventSimulator;
 import org.wso2.carbon.event.querydeployer.bean.Event;
@@ -32,7 +33,7 @@ import java.util.Arrays;
  * It implements EventSimulator parentclass
  */
 public class SingleEventSimulator implements EventSimulator {
-    private static final Log log = LogFactory.getLog(SingleEventSimulator.class);
+    private static final Logger log = Logger.getLogger(SingleEventSimulator.class);
 
     /**
      * Initialize single event simulator for single event simulation process
@@ -84,18 +85,9 @@ public class SingleEventSimulator implements EventSimulator {
 
     }
 
-    @Override
-    public void pauseEvents() {
-
-    }
 
     @Override
-    public void stopEvents() {
-
-    }
-
-    @Override
-    public void resumeEvents() {
+    public void resume() {
 
     }
 

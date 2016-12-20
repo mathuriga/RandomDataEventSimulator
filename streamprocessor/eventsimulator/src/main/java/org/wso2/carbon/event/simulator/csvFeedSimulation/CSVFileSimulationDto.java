@@ -18,13 +18,13 @@
 
 package org.wso2.carbon.event.simulator.csvFeedSimulation;
 
-import org.wso2.carbon.event.simulator.bean.StreamConfiguration;
+import org.wso2.carbon.event.simulator.bean.FeedSimulationStreamConfiguration;
 import org.wso2.carbon.event.simulator.csvFeedSimulation.core.FileDto;
 
 /**
- * CSVFileConfig returns the configuration for file simulation
+ * CSVFileSimulationDto returns the configuration for file simulation
  */
-public class CSVFileConfig extends StreamConfiguration {
+public class CSVFileSimulationDto extends FeedSimulationStreamConfiguration {
     /**
      * File Name
      */
@@ -50,7 +50,7 @@ public class CSVFileConfig extends StreamConfiguration {
      */
     private int delay;
 
-    public CSVFileConfig() {
+    public CSVFileSimulationDto() {
         super();
     }
 

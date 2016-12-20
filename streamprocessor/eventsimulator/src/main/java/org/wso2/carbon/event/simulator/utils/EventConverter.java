@@ -50,7 +50,8 @@ public class EventConverter {
         event.setStreamName(streamName);
 
         Object[] eventData = new Object[executionPlan.getInputStreamDtoMap().get(streamName).getStreamAttributeDtos().size()];
-        List<org.wso2.carbon.event.executionplandelpoyer.StreamAttributeDto> streamAttributeDto = executionPlan.getInputStreamDtoMap().get(streamName).getStreamAttributeDtos();
+        List<org.wso2.carbon.event.executionplandelpoyer.StreamAttributeDto> streamAttributeDto =
+                executionPlan.getInputStreamDtoMap().get(streamName).getStreamAttributeDtos();
 
         //Convert attribute values according to attribute type in stream definition
         for (int j = 0; j < dataList.length; j++) {
@@ -60,7 +61,8 @@ public class EventConverter {
                     try {
                         eventData[j] = Integer.parseInt(String.valueOf(dataList[j]));
                     } catch (NumberFormatException e) {
-                        throw new EventSimulationException("Incorrect value types for the attribute - " + streamAttributeDto.get(j).getAttributeName() +
+                        throw new EventSimulationException("Incorrect value types for the attribute - " +
+                                streamAttributeDto.get(j).getAttributeName() +
                                 ", expected" + streamAttributeDto.get(j).getAttributeType() + " : " + e.getMessage());
                     }
                     break;
@@ -68,7 +70,8 @@ public class EventConverter {
                     try {
                         eventData[j] = Long.parseLong(String.valueOf(dataList[j]));
                     } catch (NumberFormatException e) {
-                        throw new EventSimulationException("Incorrect value types for the attribute - " + streamAttributeDto.get(j).getAttributeName() +
+                        throw new EventSimulationException("Incorrect value types for the attribute - " +
+                                streamAttributeDto.get(j).getAttributeName() +
                                 ", expected" + streamAttributeDto.get(j).getAttributeType() + " : " + e.getMessage());
                     }
                     break;
@@ -76,7 +79,8 @@ public class EventConverter {
                     try {
                         eventData[j] = Float.parseFloat(String.valueOf(dataList[j]));
                     } catch (NumberFormatException e) {
-                        throw new EventSimulationException("Incorrect value types for the attribute - " + streamAttributeDto.get(j).getAttributeName() +
+                        throw new EventSimulationException("Incorrect value types for the attribute - " +
+                                streamAttributeDto.get(j).getAttributeName() +
                                 ", expected" + streamAttributeDto.get(j).getAttributeType() + " : " + e.getMessage());
                     }
                     break;
@@ -84,7 +88,8 @@ public class EventConverter {
                     try {
                         eventData[j] = Double.parseDouble(String.valueOf(dataList[j]));
                     } catch (NumberFormatException e) {
-                        throw new EventSimulationException("Incorrect value types for the attribute - " + streamAttributeDto.get(j).getAttributeName() +
+                        throw new EventSimulationException("Incorrect value types for the attribute - " +
+                                streamAttributeDto.get(j).getAttributeName() +
                                 ", expected" + streamAttributeDto.get(j).getAttributeType() + " : " + e.getMessage());
                     }
                     break;
@@ -95,8 +100,10 @@ public class EventConverter {
                     if (String.valueOf(dataList[j]).equalsIgnoreCase("true") || String.valueOf(dataList[j]).equalsIgnoreCase("false")) {
                         eventData[j] = Boolean.parseBoolean(String.valueOf(dataList[j]));
                     } else {
-                        throw new EventSimulationException("Incorrect value types for the attribute - " + streamAttributeDto.get(j).getAttributeName() +
-                                ", expected" + streamAttributeDto.get(j).getAttributeType() + " : " + new IllegalArgumentException().getMessage());
+                        throw new EventSimulationException("Incorrect value types for the attribute - " +
+                                streamAttributeDto.get(j).getAttributeName() +
+                                ", expected" + streamAttributeDto.get(j).getAttributeType() + " : " +
+                                new IllegalArgumentException().getMessage());
                     }
                     break;
             }

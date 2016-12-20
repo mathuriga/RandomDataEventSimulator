@@ -19,7 +19,7 @@
 package org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean;
 
 /**
- * StreamAttributeDto represents the Attribute configuration details of an input stream which
+ * FeedSimulationStreamAttributeDto represents the Attribute configuration details of an input stream which
  * attributes values to be generated randomly
  * <p>
  * <p>
@@ -33,7 +33,7 @@ package org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean;
  * @see PropertyBasedAttributeDto
  * @see RegexBasedAttributeDto
  */
-public abstract class StreamAttributeDto {
+public abstract class FeedSimulationStreamAttributeDto {
     /**
      * Random data generator type of an attribute
      * It's value can be
@@ -46,9 +46,9 @@ public abstract class StreamAttributeDto {
     private String type;
 
     /**
-     * Initialize StreamAttributeDto
+     * Initialize FeedSimulationStreamAttributeDto
      */
-    public StreamAttributeDto() {
+    public FeedSimulationStreamAttributeDto() {
     }
 
     public String getType() {

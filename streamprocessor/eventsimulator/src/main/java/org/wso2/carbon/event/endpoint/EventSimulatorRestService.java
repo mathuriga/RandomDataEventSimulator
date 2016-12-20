@@ -21,7 +21,7 @@ package org.wso2.carbon.event.endpoint;
 
 import com.google.gson.Gson;
 import org.apache.log4j.Logger;
-import org.wso2.carbon.event.simulator.bean.FeedSimulationConfig;
+import org.wso2.carbon.event.simulator.bean.FeedSimulationDto;
 import org.wso2.carbon.event.simulator.csvFeedSimulation.core.FileUploader;
 import org.wso2.carbon.event.simulator.exception.EventSimulationException;
 import org.wso2.carbon.event.simulator.exception.ValidationFailedException;
@@ -30,13 +30,13 @@ import org.wso2.carbon.event.simulator.utils.EventSimulatorParser;
 import org.wso2.carbon.event.simulator.utils.EventSimulatorServiceExecutor;
 import org.wso2.msf4j.formparam.FileInfo;
 import org.wso2.msf4j.formparam.FormDataParam;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.InputStream;
-import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -56,7 +56,6 @@ public class EventSimulatorRestService {
     /**
      * Initializes the service classes for resources.
      */
-    // TODO: 14/12/16 change it as util
     //// TODO: 19/12/16 shutdown execution plan
     public EventSimulatorRestService() {
         eventSimulatorServiceExecutor = new EventSimulatorServiceExecutor();
@@ -64,17 +63,18 @@ public class EventSimulatorRestService {
 
     /**
      * Send single event for simulation
+     *
      * @param simulationString jsonString to be converted to SingleEventDto object from the request Json body.
-     *
-     * http://localhost:8080/EventSimulation/singleEventSimulation
-     * <pre>
-     *curl  -X POST -d '{"streamName":"cseEventStream","attributeValues":["WSO2","345","56"]}' http://localhost:8080/EventSimulation/singleEventSimulation
-     * </pre>
-     *
-     * Eg :simulationString: {
-     *      "streamName":"cseEventStream",
-     *      "attributeValues":attributeValue
-     *       };
+     *                         <p>
+     *                         http://localhost:8080/EventSimulation/singleEventSimulation
+     *                         <pre>
+     *                         curl  -X POST -d '{"streamName":"cseEventStream","attributeValues":["WSO2","345","56"]}' http://localhost:8080/EventSimulation/singleEventSimulation
+     *                         </pre>
+     *                         <p>
+     *                         Eg :simulationString: {
+     *                         "streamName":"cseEventStream",
+     *                         "attributeValues":attributeValue
+     *                         };
      */
     @POST
     @Path("/singleEventSimulation")
@@ -113,14 +113,14 @@ public class EventSimulatorRestService {
      * @param fileInputStream InputStream of the file
      * @return Response of completion of process
      * <p>
-     *http://localhost:8080/EventSimulation/fileUpload
+     * http://localhost:8080/EventSimulation/fileUpload
      */
     @POST
     @Path("/fileUpload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
 
     public Response uploadFile(@FormDataParam("file") FileInfo fileInfo,
-                               @FormDataParam("file") InputStream fileInputStream)  {
+                               @FormDataParam("file") InputStream fileInputStream) {
         String jsonString;
         /*
         Get singleton instance of FileUploader
@@ -130,10 +130,8 @@ public class EventSimulatorRestService {
         try {
             fileUploader.uploadFile(fileInfo, fileInputStream);
             jsonString = new Gson().toJson("File is uploaded");
-        } catch (ValidationFailedException e) {
-            throw new EventSimulationException("Failed file upload : " +e.getMessage());
-        }catch (EventSimulationException e){
-            throw new EventSimulationException("Failed file upload : " +e.getMessage());
+        } catch (ValidationFailedException | EventSimulationException e) {
+            throw new EventSimulationException("Failed file upload : " + e.getMessage());
         }
         return Response.ok().entity(jsonString).build();
     }
@@ -146,14 +144,13 @@ public class EventSimulatorRestService {
      *
      * @param fileName File Name
      * @return Response of completion of process
-     * @throws EventSimulationException throw exception if IO exception occurred while deleting file
-     *
+     * <p>
      * http://localhost:8080/EventSimulation/deleteFile
      */
     @POST
     @Path("/deleteFile")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response deleteFile(@FormDataParam("fileName") String fileName)  {
+    public Response deleteFile(@FormDataParam("fileName") String fileName) {
         String jsonString;
         /*
          * Get singleton instance of FileUploader
@@ -162,8 +159,8 @@ public class EventSimulatorRestService {
         try {
             fileUploader.deleteFile(fileName);
             jsonString = new Gson().toJson("File is deleted");
-        }catch (EventSimulationException e){
-            throw new EventSimulationException("Failed file delete : " +e.getMessage());
+        } catch (EventSimulationException e) {
+            throw new EventSimulationException("Failed file delete : " + e.getMessage());
         }
         return Response.ok().entity(jsonString).build();
     }
@@ -178,67 +175,32 @@ public class EventSimulatorRestService {
      * database resource.
      * </p>
      *
-
-     * @param feedSimulationConfigDetails jsonString to be converted to FeedSimulationConfig object from the request Json body.
+     * @param feedSimulationConfigDetails jsonString to be converted to FeedSimulationDto object from the request Json body.
      * @return Response of completion of process
-     * @throws InterruptedException Interrupted Exception
-     *
      * <p>
-     * FeedSimulation Configuration Json String Sample
-     * feedSimulationConfiguration= {
-     * "orderByTimeStamp" : "false",
-     * "streamConfiguration" :[
-     * {
-     * "simulationType" : "RandomDataSimulation",
-     * "streamName": "cseEventStream",
-     * "events": "5",
-     * "delay": "1000",
-     * "attributeConfiguration":[
-     * {
-     * "type": "PROPERTYBASED",
-     * "category": "Contact",
-     * "property": "Full Name",
-     * },
-     * {
-     * "type": "CUSTOMDATA",
-     * "list": "WSO2"
-     * },
-     * {
-     * "type": "REGEXBASED",
-     * "pattern": "[+]?[0-9]*\\.?[0-9]+"
-     * },
-     * {
-     * "type": "PRIMITIVEBASED",
-     * "min": "2",
-     * "max": "200",
-     * "length": "2",
-     * }
-     * ]
-     * },
-     * {
-     * "simulationType" : "FileFeedSimulation",
-     * "streamName" : "cseEventStream2",
-     * "fileName"   : "cseteststream2.csv",
-     * "delimiter"  : ",",
-     * "delay"		 : "1000"
-     * }
-     * ]
-     * };
-     *
-     * http://127.0.0.1:9090/EventSimulation/feedSimulation
+     * <pre>
+     *     curl  -X POST -d '{"orderByTimeStamp" : "false","streamConfiguration"
+     *     :[{"simulationType" : "RandomDataSimulation","streamName": "cseEventStream2",
+     *     "events": "20","delay": "1000","attributeConfiguration":[{"type": "CUSTOMDATA",
+     *     "list": "WSO2,IBM"},{"type": "REGEXBASED","pattern": "[+]?[0-9]*\\.?[0-9]+"},
+     *     {"type": "PRIMITIVEBASED","min": "2","max": "200","length": "2",}]},
+     *     {"simulationType" : "FileFeedSimulation","streamName" : "cseEventStream","fileName"   : "cseteststream.csv",
+     *     "delimiter"  : ",","delay": "1000"}]}' http://localhost:8080/EventSimulation/feedSimulation
+     * </pre>
+     * <p>
+     * http://localhost:8080/EventSimulation/feedSimulation
      */
     @POST
     @Path("/feedSimulation")
-    public Response feedSimulation(String feedSimulationConfigDetails){
+    public Response feedSimulation(String feedSimulationConfigDetails) {
         String jsonString;
-        //parse json string to FeedSimulationConfig object
-        FeedSimulationConfig feedSimulationConfig = EventSimulatorParser.feedSimulationConfigParser(feedSimulationConfigDetails);
-        //start feed simulation
-        // TODO: 14/12/16 change the name
         try {
-            this.eventSimulatorServiceExecutor.simulateFeedSimulation(feedSimulationConfig);
-            jsonString = new Gson().toJson("Feed simulation Completed");
-        }catch (EventSimulationException e){
+            //parse json string to FeedSimulationDto object
+            FeedSimulationDto feedSimulationConfig = EventSimulatorParser.feedSimulationParser(feedSimulationConfigDetails);
+            //start feed simulation
+            eventSimulatorServiceExecutor.simulateFeedSimulation(feedSimulationConfig);
+            jsonString = new Gson().toJson("Feed simulation starts successfully");
+        } catch (EventSimulationException e) {
             throw new EventSimulationException(e.getMessage());
         }
         return Response.ok().entity(jsonString).build();
@@ -246,55 +208,67 @@ public class EventSimulatorRestService {
 
     /**
      * Stop the simulation process
-     * @return Response of completion of process
-     * @throws InterruptedException Interrupted Exception
      *
-     * http://127.0.0.1:9090/EventSimulation/feedSimulation/stop
+     * @return Response of completion of process
+     * <p>
+     * http://localhost:8080/EventSimulation/feedSimulation/stop
      */
     @POST
     @Path("/feedSimulation/stop")
-    public Response stop() throws  InterruptedException {
-
+    public Response stop() throws InterruptedException {
+        String jsonString;
         //stop feed simulation
-        this.eventSimulatorServiceExecutor.stop();
-        String jsonString = new Gson().toJson("success");
-        return javax.ws.rs.core.Response.ok(jsonString, MediaType.APPLICATION_JSON)
-                .header("Access-Control-Allow-Origin", "*").build();
+        try {
+            eventSimulatorServiceExecutor.stop();
+            jsonString = new Gson().toJson("Feed simulation is stopped");
+        } catch (EventSimulationException e) {
+            throw new EventSimulationException(e.getMessage());
+        }
+        return Response.ok().entity(jsonString).build();
     }
 
     /**
      * pause the simulation process
+     *
      * @return Response of completion of process
      * @throws InterruptedException Interrupted Exception
-     *
-     * http://127.0.0.1:9090/EventSimulation/feedSimulation/pause
+     *                              <p>
+     *                              http://localhost:8080/EventSimulation/feedSimulation/pause
      */
     @POST
     @Path("/feedSimulation/pause")
-    public Response pause() throws  InterruptedException {
-
+    public Response pause() throws InterruptedException {
+        String jsonString;
         //pause feed simulation
-        this.eventSimulatorServiceExecutor.pause();
-        String jsonString = new Gson().toJson("success");
-        return javax.ws.rs.core.Response.ok(jsonString, MediaType.APPLICATION_JSON)
-                .header("Access-Control-Allow-Origin", "*").build();
+        try {
+            eventSimulatorServiceExecutor.pause();
+            jsonString = new Gson().toJson("Feed simulation is paused");
+        } catch (EventSimulationException e) {
+            throw new EventSimulationException(e.getMessage());
+        }
+        return Response.ok().entity(jsonString).build();
     }
 
     /**
      * resume the simulation
+     *
      * @return Response of completion of process
      * @throws InterruptedException Interrupted Exception
-     *
-     * http://127.0.0.1:9090/EventSimulation/feedSimulation/resume
+     *                              <p>
+     *                              http://localhost:8080/EventSimulation/feedSimulation/resume
      */
     @POST
     @Path("/feedSimulation/resume")
-    public Response resume() throws  InterruptedException {
+    public Response resume() throws InterruptedException {
+        String jsonString;
         //pause feed simulation
-        this.eventSimulatorServiceExecutor.resume();
-        String jsonString = new Gson().toJson("success");
-        return javax.ws.rs.core.Response.ok(jsonString, MediaType.APPLICATION_JSON)
-                .header("Access-Control-Allow-Origin", "*").build();
+        try {
+            eventSimulatorServiceExecutor.resume();
+            jsonString = new Gson().toJson("success");
+        } catch (EventSimulationException e) {
+            throw new EventSimulationException(e.getMessage());
+        }
+        return Response.ok().entity(jsonString).build();
     }
 
 

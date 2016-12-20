@@ -21,14 +21,15 @@ package org.wso2.carbon.event.simulator.randomdatafeedsimulation.core;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.wso2.carbon.event.executionplandelpoyer.ExecutionPlanDeployer;
 import org.wso2.carbon.event.executionplandelpoyer.ExecutionPlanDto;
 import org.wso2.carbon.event.executionplandelpoyer.StreamDefinitionDto;
 import org.wso2.carbon.event.querydeployer.bean.Event;
 import org.wso2.carbon.event.simulator.EventSimulator;
 import org.wso2.carbon.event.simulator.exception.EventSimulationException;
-import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.RandomDataSimulationConfig;
-import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.StreamAttributeDto;
+import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.FeedSimulationStreamAttributeDto;
+import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.RandomDataSimulationDto;
 import org.wso2.carbon.event.simulator.randomdatafeedsimulation.utils.AttributeGenerator;
 import org.wso2.carbon.event.simulator.utils.EventConverter;
 
@@ -42,14 +43,10 @@ import java.util.Arrays;
  * This simulator class implements EventSimulator Interface
  * <p>
  * For simulation It generates Random values for an event using
- * {@link AttributeGenerator#generateAttributeValue(StreamAttributeDto, String)}
+ * {@link AttributeGenerator#generateAttributeValue(FeedSimulationStreamAttributeDto, String)}
  */
 public class RandomDataEventSimulator implements EventSimulator {
-    private static final Log log = LogFactory.getLog(RandomDataEventSimulator.class);
-    /**
-     * Percentage of send events
-     */
-    private double percentage = 0;
+    private static final Logger log = Logger.getLogger(RandomDataEventSimulator.class);
 
     /**
      * Flag used to pause the simulation.
@@ -61,24 +58,6 @@ public class RandomDataEventSimulator implements EventSimulator {
      */
     public static volatile boolean isStopped = false;
 
-    private static final Object lock = new Object();
-
-    public boolean isPaused() {
-        return isPaused;
-    }
-
-    public void setPaused(boolean paused) {
-        isPaused = paused;
-    }
-
-    public boolean isStopped() {
-        return isStopped;
-    }
-
-    public void setStopped(boolean stopped) {
-        isStopped = stopped;
-    }
-
     /**
      * Initialize RandomDataEventSimulator to start the simulation
      */
@@ -88,19 +67,16 @@ public class RandomDataEventSimulator implements EventSimulator {
     /**
      * start simulation for given configuration
      *
-     * @param randomDataSimulationConfig RandomDataSimulationConfig
-     * @return true if all event send successfully
+     * @param randomDataSimulationConfig RandomDataSimulationDto
      */
-    public void send(RandomDataSimulationConfig randomDataSimulationConfig) throws EventSimulationException {
+    public void send(RandomDataSimulationDto randomDataSimulationConfig) {
         try {
             synchronized (this) {
                 sendEvent(ExecutionPlanDeployer.getInstance().getExecutionPlanDto(), randomDataSimulationConfig);
             }
-        }catch (EventSimulationException e){
-            throw new EventSimulationException(e.getMessage());
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e.getMessage());
         }
-
-
     }
 
     /**
@@ -123,29 +99,21 @@ public class RandomDataEventSimulator implements EventSimulator {
 
 
     @Override
-    public void pauseEvents() {
-
-    }
-
-    @Override
-    public void stopEvents() {
-        stop();
-    }
-
-    @Override
-    public void resumeEvents() {
-
+    public void resume() {
+        synchronized (this) {
+            this.notifyAll();
+        }
     }
 
 
-    private void sendEvent(ExecutionPlanDto executionPlanDto, RandomDataSimulationConfig randomDataSimulationConfig) {
-
+    private void sendEvent(ExecutionPlanDto executionPlanDto, RandomDataSimulationDto randomDataSimulationConfig) {
         int delay = randomDataSimulationConfig.getDelay();
         if (delay <= 0) {
             log.warn("Events will be sent continuously since the delay between events are set to "
                     + delay + "milliseconds");
             delay = 0;
         }
+
 
         double noOfEvents = randomDataSimulationConfig.getEvents();
         StreamDefinitionDto streamDefinitionDto = executionPlanDto.getInputStreamDtoMap().get(randomDataSimulationConfig.getStreamName());
@@ -156,10 +124,11 @@ public class RandomDataEventSimulator implements EventSimulator {
                     So to reduce this draw back Initially it generates some dummy attributes
                     */
 
-            String[] dummyAttribute = new String[randomDataSimulationConfig.getAttributeSimulation().size()];
+            String[] dummyAttribute = new String[randomDataSimulationConfig.getFeedSimulationStreamAttributeDto().size()];
             for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < randomDataSimulationConfig.getAttributeSimulation().size(); j++) {
-                    dummyAttribute[j] = AttributeGenerator.generateAttributeValue(randomDataSimulationConfig.getAttributeSimulation().get(j),
+                for (int j = 0; j < randomDataSimulationConfig.getFeedSimulationStreamAttributeDto().size(); j++) {
+                    dummyAttribute[j] = AttributeGenerator.generateAttributeValue(
+                            randomDataSimulationConfig.getFeedSimulationStreamAttributeDto().get(j),
                             streamDefinitionDto.getStreamAttributeDtos().get(j).getAttributeType());
                 }
             }
@@ -174,9 +143,8 @@ public class RandomDataEventSimulator implements EventSimulator {
                  */
 
             for (int i = 0; i < noOfEvents; i++) {
-                int noOfAttributes = randomDataSimulationConfig.getAttributeSimulation().size();
+                int noOfAttributes = randomDataSimulationConfig.getFeedSimulationStreamAttributeDto().size();
                 synchronized (this) {
-
                     if (isStopped) {
                         isStopped = false;
                         break;
@@ -188,14 +156,18 @@ public class RandomDataEventSimulator implements EventSimulator {
 
                     //Generate Random values for each attribute
                     for (int j = 0; j < noOfAttributes; j++) {
-                        attributeValue[j] = AttributeGenerator.generateAttributeValue(randomDataSimulationConfig.getAttributeSimulation().get(j),
+                        attributeValue[j] = AttributeGenerator.generateAttributeValue(
+                                randomDataSimulationConfig.getFeedSimulationStreamAttributeDto().get(j),
                                 streamDefinitionDto.getStreamAttributeDtos().get(j).getAttributeType());
                     }
 
                     //convert Attribute values into event
                     Event event = EventConverter.eventConverter(randomDataSimulationConfig.getStreamName(), attributeValue, executionPlanDto);
                     //calculate percentage that event has send
-                    percentage = ((i + 1) * 100) / noOfEvents;
+                    /*
+      Percentage of send events
+     */
+                    double percentage = ((i + 1) * 100) / noOfEvents;
                     System.out.println("Input Event " + Arrays.deepToString(event.getEventData()) + "Percentage :" + percentage);// TODO: 13/12/16 delete sout
                     //send the event to input handler
                     send(randomDataSimulationConfig.getStreamName(), event);
@@ -205,32 +177,12 @@ public class RandomDataEventSimulator implements EventSimulator {
                     }
                 }
             }
+
         } catch (EventSimulationException e) {
-            log.error("Error occurred during generating attributes" + e.getMessage());
-            throw new EventSimulationException("Error occurred during generating attributes" + e.getMessage());
+            log.error("Event dropped due to Error occurred during generating an event" + e.getMessage());
         } catch (InterruptedException e) {
             log.error("Error occurred during send event" + e.getMessage());
-            throw new EventSimulationException("Error occurred during send event" + e.getMessage());
         }
-    }
-
-    public void pause() {
-        isPaused = true;
-    }
-
-    public void resume() {
-        //isPaused = false;
-        synchronized (this) {
-            this.notifyAll();
-        }
-    }
-
-    public static void stop() {
-//        isPaused = true;
-        isStopped = true;
-
-        lock.notifyAll();
-
     }
 
 

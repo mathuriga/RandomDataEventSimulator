@@ -22,13 +22,13 @@ package org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean;
  * CustomBasedAttribute represents the Random data generator based on custom data list
  * Constant value to represent to this type is ""CUSTOMDATA"
  * It has data list which is given by user
- *
+ * <p>
  * <p>
  * Eg: If user want to generate value for an attribute WSO2 products
  * then user cangive a list of products as
  * "list": "CEP,ESB,DAS" with in json body
  * </p>
- *
+ * <p>
  * <p>
  * Eg for json string for configuration
  * {
@@ -37,7 +37,7 @@ package org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean;
  * }
  * </p>
  */
-public class CustomBasedAttribute extends StreamAttributeDto {
+public class CustomBasedAttribute extends FeedSimulationStreamAttributeDto {
 
     /**
      * List of custom data value given by user

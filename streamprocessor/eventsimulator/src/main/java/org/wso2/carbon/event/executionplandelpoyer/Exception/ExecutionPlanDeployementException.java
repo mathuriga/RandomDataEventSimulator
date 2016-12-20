@@ -15,28 +15,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.wso2.carbon.event.executionplandelpoyer;
+package org.wso2.carbon.event.executionplandelpoyer.Exception;
+
 
 /**
- * Create Queries
+ * Customize exception class for deploying execution plan
  */
-public class Queries {
-    private String queryName;
-    private String queryDefinition;
+public class ExecutionPlanDeployementException extends RuntimeException {
 
-    public String getQueryName() {
-        return queryName;
-    }
-
-    public void setQueryName(String queryName) {
-        this.queryName = queryName;
-    }
-
-    public String getQueryDefinition() {
-        return queryDefinition;
-    }
-
-    public void setQueryDefinition(String queryDefinition) {
-        this.queryDefinition = queryDefinition;
+    public ExecutionPlanDeployementException(String message) {
+        super(message);
     }
 }

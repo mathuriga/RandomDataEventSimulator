@@ -20,12 +20,12 @@ package org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean;
 /**
  * PrimitiveBasedAttribute represents the Random data generator based on primitive data types
  * such as String,Integer,Float,Double,Long,Boolean
- * It extends StreamAttributeDto abstract class
- *
+ * It extends FeedSimulationStreamAttributeDto abstract class
+ * <p>
  * Constant value to represent to this type is "PRIMITIVEBASED"
- *
+ * <p>
  * Eg for json string for configuration
- *
+ * <p>
  * <p>
  * {
  * "type": "PRIMITIVEBASED",
@@ -35,7 +35,7 @@ package org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean;
  * }
  * </p>
  */
-public class PrimitiveBasedAttribute extends StreamAttributeDto {
+public class PrimitiveBasedAttribute extends FeedSimulationStreamAttributeDto {
     /**
      * Minimum value for numeric values to be generate
      */

@@ -22,11 +22,12 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.wso2.carbon.event.executionplandelpoyer.ExecutionPlanDeployer;
 import org.wso2.carbon.event.executionplandelpoyer.ExecutionPlanDto;
 import org.wso2.carbon.event.querydeployer.bean.Event;
 import org.wso2.carbon.event.simulator.EventSimulator;
-import org.wso2.carbon.event.simulator.csvFeedSimulation.CSVFileConfig;
+import org.wso2.carbon.event.simulator.csvFeedSimulation.CSVFileSimulationDto;
 import org.wso2.carbon.event.simulator.exception.EventSimulationException;
 import org.wso2.carbon.event.simulator.utils.EventConverter;
 
@@ -44,7 +45,8 @@ import java.util.Arrays;
  * This simulator class implements EventSimulator Interface
  */
 public class CSVFeedEventSimulator implements EventSimulator {
-    private static final Log log = LogFactory.getLog(CSVFeedEventSimulator.class);
+    private static final Logger log = Logger.getLogger(CSVFeedEventSimulator.class);
+
     /**
      * Percentage of send events
      */
@@ -60,7 +62,6 @@ public class CSVFeedEventSimulator implements EventSimulator {
      */
     public volatile static boolean isStopped = false;
 
-    private static final Object lock = new Object();
 
     /**
      * Initialize CSVFeedEventSimulator to start the simulation
@@ -93,36 +94,16 @@ public class CSVFeedEventSimulator implements EventSimulator {
      * @param csvFileConfig csvFileConfig
      * @return true if all event send successfully
      */
-    public boolean send(CSVFileConfig csvFileConfig) {
-        // TODO: 13/12/16 Move this to execution deployer function if possible
-
-//        EventCreatorFile eventCreatorFile = new EventCreatorFile(ExecutionPlanDeployer.getInstance().getExecutionPlanDto(), csvFileConfig);
-//        Thread eventCreatorFileThread = new Thread(eventCreatorFile);
-//        eventCreatorFileThread.start();
+    public boolean send(CSVFileSimulationDto csvFileConfig) {
         synchronized (this) {
             sendEvent(ExecutionPlanDeployer.getInstance().getExecutionPlanDto(), csvFileConfig);
         }
         return true;
     }
 
-
     @Override
-    public void pauseEvents() {
-        isPaused = true;
-    }
-
-    @Override
-    public void stopEvents() {
-        isPaused = true;
-        isStopped = true;
-        this.notifyAll();
-
-    }
-
-    @Override
-    public void resumeEvents() {
-//        isPaused = false;
-        synchronized (this){
+    public void resume() {
+        synchronized (this) {
             this.notifyAll();
         }
 
@@ -149,9 +130,9 @@ public class CSVFeedEventSimulator implements EventSimulator {
      * Initialize CSVParser
      *
      * @param executionPlanDto ExecutionPlanDto
-     * @param csvFileConfig    CSVFileConfig
+     * @param csvFileConfig    CSVFileSimulationDto
      */
-    private void sendEvent(ExecutionPlanDto executionPlanDto, CSVFileConfig csvFileConfig) {
+    private void sendEvent(ExecutionPlanDto executionPlanDto, CSVFileSimulationDto csvFileConfig) {
 
         /*
           return no of events read from CSV file during ever iteration
@@ -196,15 +177,6 @@ public class CSVFeedEventSimulator implements EventSimulator {
                     csvParser = CSVParser.parse(in, CSVFormat.newFormat(csvFileConfig.getDelimiter().charAt(0)));
             }
 
-//            int noOfRecords = csvParser.getRecords().size();
-//            System.out.println(csvParser.getRecords().get(0));
-//            //Check wheather file is empty or not
-//            if (noOfRecords == 0) {
-//                // TODO: 02/12/16 proper error message
-//                log.error("File is Empty");
-//                return;
-//            }
-
             int attributeSize = executionPlanDto.getInputStreamDtoMap().get(csvFileConfig.getStreamName()).getStreamAttributeDtos().size();
 
                 /*
@@ -237,7 +209,7 @@ public class CSVFeedEventSimulator implements EventSimulator {
                     Event event = EventConverter.eventConverter(csvFileConfig.getStreamName(), attributes, executionPlanDto);
                     // TODO: 13/12/16 delete sout
                     System.out.println("Input Event " + Arrays.deepToString(event.getEventData()));
-//                        System.out.println("------------------------------------------------------");
+//
 
                     //send the event to input handler
                     send(csvFileConfig.getStreamName(), event);
@@ -246,17 +218,17 @@ public class CSVFeedEventSimulator implements EventSimulator {
                     if (delay > 0) {
                         Thread.sleep(delay);
                     }
-
-
-                } catch (Exception e) {
-                    log.error("Error occurred : Failed to send an event " + e.getMessage());
+                } catch (EventSimulationException e) {
+                    log.error("Event dropped due to Error occurred during generating an event" + e.getMessage());
+                } catch (InterruptedException e) {
+                    log.error("Error occurred during send event" + e.getMessage());
                 }
             }
+
         } catch (IllegalArgumentException e) {
             // TODO: 02/12/16 proper error message
             throw new EventSimulationException("File Parameters are null" + e.getMessage());
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
             throw new EventSimulationException("File not found :" + csvFileConfig.getFileDto().getFileInfo().getFileName());
         } catch (IOException e) {
             throw new EventSimulationException("Error occurred while reading the file");
@@ -266,18 +238,11 @@ public class CSVFeedEventSimulator implements EventSimulator {
                     in.close();
                 csvParser.close();
             } catch (IOException e) {
-                e.printStackTrace();
                 throw new EventSimulationException("Error occurred during closing the file");
             }
         }
     }
 
-    public static void stop() {
-        isPaused = true;
-        isStopped = true;
-        synchronized (lock) {
-            lock.notifyAll();
-        }
-    }
+
 }
 

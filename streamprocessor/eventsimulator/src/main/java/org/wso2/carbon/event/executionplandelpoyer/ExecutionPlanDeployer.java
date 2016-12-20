@@ -1,7 +1,26 @@
+/*
+ * Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * WSO2 Inc. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
 package org.wso2.carbon.event.executionplandelpoyer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
+import org.wso2.carbon.event.simulator.exception.EventSimulationException;
 import org.wso2.siddhi.core.ExecutionPlanRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.core.event.Event;
@@ -10,14 +29,14 @@ import org.wso2.siddhi.core.stream.output.StreamCallback;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
+
 import java.util.Map;
 
 /**
- * Created by mathuriga on 03/12/16.
+ * Deploy execution plan
  */
 public class ExecutionPlanDeployer {
-    private static final Log log = LogFactory.getLog(ExecutionPlanDeployer.class);
+    private static final Logger log = Logger.getLogger(ExecutionPlanDeployer.class);
     private static ExecutionPlanDeployer executionPlanDeployer;
     private ExecutionPlanDto executionPlanDto;
     private Map<String, InputHandler> inputHandlerMap = new HashMap<>();
@@ -28,42 +47,18 @@ public class ExecutionPlanDeployer {
 
     }
 
-    // TODO: 14/12/16 remove 
-    public static void setExecutionPlanDeployer(ExecutionPlanDeployer executionPlanDeployer) {
-        ExecutionPlanDeployer.executionPlanDeployer = executionPlanDeployer;
-    }
-
     public ExecutionPlanDto getExecutionPlanDto() {
         return executionPlanDto;
-    }
-
-    public void setExecutionPlanDto(ExecutionPlanDto executionPlanDto) {
-        this.executionPlanDto = executionPlanDto;
     }
 
     public Map<String, InputHandler> getInputHandlerMap() {
         return inputHandlerMap;
     }
 
-    public void setInputHandlerMap(Map<String, InputHandler> inputHandlerMap) {
-        this.inputHandlerMap = inputHandlerMap;
-    }
-
-    public static SiddhiManager getSiddhiManager() {
-        return siddhiManager;
-    }
-
-    public static void setSiddhiManager(SiddhiManager siddhiManager) {
-        ExecutionPlanDeployer.siddhiManager = siddhiManager;
-    }
-
     public ExecutionPlanRuntime getExecutionPlanRuntime() {
         return executionPlanRuntime;
     }
 
-    public void setExecutionPlanRuntime(ExecutionPlanRuntime executionPlanRuntime) {
-        this.executionPlanRuntime = executionPlanRuntime;
-    }
 
     public static ExecutionPlanDeployer getInstance() {
         if (executionPlanDeployer == null) {
@@ -76,12 +71,10 @@ public class ExecutionPlanDeployer {
         return executionPlanDeployer;
     }
 
-    public static ExecutionPlanDeployer getExecutionPlanDeployerService() {
-        return executionPlanDeployer;
-    }
 
     /**
      * Deploy the execution plan
+     *
      * @param executionPlanDto Execution Plan Details
      */
     public void deployExecutionPlan(ExecutionPlanDto executionPlanDto) {
@@ -92,35 +85,33 @@ public class ExecutionPlanDeployer {
             this.executionPlanRuntime = siddhiManager.createExecutionPlanRuntime(executionPlan);
             this.inputHandlerMap = createInputHandlerMap(executionPlanDto, executionPlanRuntime);
             ExecutionPlanDeployer.getInstance().getExecutionPlanRuntime().start();
-            addStreamCallback(executionPlanDto);
-            System.out.println("Execution Plan is deployed Successfully");
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-
+            addStreamCallback();
+            log.info("Execution Plan is deployed Successfully");
+        } catch (Exception e) {
+            throw new EventSimulationException("Error occurred during execution plan deployment");
         }
     }
 
     /**
      * Create siddhi Execution Plan
-     *
+     * <p>
      * In this class concatenate all input streams definition and queries as a Execution plan string
      * Siddhi should recognize it without any error
-     * @param executionPlanDto
-     * @return
+     *
+     * @param executionPlanDto Execution Plan Details
+     * @return Execution plan
      */
-    public String createExecutionplan(ExecutionPlanDto executionPlanDto) {
+    private String createExecutionplan(ExecutionPlanDto executionPlanDto) {
         String streams = "";
         String setOfQuery = "";
-        Iterator streamIterator = executionPlanDto.getInputStreamDtoMap().entrySet().iterator();
-        while (streamIterator.hasNext()) {
-            Map.Entry<String, StreamDefinitionDto> stream = (Map.Entry) streamIterator.next();
+        for (Object o : executionPlanDto.getInputStreamDtoMap().entrySet()) {
+            Map.Entry<String, StreamDefinitionDto> stream = (Map.Entry) o;
             streams += stream.getValue().getStreamDefinition();
             // streamIterator.remove(); // avoids a ConcurrentModificationException
         }
 
-        Iterator queryIterator = executionPlanDto.getQueriesMap().entrySet().iterator();
-        while (queryIterator.hasNext()) {
-            Map.Entry<String, Queries> query = (Map.Entry) queryIterator.next();
+        for (Object o : executionPlanDto.getQueriesMap().entrySet()) {
+            Map.Entry<String, Queries> query = (Map.Entry) o;
             setOfQuery += query.getValue().getQueryDefinition();
         }
 
@@ -129,22 +120,22 @@ public class ExecutionPlanDeployer {
 
     /**
      * Create the input handler Map to each input streams
-     * @param executionPlanDto Execution plan details
+     *
+     * @param executionPlanDto     Execution plan details
      * @param executionPlanRuntime Execution plan runtime
-     * @return
+     * @return inputHandlerMap
      */
-    public Map<String, InputHandler> createInputHandlerMap(ExecutionPlanDto executionPlanDto, ExecutionPlanRuntime executionPlanRuntime) {
+    private Map<String, InputHandler> createInputHandlerMap(ExecutionPlanDto executionPlanDto, ExecutionPlanRuntime executionPlanRuntime) {
         Map<String, InputHandler> inputHandlerMap = new HashMap<>();
-        Iterator streamIterator = executionPlanDto.getInputStreamDtoMap().entrySet().iterator();
-        while (streamIterator.hasNext()) {
-            Map.Entry stream = (Map.Entry) streamIterator.next();
+        for (Object o : executionPlanDto.getInputStreamDtoMap().entrySet()) {
+            Map.Entry stream = (Map.Entry) o;
             inputHandlerMap.put((String) stream.getKey(), executionPlanRuntime.getInputHandler((String) stream.getKey()));
             // streamIterator.remove(); // avoids a ConcurrentModificationException
         }
         return inputHandlerMap;
     }
 
-    public void addStreamCallback(ExecutionPlanDto executionPlanDto) {
+    private void addStreamCallback() {
         this.executionPlanRuntime.addCallback("outputStream", new StreamCallback() {
             @Override
             public void receive(Event[] events) {

@@ -21,10 +21,10 @@ package org.wso2.carbon.event.simulator.randomdatafeedsimulation.utils;
 
 import org.wso2.carbon.event.simulator.exception.EventSimulationException;
 import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.CustomBasedAttribute;
+import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.FeedSimulationStreamAttributeDto;
 import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.PrimitiveBasedAttribute;
 import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.PropertyBasedAttributeDto;
 import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.RegexBasedAttributeDto;
-import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.StreamAttributeDto;
 
 /**
  * Generates attribute values for an each attribute in an input stream
@@ -42,11 +42,11 @@ public class AttributeGenerator {
     /**
      * Generates attribute values for an each attribute in an input stream
      *
-     * @param streamAttributeDto StreamAttributeDto
+     * @param streamAttributeDto FeedSimulationStreamAttributeDto
      * @param attributeType      attribute data type (String,Integer,Float,Double,Long,Boolean)
      * @return generated random value as string
      */
-    public static String generateAttributeValue(StreamAttributeDto streamAttributeDto, String attributeType) {
+    public static String generateAttributeValue(FeedSimulationStreamAttributeDto streamAttributeDto, String attributeType) {
         String value = null;
         if (streamAttributeDto.getType() != null) {
             if (streamAttributeDto instanceof PrimitiveBasedAttribute) {
@@ -59,7 +59,7 @@ public class AttributeGenerator {
                 value = String.valueOf(RandomDataGenerator.generateCustomRandomData(((CustomBasedAttribute) streamAttributeDto).getCustomDataList()));
             }
         } else {
-            throw new EventSimulationException(new NullPointerException().getMessage());
+            throw new EventSimulationException("Error occurred during generation attribute data" + new NullPointerException().getMessage());
         }
         return value;
     }

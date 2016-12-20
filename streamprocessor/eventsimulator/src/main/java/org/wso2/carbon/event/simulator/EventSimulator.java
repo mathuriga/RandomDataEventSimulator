@@ -35,10 +35,6 @@ public interface EventSimulator {
 
     public void send(String streamName, org.wso2.carbon.event.querydeployer.bean.Event event);
 
-    public void pauseEvents();
-
-    public void stopEvents();
-
-    public void resumeEvents();
+    public void resume();
 
 }
