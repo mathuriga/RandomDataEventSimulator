@@ -36,7 +36,7 @@ $(document).ready(function(){
                                             {
                                             "simulationType" : "RandomDataSimulation",
                                             "streamName": "cseEventStream2",
-                                            "events": "10",
+                                            "events": "20",
                                             "delay": "1000",
                                             "attributeConfiguration":[
 //            								    {
@@ -67,7 +67,7 @@ $(document).ready(function(){
              							    "fileName"   : "cseteststream.csv",
              							    "delimiter"  : ",",
              							    "delay"		 : "1000"
-             							 	},
+             							 	}
   //           							 	{
 //                                            "simulationType" : "FileFeedSimulation",
 //                                            "streamName" : "cseEventStream2",

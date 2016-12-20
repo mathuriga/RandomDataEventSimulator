@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import org.wso2.carbon.event.executionplandelpoyer.ExecutionPlanDeployer;
 import org.wso2.carbon.event.executionplandelpoyer.ExecutionPlanDto;
 import org.wso2.carbon.event.executionplandelpoyer.utils.ExecutionPlanParser;
-import org.wso2.msf4j.Response;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -24,7 +23,7 @@ public class ExecutionPlanEndpoint {
         String message=null;
 
         ExecutionPlanDto executionPlanDto= ExecutionPlanParser.executionPlanDtoParser(executionPlanConfig);
-        ExecutionPlanDeployer executionPlanDeployer=ExecutionPlanDeployer.getExecutionPlanDeployer();
+        ExecutionPlanDeployer executionPlanDeployer=ExecutionPlanDeployer.getInstance();
         executionPlanDeployer.deployExecutionPlan(executionPlanDto);
         // TODO: 14/12/16 check the message
         String jsonString = new Gson().toJson(message);

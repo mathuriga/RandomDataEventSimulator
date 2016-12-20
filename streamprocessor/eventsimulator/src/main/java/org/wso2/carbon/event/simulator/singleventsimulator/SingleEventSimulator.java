@@ -22,6 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import org.wso2.carbon.event.executionplandelpoyer.ExecutionPlanDeployer;
 import org.wso2.carbon.event.simulator.EventSimulator;
 import org.wso2.carbon.event.querydeployer.bean.Event;
+import org.wso2.carbon.event.simulator.exception.EventSimulationException;
 import org.wso2.carbon.event.simulator.utils.EventConverter;
 
 import java.util.Arrays;
@@ -49,7 +50,7 @@ public class SingleEventSimulator implements EventSimulator {
     @Override
     public void send(String streamName, Event event) {
         try {
-            ExecutionPlanDeployer.getExecutionPlanDeployer().getInputHandlerMap().get(streamName).send(event.getEventData());
+            ExecutionPlanDeployer.getInstance().getInputHandlerMap().get(streamName).send(event.getEventData());
         } catch (InterruptedException e) {
             log.error("Error occurred during send event :" + e.getMessage());
         }
@@ -64,30 +65,23 @@ public class SingleEventSimulator implements EventSimulator {
      * @param singleEventSimulationConfig single Event Configuration
      * @return true if event send successfully ; false if fails
      */
-    public boolean send(SingleEventSimulationConfig singleEventSimulationConfig) {
+    public void send(SingleEventDto singleEventSimulationConfig) {
         //attributeValue used to store values of attributes of an input stream
         String[] attributeValue = new String[singleEventSimulationConfig.getAttributeValues().size()];
         attributeValue = singleEventSimulationConfig.getAttributeValues().toArray(attributeValue);
         String streamName = singleEventSimulationConfig.getStreamName();
-
-        Event event = new Event();
-
-        //Convert attribute value as an Event
+        Event event;
         try {
-            event = EventConverter.eventConverter(streamName, attributeValue, ExecutionPlanDeployer.getExecutionPlanDeployer().getExecutionPlanDto());
-            // TODO: 11/12/16 delete print statement
-            System.out.println("Input Event " + Arrays.deepToString(event.getEventData()));
-        } catch (Exception e) {
-            log.error("Error occurred : Failed to create an event" + e.getMessage());
-        }
+            //Convert attribute value as an Event
+            event = EventConverter.eventConverter(streamName, attributeValue, ExecutionPlanDeployer.getInstance().getExecutionPlanDto());
+            System.out.println("Input Event " + Arrays.deepToString(event.getEventData())); //TODO: 11/12/16 delete print statement
 
-        //send created event to inputHandler for further process in siddhi
-        try {
+            //send created event to inputHandler for further process in siddhi
             send(streamName, event);
-        } catch (Exception e) {
+        } catch (EventSimulationException e) {
             log.error("Error occurred : Failed to send an event" + e.getMessage());
         }
-        return true;
+
     }
 
     @Override

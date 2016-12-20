@@ -21,6 +21,7 @@ package org.wso2.carbon.event.simulator;
 
 import org.wso2.carbon.event.endpoint.EventSimulatorRestService;
 import org.wso2.carbon.event.endpoint.ExecutionPlanEndpoint;
+import org.wso2.carbon.event.simulator.exception.EventSimulationExceptionMapper;
 import org.wso2.msf4j.MicroservicesRunner;
 
 /**
@@ -31,6 +32,11 @@ public class Application {
     public static void main(String[] args) {
         new MicroservicesRunner().deploy(
                 new EventSimulatorRestService(),
-                new ExecutionPlanEndpoint()).start();
+                new ExecutionPlanEndpoint())
+                .addExceptionMapper(new EventSimulationExceptionMapper())
+                .start();
+
+       ;
+
     }
 }

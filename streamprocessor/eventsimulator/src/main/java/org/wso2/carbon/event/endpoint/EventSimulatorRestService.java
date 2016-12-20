@@ -20,26 +20,23 @@ package org.wso2.carbon.event.endpoint;
 
 
 import com.google.gson.Gson;
-// TODO: 14/12/16 remove this exception
-import org.apache.axis2.deployment.DeploymentException;
-//todo use apache commons log
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.wso2.carbon.event.simulator.bean.FeedSimulationConfig;
-import org.wso2.carbon.event.simulator.csvFeedSimulation.core.FileDeployer;
-import org.wso2.carbon.event.simulator.singleventsimulator.SingleEventSimulationConfig;
+import org.wso2.carbon.event.simulator.csvFeedSimulation.core.FileUploader;
+import org.wso2.carbon.event.simulator.exception.EventSimulationException;
+import org.wso2.carbon.event.simulator.exception.ValidationFailedException;
+import org.wso2.carbon.event.simulator.singleventsimulator.SingleEventDto;
 import org.wso2.carbon.event.simulator.utils.EventSimulatorParser;
 import org.wso2.carbon.event.simulator.utils.EventSimulatorServiceExecutor;
 import org.wso2.msf4j.formparam.FileInfo;
 import org.wso2.msf4j.formparam.FormDataParam;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -49,7 +46,8 @@ import java.io.InputStream;
 
 @Path("/EventSimulation")
 public class EventSimulatorRestService {
-    private static final Logger log = LoggerFactory.getLogger(EventSimulatorRestService.class);
+    private static final Logger log = Logger.getLogger(EventSimulatorRestService.class);
+
     /**
      * Event simulator service executor for event simulator REST service.
      */
@@ -58,37 +56,49 @@ public class EventSimulatorRestService {
     /**
      * Initializes the service classes for resources.
      */
-    // TODO: 14/12/16 change it as util 
+    // TODO: 14/12/16 change it as util
+    //// TODO: 19/12/16 shutdown execution plan
     public EventSimulatorRestService() {
         eventSimulatorServiceExecutor = new EventSimulatorServiceExecutor();
     }
 
     /**
-     * Send single event.
-     * todo give as an eg
-     * singleEventSimulationString: {
-     * "streamName":"cseEventStream",
-     * "attributeValues":attributeValue
-     * };
-     * http://127.0.0.1:9090/EventSimulation/singleEventSimulation
+     * Send single event for simulation
+     * @param simulationString jsonString to be converted to SingleEventDto object from the request Json body.
      *
-     * @param singleEventSimulationString jsonString to be converted to SingleEventSimulationConfig object from the request Json body.
+     * http://localhost:8080/EventSimulation/singleEventSimulation
+     * <pre>
+     *curl  -X POST -d '{"streamName":"cseEventStream","attributeValues":["WSO2","345","56"]}' http://localhost:8080/EventSimulation/singleEventSimulation
+     * </pre>
+     *
+     * Eg :simulationString: {
+     *      "streamName":"cseEventStream",
+     *      "attributeValues":attributeValue
+     *       };
      */
     @POST
     @Path("/singleEventSimulation")
-    //todo change the param name to simulationstring
-    public void singleEventSimulation(String singleEventSimulationString) throws IOException {
-        //parse json string to SingleEventSimulationConfig object
-        SingleEventSimulationConfig singleEventSimulationConfiguration = EventSimulatorParser.singleEventSimulatorParser(singleEventSimulationString);
-        //start single event simulation
-        // TODO: 14/12/16 remove this 
-        this.eventSimulatorServiceExecutor.simulateSingleEvent(singleEventSimulationConfiguration);
-        // TODO: 14/12/16 remove info and include debug log 
-        log.info("Event is send successfully");
+    public Response singleEventSimulation(String simulationString) {
+        if (log.isDebugEnabled()) {
+            log.debug("Single Event Simulation");
+        }
+        String jsonString;
+
+        try {
+            //parse json string to SingleEventDto object
+            SingleEventDto singleEventSimulationConfiguration = EventSimulatorParser.singleEventSimulatorParser(simulationString);
+
+            //start single event simulation
+            eventSimulatorServiceExecutor.simulateSingleEvent(singleEventSimulationConfiguration);
+            jsonString = new Gson().toJson("Event is send successfully");
+        } catch (EventSimulationException e) {
+            throw new EventSimulationException("Single Event simulation failed : " + e.getMessage());
+        }
+        return Response.ok().entity(jsonString).build();
     }
 
     /**
-     * Deploy CSV file
+     * Deploy CSV filereturn Response.ok().entity("File uploaded").build();
      * <p>
      * This function use FormDataParam annotation. WSO@2 MSF4J supports this annotation and multipart/form-data content type.
      * <p>
@@ -103,28 +113,29 @@ public class EventSimulatorRestService {
      * @param fileInputStream InputStream of the file
      * @return Response of completion of process
      * <p>
-     * http://127.0.0.1:9090/EventSimulation/fileDeploy
+     *http://localhost:8080/EventSimulation/fileUpload
      */
     @POST
-    @Path("/fileDeploy")
+    @Path("/fileUpload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    // TODO: 14/12/16  
-    public Response upLoadFileService(@FormDataParam("file") FileInfo fileInfo,
-                                      @FormDataParam("file") InputStream fileInputStream) throws Exception {
 
+    public Response uploadFile(@FormDataParam("file") FileInfo fileInfo,
+                               @FormDataParam("file") InputStream fileInputStream)  {
+        String jsonString;
         /*
-        Get singleton instance of FileDeployer
+        Get singleton instance of FileUploader
          */
-        // TODO: 14/12/16 fileupload 
-        FileDeployer fileDeployer = FileDeployer.getFileDeployer();
+
+        FileUploader fileUploader = FileUploader.getFileUploaderInstance();
         try {
-            fileDeployer.deployFile(fileInfo, fileInputStream);
-        } catch (DeploymentException e) {
-            throw new DeploymentException(e);
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
+            fileUploader.uploadFile(fileInfo, fileInputStream);
+            jsonString = new Gson().toJson("File is uploaded");
+        } catch (ValidationFailedException e) {
+            throw new EventSimulationException("Failed file upload : " +e.getMessage());
+        }catch (EventSimulationException e){
+            throw new EventSimulationException("Failed file upload : " +e.getMessage());
         }
-        return Response.ok().entity("File uploaded").build();
+        return Response.ok().entity(jsonString).build();
     }
 
     /**
@@ -135,28 +146,26 @@ public class EventSimulatorRestService {
      *
      * @param fileName File Name
      * @return Response of completion of process
-     * @throws Exception throw exception if anything exception occurred
-     *                   <p>
-     *                   http://127.0.0.1:9090/EventSimulation/fileUndeploy
+     * @throws EventSimulationException throw exception if IO exception occurred while deleting file
+     *
+     * http://localhost:8080/EventSimulation/deleteFile
      */
     @POST
-    @Path("/fileUndeploy")
+    @Path("/deleteFile")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response deleteFileService(@FormDataParam("fileName") String fileName) throws Exception {
-
+    public Response deleteFile(@FormDataParam("fileName") String fileName)  {
+        String jsonString;
         /*
-         * Get singleton instance of FileDeployer
+         * Get singleton instance of FileUploader
          */
-        FileDeployer fileDeployer = FileDeployer.getFileDeployer();
+        FileUploader fileUploader = FileUploader.getFileUploaderInstance();
         try {
-            fileDeployer.undeployFile(fileName);
-        } catch (DeploymentException e) {
-            throw new DeploymentException(e);
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-            //e.printStackTrace();
+            fileUploader.deleteFile(fileName);
+            jsonString = new Gson().toJson("File is deleted");
+        }catch (EventSimulationException e){
+            throw new EventSimulationException("Failed file delete : " +e.getMessage());
         }
-        return Response.ok().entity("File Un deployed").build();
+        return Response.ok().entity(jsonString).build();
     }
 
 
@@ -168,6 +177,12 @@ public class EventSimulatorRestService {
      * such as simulate using CSV File, simulate using Random Data and simulate using
      * database resource.
      * </p>
+     *
+
+     * @param feedSimulationConfigDetails jsonString to be converted to FeedSimulationConfig object from the request Json body.
+     * @return Response of completion of process
+     * @throws InterruptedException Interrupted Exception
+     *
      * <p>
      * FeedSimulation Configuration Json String Sample
      * feedSimulationConfiguration= {
@@ -210,23 +225,23 @@ public class EventSimulatorRestService {
      * ]
      * };
      *
-     * @param feedSimulationConfigDetails jsonString to be converted to FeedSimulationConfig object from the request Json body.
-     * @return Response of completion of process
-     * @throws InterruptedException Interrupted Exception
-     *
      * http://127.0.0.1:9090/EventSimulation/feedSimulation
      */
     @POST
     @Path("/feedSimulation")
-    public Response feedSimulation(String feedSimulationConfigDetails) throws InterruptedException {
+    public Response feedSimulation(String feedSimulationConfigDetails){
+        String jsonString;
         //parse json string to FeedSimulationConfig object
         FeedSimulationConfig feedSimulationConfig = EventSimulatorParser.feedSimulationConfigParser(feedSimulationConfigDetails);
         //start feed simulation
-        // TODO: 14/12/16 change the name 
-        this.eventSimulatorServiceExecutor.simulateFeedSimulation(feedSimulationConfig);
-        String jsonString = new Gson().toJson("success");
-        return javax.ws.rs.core.Response.ok(jsonString, MediaType.APPLICATION_JSON)
-                .header("Access-Control-Allow-Origin", "*").build();
+        // TODO: 14/12/16 change the name
+        try {
+            this.eventSimulatorServiceExecutor.simulateFeedSimulation(feedSimulationConfig);
+            jsonString = new Gson().toJson("Feed simulation Completed");
+        }catch (EventSimulationException e){
+            throw new EventSimulationException(e.getMessage());
+        }
+        return Response.ok().entity(jsonString).build();
     }
 
     /**

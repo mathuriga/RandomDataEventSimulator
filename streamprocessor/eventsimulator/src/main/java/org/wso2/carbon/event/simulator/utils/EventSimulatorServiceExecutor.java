@@ -20,18 +20,22 @@ package org.wso2.carbon.event.simulator.utils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
+import org.wso2.carbon.event.executionplandelpoyer.ExecutionPlanDeployer;
+import org.wso2.carbon.event.executionplandelpoyer.ExecutionPlanDto;
 import org.wso2.carbon.event.simulator.bean.FeedSimulationConfig;
 import org.wso2.carbon.event.simulator.bean.StreamConfiguration;
 import org.wso2.carbon.event.simulator.constants.EventSimulatorConstants;
 import org.wso2.carbon.event.simulator.csvFeedSimulation.CSVFileConfig;
 import org.wso2.carbon.event.simulator.csvFeedSimulation.core.CSVFeedEventSimulator;
+import org.wso2.carbon.event.simulator.exception.EventSimulationException;
 import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.RandomDataSimulationConfig;
 import org.wso2.carbon.event.simulator.randomdatafeedsimulation.core.RandomDataEventSimulator;
-import org.wso2.carbon.event.simulator.singleventsimulator.SingleEventSimulationConfig;
+import org.wso2.carbon.event.simulator.singleventsimulator.SingleEventDto;
 import org.wso2.carbon.event.simulator.singleventsimulator.SingleEventSimulator;
 
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 
 /**
@@ -39,14 +43,8 @@ import java.util.concurrent.Executors;
  * Feed Simulation
  */
 
-public class EventSimulatorServiceExecutor {
-    private static final Log log = LogFactory.getLog(EventSimulatorServiceExecutor.class);
-
-    /**
-     * Executor Service for Thread Pool.
-     * Thread pool is needed for Feed simulation
-     */
-    private ExecutorService executor;
+public class EventSimulatorServiceExecutor{
+    private static final Logger log = Logger.getLogger(EventSimulatorServiceExecutor.class);
 
     /**
      * running used to indicate simulation process
@@ -66,29 +64,21 @@ public class EventSimulatorServiceExecutor {
     private CSVFeedEventSimulator csvFeedEventSimulator;
 
     /**
-     * Initializes the Event Simulator Service Executor classes for simulation process.
-     */
-    public EventSimulatorServiceExecutor() {
-    }
-
-
-    /**
      * Initialize the SingleEventSimulator
      * call send function to start the single event simulation
      *
-     * @param singleEventSimulationConfig SingleEventSimulationConfiguration
+     * @param singleEventDto SingleEventSimulationConfiguration
      */
-    public void simulateSingleEvent(SingleEventSimulationConfig singleEventSimulationConfig) {
-
+    public void simulateSingleEvent(SingleEventDto singleEventDto) {
         if (!running) {
             synchronized (this) {
                 if (!running) {
                     SingleEventSimulator singleEventSimulator = new SingleEventSimulator();
-                    singleEventSimulator.send(singleEventSimulationConfig);
+                    singleEventSimulator.send(singleEventDto);
                 }
             }
         }
-        log.error("Event is send success Fully");
+        log.info("Event is send success Fully");
     }
 
     /**
@@ -97,21 +87,26 @@ public class EventSimulatorServiceExecutor {
      * @param feedSimulationConfig FeedSimulationConfig
      * @throws InterruptedException InterruptedException exception
      */
-    public void simulateFeedSimulation(FeedSimulationConfig feedSimulationConfig) throws InterruptedException {
-        if (!running) {
-            synchronized (this) {
-                if (!running) {
-                    running = true;
-                    int noOfStream = feedSimulationConfig.getStreamConfigurationList().size();
-                    //creating a thread pool for feed simulation
-                    this.executor = Executors.newFixedThreadPool(noOfStream);
-                    for (int i = 0; i < noOfStream; i++) {
-                        SimulationStarter simulationStarter = new SimulationStarter(feedSimulationConfig.getStreamConfigurationList().get(i));
-                        //calling execute method of ExecutorService
-                        executor.execute(simulationStarter);
+    public void simulateFeedSimulation(FeedSimulationConfig feedSimulationConfig) {
+        try {
+            if (!running) {
+                synchronized (this) {
+                    if (!running) {
+                        running = true;
+                        int noOfStream = feedSimulationConfig.getStreamConfigurationList().size();
+
+                        //creating a thread pool for feed simulation
+                        for (int i = 0; i < noOfStream; i++) {
+                            SimulationStarter simulationStarter = new SimulationStarter(feedSimulationConfig.getStreamConfigurationList().get(i));
+                            //calling execute method of ExecutorService
+//                        executor.execute(simulationStarter);
+                            new Thread(simulationStarter).start();
+                        }
                     }
                 }
             }
+        }catch (Exception e){
+            throw new EventSimulationException(e.getMessage());
         }
     }
 
@@ -135,17 +130,21 @@ public class EventSimulatorServiceExecutor {
          * @see Thread#run()
          */
         @Override
-        public void run() {
-            if (streamConfiguration.getSimulationType().compareTo(EventSimulatorConstants.RANDOM_DATA_SIMULATION) == 0) {
-                randomDataEventSimulator = new RandomDataEventSimulator();
-                randomDataEventSimulator.send((RandomDataSimulationConfig) streamConfiguration);
-            } else if (streamConfiguration.getSimulationType().compareTo(EventSimulatorConstants.FILE_FEED_SIMULATION) == 0) {
-                csvFeedEventSimulator = new CSVFeedEventSimulator();
-                csvFeedEventSimulator.send((CSVFileConfig) streamConfiguration);
+        public void run() throws EventSimulationException {
+            try {
+                if (streamConfiguration.getSimulationType().compareTo(EventSimulatorConstants.RANDOM_DATA_SIMULATION) == 0) {
+                    randomDataEventSimulator = new RandomDataEventSimulator();
+                    randomDataEventSimulator.send((RandomDataSimulationConfig) streamConfiguration);
+                } else if (streamConfiguration.getSimulationType().compareTo(EventSimulatorConstants.FILE_FEED_SIMULATION) == 0) {
+                    csvFeedEventSimulator = new CSVFeedEventSimulator();
+                    csvFeedEventSimulator.send((CSVFileConfig) streamConfiguration);
+                }
+                // TODO: 14/12/16 For Database simulation
+            } catch (RuntimeException e) {
+                throw new EventSimulationException("Error while simulation :" + e.getMessage());
             }
-            // TODO: 14/12/16 For Database simulation
-        }
 
+        }
     }
 
     /**
@@ -153,16 +152,23 @@ public class EventSimulatorServiceExecutor {
      */
     public void stop() {
         if (running) {
-            if (randomDataEventSimulator != null) {
-                RandomDataEventSimulator.isStopped = true;
-                RandomDataEventSimulator.isPaused = true;
-            } else if (csvFeedEventSimulator != null) {
-                CSVFeedEventSimulator.isPaused = true;
-                CSVFeedEventSimulator.isStopped = true;
+            synchronized (this) {
+                if (running) {
+                    if (randomDataEventSimulator != null) {
+                        RandomDataEventSimulator.isStopped = true;
+                        randomDataEventSimulator = null;
+                    }
+                    if (csvFeedEventSimulator != null) {
+                        CSVFeedEventSimulator.isStopped = true;
+                        csvFeedEventSimulator = null;
+                    }
+                    this.running = false;
+                    ExecutionPlanDeployer.getInstance().getExecutionPlanRuntime().shutdown();
+                    log.info("Event Simulation process is stop");
+                }
             }
-            log.info("Event Simulation process is stop");
-            running = false;
         }
+        return;
     }
 
     /**
@@ -172,7 +178,8 @@ public class EventSimulatorServiceExecutor {
         if (running) {
             if (randomDataEventSimulator != null) {
                 RandomDataEventSimulator.isPaused = true;
-            } else if (csvFeedEventSimulator != null) {
+            }
+            if (csvFeedEventSimulator != null) {
                 CSVFeedEventSimulator.isPaused = true;
             }
             log.info("Event Simulation process is paused");
@@ -187,13 +194,16 @@ public class EventSimulatorServiceExecutor {
         if (running) {
             if (randomDataEventSimulator != null) {
                 RandomDataEventSimulator.isPaused = false;
-                executor.notifyAll();
-            } else if (csvFeedEventSimulator != null) {
+                randomDataEventSimulator.resume();
+            }
+            if (csvFeedEventSimulator != null) {
                 CSVFeedEventSimulator.isPaused = false;
+                csvFeedEventSimulator.resumeEvents();
             }
             System.out.println("Event Simulation process is Resumed");
         }
     }
+
 }
 
 

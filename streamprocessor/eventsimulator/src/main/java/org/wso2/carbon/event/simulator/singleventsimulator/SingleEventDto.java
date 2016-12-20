@@ -25,8 +25,8 @@ import java.util.List;
 /**
  * Represents Single Event Simulation Configuration class
  */
-@XmlRootElement(name = "SingleEventSimulationConfig")
-public class SingleEventSimulationConfig {
+@XmlRootElement(name = "SingleEventDto")
+public class SingleEventDto {
     /**
      * Stream Name of an input stream
      */
@@ -38,9 +38,9 @@ public class SingleEventSimulationConfig {
     private List<String> attributeValues = new ArrayList<>();
 
     /**
-     * Initialize the SingleEventSimulationConfig
+     * Initialize the SingleEventDto
      */
-    public SingleEventSimulationConfig() {
+    public SingleEventDto() {
     }
 
     public String getStreamName() {

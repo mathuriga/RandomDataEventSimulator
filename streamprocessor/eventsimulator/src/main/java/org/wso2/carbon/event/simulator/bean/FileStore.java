@@ -17,7 +17,7 @@
  */
 package org.wso2.carbon.event.simulator.bean;
 
-import org.wso2.carbon.event.simulator.csvFeedSimulation.core.FileDeployer;
+import org.wso2.carbon.event.simulator.csvFeedSimulation.core.FileUploader;
 import org.wso2.carbon.event.simulator.csvFeedSimulation.core.FileDto;
 
 import java.io.IOException;
@@ -28,9 +28,9 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * FileStore is act as a In Memory for uploaded CSV files.
  * File Store creates a singleton Object.
- * FileDeployer uses this to store all file details
+ * FileUploader uses this to store all file details
  *
- * @see FileDeployer
+ * @see FileUploader
  */
 public class FileStore {
     /**

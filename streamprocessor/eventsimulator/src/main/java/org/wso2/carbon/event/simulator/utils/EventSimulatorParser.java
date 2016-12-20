@@ -42,7 +42,7 @@ import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.RandomDataS
 import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.RegexBasedAttributeDto;
 import org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean.StreamAttributeDto;
 import org.wso2.carbon.event.simulator.randomdatafeedsimulation.utils.RandomDataGenerator;
-import org.wso2.carbon.event.simulator.singleventsimulator.SingleEventSimulationConfig;
+import org.wso2.carbon.event.simulator.singleventsimulator.SingleEventDto;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -81,12 +81,18 @@ public class EventSimulatorParser {
         RandomDataSimulationConfig randomDataSimulationConfig = new RandomDataSimulationConfig();
         try {
             JSONObject jsonObject = new JSONObject(RandomEventSimulationConfig);
-            ExecutionPlanDto executionPlanDto=ExecutionPlanDeployer.getExecutionPlanDeployer().getExecutionPlanDto();
+            ExecutionPlanDto executionPlanDto=ExecutionPlanDeployer.getInstance().getExecutionPlanDto();
 
 
             //set properties to RandomDataSimulationConfig
             randomDataSimulationConfig.setStreamName((String) jsonObject.get(EventSimulatorConstants.STREAM_NAME));
-            randomDataSimulationConfig.setEvents(jsonObject.getInt(EventSimulatorConstants.EVENTS));
+            if(jsonObject.getInt(EventSimulatorConstants.EVENTS)<=0){
+                log.error("No of events to be generated can't be a negative values");
+                throw new RuntimeException("No of events to be generated can't be a negative values");
+            }else {
+                randomDataSimulationConfig.setEvents(jsonObject.getInt(EventSimulatorConstants.EVENTS));
+            }
+
             randomDataSimulationConfig.setDelay(jsonObject.getInt(EventSimulatorConstants.DELAY));
             StreamDefinitionDto streamDefinitionDto=executionPlanDto.getInputStreamDtoMap().get(randomDataSimulationConfig.getStreamName());
             List<StreamAttributeDto> attributeSimulation = new ArrayList<>();
@@ -159,32 +165,31 @@ public class EventSimulatorParser {
 
 
     /**
-     * Convert the singleEventSimulationConfigurationString string into SingleEventSimulationConfig Object
-     * Initialize SingleEventSimulationConfig
+     * Convert the singleEventSimulationConfigurationString string into SingleEventDto Object
+     * Initialize SingleEventDto
      * @param singleEventSimulationConfigurationString singleEventSimulationConfigurationString String
-     * @return SingleEventSimulationConfig Object
+     * @return SingleEventDto Object
      * @throws IOException throw exception if any exception occurred during mapping
      */
-    public static SingleEventSimulationConfig singleEventSimulatorParser(String singleEventSimulationConfigurationString) throws IOException {
-        //check whether the execution plan is deployed
-        // TODO: 14/12/16 remove this
-        if (ExecutionPlanDeployer.getExecutionPlanDeployer() == null) {
-            throw new EventSimulationException("Execution Plan is not deployed");
-        }
-        SingleEventSimulationConfig singleEventSimulationConfig;
+    public static SingleEventDto singleEventSimulatorParser(String singleEventSimulationConfigurationString) {
+        SingleEventDto singleEventDto = null;
         ObjectMapper mapper = new ObjectMapper();
-            //Convert the singleEventSimulationConfigurationString string into SingleEventSimulationConfig Object
-            singleEventSimulationConfig = mapper.readValue(singleEventSimulationConfigurationString, SingleEventSimulationConfig.class);
-// TODO: 14/12/16 change the deployer name to getinstance
-            ExecutionPlanDto executionPlanDto = ExecutionPlanDeployer.getExecutionPlanDeployer().getExecutionPlanDto();
-            StreamDefinitionDto streamDefinitionDto = executionPlanDto.getInputStreamDtoMap().get(singleEventSimulationConfig.getStreamName());
-            if (singleEventSimulationConfig.getAttributeValues().size() != streamDefinitionDto.getStreamAttributeDtos().size()) {
+            //Convert the singleEventSimulationConfigurationString string into SingleEventDto Object
+        try {
+            singleEventDto = mapper.readValue(singleEventSimulationConfigurationString, SingleEventDto.class);
+            ExecutionPlanDto executionPlanDto = ExecutionPlanDeployer.getInstance().getExecutionPlanDto();
+            StreamDefinitionDto streamDefinitionDto = executionPlanDto.getInputStreamDtoMap().get(singleEventDto.getStreamName());
+            if (singleEventDto.getAttributeValues().size() != streamDefinitionDto.getStreamAttributeDtos().size()) {
                 log.error("No of Attribute values is not equal to attribute size in " +
-                        singleEventSimulationConfig.getStreamName() + " : Required attribute size " + streamDefinitionDto.getStreamAttributeDtos().size());
+                        singleEventDto.getStreamName() + " : Required attribute size " + streamDefinitionDto.getStreamAttributeDtos().size());
                 throw new EventSimulationException("No of Attribute value in not equal to attribute size in Input Stream : No of Attributes in " +
-                        singleEventSimulationConfig.getStreamName() + " is " + streamDefinitionDto.getStreamAttributeDtos().size());
+                        singleEventDto.getStreamName() + " is " + streamDefinitionDto.getStreamAttributeDtos().size());
             }
-        return singleEventSimulationConfig;
+        }catch (IOException e){
+            log.error("Exception occurred when parsing json to Object ");
+            throw new EventSimulationException("Exception occurred when parsing json to Object "+e.getMessage());
+        }
+        return singleEventDto;
     }
 
     /**
@@ -234,10 +239,6 @@ public class EventSimulatorParser {
      * @return FeedSimulationConfig Object
      */
     public static FeedSimulationConfig feedSimulationConfigParser(String feedSimulationDetails){
-        //check whether the execution plan is deployed
-        if (ExecutionPlanDeployer.getExecutionPlanDeployer() == null) {
-            throw new EventSimulationException("Execution Plan is not deployed");
-        }
 
         FeedSimulationConfig feedSimulationConfig=new FeedSimulationConfig();
         try{
@@ -279,7 +280,8 @@ public class EventSimulatorParser {
             }
            feedSimulationConfig.setStreamConfigurationList(streamConfigurationList);
         }catch (JSONException e){
-            log.error(e.getMessage());
+            log.error("Exception occurred when parsing json to Object ");
+            throw new EventSimulationException("Exception occurred when parsing json to Object "+e.getMessage());
         }
 
        return feedSimulationConfig;

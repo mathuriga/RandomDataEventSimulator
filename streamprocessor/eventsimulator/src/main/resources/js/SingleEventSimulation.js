@@ -2,11 +2,11 @@ function singleEventSimulation(){
 $(document).ready(function(){
 
 
- var attributeValue=["WSO2","34","56"];
+ var attributeValue=["WSO2","34"];
 
  var singleEventSimulationConfig={
             "streamName":"cseEventStream",
-            "attributeValues":attributeValue
+            "attributeValues":["WSO2"]
             };
 
 // alert(JSON.stringify(singleEventSimulationConfig));
@@ -21,10 +21,12 @@ if (typeof singleEventSimulationConfig != 'undefined' ) {
                                  data: JSON.stringify(singleEventSimulationConfig),
 
                                  success: function(response) {
+                                    console.log("success");
                                      console.log(response);
                                  },
                                  error: function(e) {
-                                     console.log(e.statusText);
+                                 console.log("failure");
+                                     console.log(JSON.stringify(e));
                                  }
                          });
 
