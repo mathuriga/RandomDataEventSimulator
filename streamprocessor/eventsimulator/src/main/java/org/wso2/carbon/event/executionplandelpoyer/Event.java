@@ -16,7 +16,7 @@
  * under the License.
  */
 
-package org.wso2.carbon.event.querydeployer.bean;
+package org.wso2.carbon.event.executionplandelpoyer;
 
 /**
  * Represent the Event Item

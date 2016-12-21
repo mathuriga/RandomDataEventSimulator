@@ -19,6 +19,7 @@
 package org.wso2.carbon.event.simulator;
 
 
+import org.wso2.carbon.event.executionplandelpoyer.Event;
 import org.wso2.carbon.event.simulator.csvFeedSimulation.core.CSVFeedEventSimulator;
 import org.wso2.carbon.event.simulator.randomdatafeedsimulation.core.RandomDataEventSimulator;
 import org.wso2.carbon.event.simulator.singleventsimulator.SingleEventSimulator;
@@ -33,7 +34,7 @@ import org.wso2.carbon.event.simulator.singleventsimulator.SingleEventSimulator;
  */
 public interface EventSimulator {
 
-    public void send(String streamName, org.wso2.carbon.event.querydeployer.bean.Event event);
+    public void send(String streamName, Event event);
 
     public void resume();
 

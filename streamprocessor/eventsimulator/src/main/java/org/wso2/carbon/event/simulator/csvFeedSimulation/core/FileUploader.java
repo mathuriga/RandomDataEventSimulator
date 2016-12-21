@@ -103,7 +103,7 @@ public class FileUploader {
                     if (fileStore.checkExists(fileName)) {
                         fileStore.removeFile(fileInfo.getFileName());
                         //todo remove warn
-                        log.warn("File is already exists: " + fileInfo.getFileName());
+//                        log.warn("File is already exists: " + fileInfo.getFileName());
                     }
                     FileDto fileDto = new FileDto(fileInfo);
                     Files.copy(inputStream, Paths.get(System.getProperty("java.io.tmpdir"), fileInfo.getFileName()));

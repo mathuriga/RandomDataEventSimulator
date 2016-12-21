@@ -21,7 +21,7 @@ package org.wso2.carbon.event.simulator.utils;
 import org.wso2.carbon.event.executionplandelpoyer.ExecutionPlanDto;
 import org.wso2.carbon.event.simulator.constants.EventSimulatorConstants;
 import org.wso2.carbon.event.simulator.exception.EventSimulationException;
-import org.wso2.carbon.event.querydeployer.bean.Event;
+import org.wso2.carbon.event.executionplandelpoyer.Event;
 
 import java.util.List;
 

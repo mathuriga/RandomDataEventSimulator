@@ -101,7 +101,7 @@ $(document).ready(function(){
 //            								    },
 //            								    {
 //
-//            								        "type": "custom",
+//            								         "type": "custom",
 //            								        "list": "2,3,4"
 //            								    },
 //            								]

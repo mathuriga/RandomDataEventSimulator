@@ -17,12 +17,10 @@
  */
 package org.wso2.carbon.event.simulator.singleventsimulator;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.wso2.carbon.event.executionplandelpoyer.ExecutionPlanDeployer;
 import org.wso2.carbon.event.simulator.EventSimulator;
-import org.wso2.carbon.event.querydeployer.bean.Event;
+import org.wso2.carbon.event.executionplandelpoyer.Event;
 import org.wso2.carbon.event.simulator.exception.EventSimulationException;
 import org.wso2.carbon.event.simulator.utils.EventConverter;
 

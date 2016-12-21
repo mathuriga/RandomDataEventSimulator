@@ -18,6 +18,15 @@
 package org.wso2.carbon.event.simulator.randomdatafeedsimulation.bean;
 
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+import org.wso2.carbon.event.simulator.exception.EventSimulationException;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * CustomBasedAttribute represents the Random data generator based on custom data list
  * Constant value to represent to this type is ""CUSTOMDATA"
@@ -68,11 +77,22 @@ public class CustomBasedAttribute extends FeedSimulationStreamAttributeDto {
      *                   Initial string format is ""CEP,Siddhi",ESB,DAS"
      */
     public void setCustomData(String customData) {
-//        String clonedData = customData.replace("'", "\"");
-//        String trimmedData = clonedData.substring(0, clonedData.length());
-        //String[] dataList = customData.split("((\",\")(?=(?:[^\"]*\"[^\"]*\")*[^ ]*$))");
-        String[] dataList = customData.split(",");
-        this.setCustomDataList(dataList);
+        CSVParser csvParser = null;
+        List<String> dataList = null;
+        try {
+            csvParser = CSVParser.parse(customData, CSVFormat.newFormat(',').withQuote('/'));
+            dataList = new ArrayList<>();
+            for (CSVRecord record : csvParser) {
+                for (int i = 0; i < record.size(); i++) {
+                    dataList.add(record.get(i));
+                }
+            }
+        } catch (IOException e) {
+            throw new EventSimulationException("I/O error occurs :" + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            throw new EventSimulationException("Data set is null :" + e.getMessage());
+        }
+        customDataList = dataList.toArray(new String[dataList.size()]);
     }
 }
 
