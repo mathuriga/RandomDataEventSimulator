@@ -70,6 +70,8 @@ public class RandomDataEventSimulator implements EventSimulator {
     public void send(RandomDataSimulationDto randomDataSimulationConfig) {
         try {
             synchronized (this) {
+                // TODO: 21/12/16 move this to starter 
+                // TODO: 21/12/16 startsend events 
                 sendEvent(ExecutionPlanDeployer.getInstance().getExecutionPlanDto(), randomDataSimulationConfig);
             }
         } catch (RuntimeException e) {

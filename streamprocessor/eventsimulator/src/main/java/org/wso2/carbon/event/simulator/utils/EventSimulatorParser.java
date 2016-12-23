@@ -159,6 +159,7 @@ public class EventSimulatorParser {
                         customBasedAttribute.setCustomData(jsonArray.getJSONObject(i).getString(EventSimulatorConstants.CUSTOMDATABASEDATTRIBUTE_LIST));
                         feedSimulationStreamAttributeDto.add(customBasedAttribute);
                     } else {
+                        // TODO: 21/12/16 only throw put stream name
                         log.error("Data list is not given for "
                                 + streamDefinitionDto.getStreamAttributeDtos().get(i).getAttributeName()
                                 + RandomDataGeneratorConstants.CUSTOM_DATA_BASED_ATTRIBUTE);
@@ -236,6 +237,7 @@ public class EventSimulatorParser {
         if (fileStore.checkExists(csvFileSimulationDto.getFileName())) {
             fileDto = fileStore.getFileInfoMap().get(csvFileSimulationDto.getFileName());
         } else {
+            // TODO: 21/12/16 file name is not provided
             log.error("File is not Exist :" + csvFileSimulationDto.getFileName());
             throw new EventSimulationException("File is not Exist");
         }

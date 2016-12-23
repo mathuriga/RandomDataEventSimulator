@@ -122,6 +122,7 @@ public class EventSimulatorServiceExecutor{
             try {
                 if (streamConfiguration.getSimulationType().compareTo(EventSimulatorConstants.RANDOM_DATA_SIMULATION) == 0) {
                     randomDataEventSimulator = new RandomDataEventSimulator();
+                    // TODO: 21/12/16 init or start
                     randomDataEventSimulator.send((RandomDataSimulationDto) streamConfiguration);
                 } else if (streamConfiguration.getSimulationType().compareTo(EventSimulatorConstants.FILE_FEED_SIMULATION) == 0) {
                     csvFeedEventSimulator = new CSVFeedEventSimulator();

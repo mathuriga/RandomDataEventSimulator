@@ -39,6 +39,7 @@ public abstract class FeedSimulationStreamConfiguration {
      */
     private String simulationType;
 
+    // TODO: 21/12/16 add stream here
     public String getSimulationType() {
         return simulationType;
     }

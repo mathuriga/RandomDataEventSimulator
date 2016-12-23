@@ -196,7 +196,8 @@ public class EventSimulatorRestService {
         String jsonString;
         try {
             //parse json string to FeedSimulationDto object
-            FeedSimulationDto feedSimulationConfig = EventSimulatorParser.feedSimulationParser(feedSimulationConfigDetails);
+            FeedSimulationDto feedSimulationConfig =
+                    EventSimulatorParser.feedSimulationParser(feedSimulationConfigDetails);
             //start feed simulation
             eventSimulatorServiceExecutor.simulateFeedSimulation(feedSimulationConfig);
             jsonString = new Gson().toJson("Feed simulation starts successfully");

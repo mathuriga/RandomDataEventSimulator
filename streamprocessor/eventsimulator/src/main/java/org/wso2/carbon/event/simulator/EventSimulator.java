@@ -33,6 +33,7 @@ import org.wso2.carbon.event.simulator.singleventsimulator.SingleEventSimulator;
  * @see CSVFeedEventSimulator
  */
 public interface EventSimulator {
+    // TODO: 21/12/16 init config ,start, pause, stop cleanup
 
     public void send(String streamName, Event event);
 
